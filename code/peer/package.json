@@ -1,0 +1,22 @@
+{
+  "name": "peer",
+  "version": "0.1.0",
+  "main": "server.js",
+  "license": "MIT",
+  "scripts": {
+    "development": "nodemon .",
+    "start": "npm run serve",
+    "serve": "forever ."
+  },
+  "devDependencies": {
+    "eslint": "^3.10.2",
+    "eslint-config-devine": "^1.5.0",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "dotenv": "^2.0.0",
+    "forever": "^0.15.3",
+    "peer": "^0.2.8"
+  }
+}
