@@ -1,4 +1,9 @@
 /src/*
 nodemon.json
 *.config.json
+.babelrc
+.editorconfig
+.env
+.eslintrc
+.stylelintrc
 READM.md

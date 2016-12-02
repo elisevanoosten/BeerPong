@@ -3,7 +3,7 @@
 
 import React, {PropTypes} from 'react';
 
-const Video = ({meta, stream}) => {
+const Video = ({stream}) => {
 
   if (stream) stream = URL.createObjectURL(stream); //omzetten naar objecturl
 
