@@ -1,59 +1,76 @@
-
+import React from 'react';
+import React3 from 'react-three-renderer';
 import * as THREE from 'three';
-import {Ground} from '../components/gameElements/';
+import ReactDOM from 'react-dom';
 
-let scene, camera, renderer;
+class Game extends React.Component {
+  constructor(props, context) {
+    super(props, context);
 
-const init = () => {
-  createScene();
-  requestAnimationFrame(render);
-};
+    console.log(`game`);
 
-const createScene = () => {
-  // set the scene size
-  const WIDTH = 640,
-    HEIGHT = 360;
+    // construct the position vector here, because if we use 'new' within render,
+    // React will think that things have changed when they have not.
+    this.cameraPosition = new THREE.Vector3(0, 0, 5);
 
-  // set some camera attributes
-  const VIEW_ANGLE = 50,
-    ASPECT = WIDTH / HEIGHT,
-    NEAR = 0.01,
-    FAR = 16000;
+    this.state = {
+      cubeRotation: new THREE.Euler(),
+    };
 
-  // ThreeJS
-  scene = new THREE.Scene(); //scene aanmaken
+    this._onAnimate = () => {
+      // we will get this callback every frame
 
-  camera = new THREE.PerspectiveCamera(
-		VIEW_ANGLE,
-		ASPECT,
-		NEAR,
-		FAR);
+      // pretend cubeRotation is immutable.
+      // this helps with updates and pure rendering.
+      // React will be sure that the rotation has now updated.
+      this.setState({
+        cubeRotation: new THREE.Euler(
+          this.state.cubeRotation.x + 0.1,
+          this.state.cubeRotation.y + 0.1,
+          0
+        ),
+      });
+    };
+  }
 
-  renderer = new THREE.WebGLRenderer();
+  render() {
+    const width = window.innerWidth; // canvas width
+    const height = window.innerHeight; // canvas height
 
-  renderer.setSize(
-    window.innerWidth,
-    window.innerHeight
-  );
+    return (<React3
+      mainCamera='camera' // this points to the perspectiveCamera which has the name set to "camera" below
+      width={width}
+      height={height}
 
-  console.log(document.querySelector(`main`));
+      onAnimate={this._onAnimate}
+    >
+      <scene>
+        <perspectiveCamera
+          name='camera'
+          fov={75}
+          aspect={width / height}
+          near={0.1}
+          far={1000}
 
-  scene.add(camera);
+          position={this.cameraPosition}
+        />
+        <mesh
+          rotation={this.state.cubeRotation}
+        >
+          <boxGeometry
+            width={1}
+            height={1}
+            depth={1}
+          />
+          <meshBasicMaterial
+            color={0x00ff00}
+          />
+        </mesh>
+      </scene>
+    </React3>);
+  }
+}
 
-  camera.position.z = 320;
-  document.querySelector(`main`).appendChild(renderer.domElement);
+export default Game;
 
-  const ground = new Ground(scene);
-  scene.add(ground);
-};
-
-
-const render = () => {
-
-  renderer.render(scene, camera);
-
-  requestAnimationFrame(render); //meest performante manier voor animatie
-
-};
-
-init();
+// ReactDOM.render(<Game />, document.body);

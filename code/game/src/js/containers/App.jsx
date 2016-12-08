@@ -2,7 +2,11 @@ import React, {Component} from 'react';
 import IO from 'socket.io-client';
 import Peer from 'peerjs';
 
-import Video from '../components/Video';
+import React3 from 'react-three-renderer';
+
+import {Video, Game} from '../components/';
+
+let gamePlay = 0;
 
 class App extends Component {
 
@@ -29,14 +33,14 @@ class App extends Component {
 
   }
 
-  handleYouStream = youStream => { //this gelijk aan het component, geen problemen met binding -- stream binnenkrijgen in state zetten
+  handleYouStream = youStream => {
     this.setState({youStream});
     this.initSocket();
   }
 
   handleYouStreamError = e => console.error(e);
 
-  initSocket = () => { //initialiseren socket server, nieuwe persoon aanmaken die searching is
+  initSocket = () => {
 
     this.socket = IO(`/`);
     this.socket.on(`connect`, this.initPeer);
@@ -44,7 +48,7 @@ class App extends Component {
 
   }
 
-  initPeer = () => { //makkelijker connectie maken, server draaien om video door te sturen, klaar om te zoeken
+  initPeer = () => {
 
     const {id} = this.socket;
     this.peer = new Peer(id, {
@@ -53,8 +57,8 @@ class App extends Component {
       path: `/api`
     });
 
-    this.peer.on(`open`, () => { //Search random stranger - connection van peer js is open
-      this.socket.emit(`search`); //komt toe op server
+    this.peer.on(`open`, () => {
+      this.socket.emit(`search`);
     });
 
     this.peer.on(`call`, call => {
@@ -64,7 +68,7 @@ class App extends Component {
       call.on(`stream`, this.handleStrangerStream);
       call.on(`close`, this.handleCloseStream);
 
-    }); //telefoon krijgen
+    });
 
   }
 
@@ -101,7 +105,6 @@ class App extends Component {
     const startbutton = document.querySelector(`.startbutton`);
     startbutton.classList.add(`hidden`);
 
-
     const playerSection = document.querySelector(`.playerSection`);
     playerSection.classList.remove(`hidden`);
 
@@ -120,7 +123,15 @@ class App extends Component {
     const player = e.currentTarget.value;
     this.setState({player});
 
+    gamePlay = 1;
+
     this.initStream();
+  }
+
+  startGame() {
+    if (gamePlay === 1) {
+      return <Game />;
+    }
   }
 
   render() {
@@ -150,12 +161,13 @@ class App extends Component {
           </section>
         </fieldset>
         </form>
+
         <section className='game hidden'>
           <Video meta={`stranger`} stream={strangerStream} />
           <container></container>
         </section>
+        {this.startGame()}
       </main>
-
     );
 
   }
