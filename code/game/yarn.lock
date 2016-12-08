@@ -2622,7 +2622,7 @@ fastparse@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/fastparse/-/fastparse-1.1.1.tgz#d1e2643b38a94d7583b479060e6c4affc94071f8"
 
-fbjs@^0.8.1, fbjs@^0.8.4:
+fbjs@^0.8.1, fbjs@^0.8.4, fbjs@0.8.6:
   version "0.8.6"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.6.tgz#7eb67d6986b2d5007a9b6e92e0e7cb6f75cad290"
   dependencies:
@@ -5590,6 +5590,12 @@ react-dom:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
 
+react-three-renderer@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-three-renderer/-/react-three-renderer-3.0.0.tgz#c2d9d790693ef162c06ba498d2632c8f5de42b05"
+  dependencies:
+    fbjs "0.8.6"
+
 read-all-stream@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/read-all-stream/-/read-all-stream-3.1.0.tgz#35c3e177f2078ef789ee4bfafa4373074eaef4fa"
@@ -6517,6 +6523,10 @@ tempfile@^1.0.0:
 text-table@^0.2.0, text-table@~0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
+
+three@^0.82.1:
+  version "0.82.1"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.82.1.tgz#f63c3730971520c54479e3627d370d764a4a8383"
 
 through@^2.3.6, "through@>=2.2.7 <3", through@~2.3, through@~2.3.1, through@~2.3.4, through@~2.3.6, through@2:
   version "2.3.8"
