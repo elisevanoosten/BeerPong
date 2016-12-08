@@ -2,11 +2,9 @@ import React, {Component} from 'react';
 import IO from 'socket.io-client';
 import Peer from 'peerjs';
 
-import React3 from 'react-three-renderer';
-
 import {Video, Game} from '../components/';
 
-let gamePlay = 0;
+let gamePlay = 1;
 
 class App extends Component {
 
