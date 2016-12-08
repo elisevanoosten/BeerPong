@@ -3,65 +3,61 @@
 body {
   font-family: Roboto, Helvetica, Arial, sans-serif;
   font-size: 62.5%;
+  background-color: #bdf2ea;
 }
 
-.hidden{
-  display:none;
+.hidden {
+  display: none;
 }
 
-.container {
-  margin: 1rem;
+.gameSection {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin-top: 10rem;
 }
 
-.videos {
-
-  &::after {
-    content: '';
-    display: table;
-    clear: both;
-  }
-
+.startbord, .startbutton{
+  margin: auto;
 }
 
-a {
-  display: block;
-  font-size: 2rem;
-  height: 4rem;
-  border: .1rem solid black;
-  padding: .8rem;
-  margin-left: 1rem;
-  text-decoration: none;
-}
-
-header {
-  margin: 1rem;
-  margin-top: 2rem;
-  font-size: 3rem;
-  color: black;
-}
-
-.video {
-  position: relative;
-  float: left;
-  border: solid .1rem black;
-  margin: 1rem;
-}
-
-video {
-  height: 38rem;
-  width: 50.6rem;
-}
-
-.meta {
-  position: absolute;
-  left: 0;
-  top: 0;
+.startbutton {
+  background-color: #d02321;
   color: white;
-  background-color: #ffad33;
-  padding: .5rem 1rem;
+  border: none;
+  padding: 20px;
+  margin-top: 8rem;
+  font-weight: bold;
   font-size: 1.5rem;
+  border-radius: 15px;
 }
 
-.disabled {
-  opacity: .1;
+.playerSection {
+  margin-top: 20rem;
+}
+
+.playerbord {
+  width: 230px;
+  height: 250px;
+}
+
+.radioSection {
+  display: flex;
+  height: auto;
+}
+
+input[type=radio] {
+  display: none;
+}
+
+.radioLabel {
+  height: 200px;
+}
+
+.intro {
+  font-size: 3rem;
+  color: white;
+  line-height: 5rem;
+  text-align: center;
+  margin: auto;
 }

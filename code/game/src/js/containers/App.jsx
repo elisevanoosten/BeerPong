@@ -91,29 +91,34 @@ class App extends Component {
 
   }
 
+  goGame(e) {
+    e.preventDefault();
+
+    console.log(`gogame`);
+
+    const bord = document.querySelector(`.startbord`);
+    bord.classList.add(`hidden`);
+    const startbutton = document.querySelector(`.startbutton`);
+    startbutton.classList.add(`hidden`);
+
+
+    const playerSection = document.querySelector(`.playerSection`);
+    playerSection.classList.remove(`hidden`);
+
+    const player = e.currentTarget.value;
+    this.setState({player});
+  }
   choosePlayer(e) {
     e.preventDefault();
 
     const playerSection = document.querySelector(`.playerSection`);
     playerSection.classList.add(`hidden`);
 
-    const drinkSection = document.querySelector(`.drinkSection`);
-    drinkSection.classList.remove(`hidden`);
+    const gameSection = document.querySelector(`.game`);
+    gameSection.classList.add(`hidden`);
 
     const player = e.currentTarget.value;
     this.setState({player});
-  }
-  chooseDrink(e) {
-    e.preventDefault();
-
-    const drinkSection = document.querySelector(`.drinkSection`);
-    drinkSection.classList.add(`hidden`);
-
-    const gameSection = document.querySelector(`.game`);
-    gameSection.classList.remove(`hidden`);
-
-    const drank = e.currentTarget.value;
-    this.setState({drank});
 
     this.initStream();
   }
@@ -125,37 +130,24 @@ class App extends Component {
 
     return (
       <main>
-        <h1>Start</h1>
         <form>
-        <fieldset className='playerSection'>
-          <legend>Tegen wie wil je spelen?</legend>
-          <div>
-            <label htmlFor='friend'>Friend</label>
-            <input type='radio' name='player' value='friend' onClick={e => this.choosePlayer(e)} />
-          </div>
-           <div>
-            <label htmlFor='random'>Random</label>
-            <input type='radio' name='player' value='random' onClick={e => this.choosePlayer(e)} />
-          </div>
-           <div>
-            <label htmlFor='computer'>Computer</label>
-            <input type='radio' name='player' value='computer' onClick={e => this.choosePlayer(e)} />
-          </div>
+        <fieldset className='gameSection'>
+          <img src='../../assets/img/startbord.png' width='40%' height='40%' className='startbord' /><br />
+          <button className='startbutton' onClick={e => this.goGame(e)}>SPEEL HET SPEL!</button>
         </fieldset>
-        <fieldset className='drinkSection hidden'>
-          <legend>Welke drank wil je gebruiken?</legend>
-          <div>
-            <label htmlFor='bier'>Bier</label>
-            <input type='radio' name='drank' value='bier' onClick={e => this.chooseDrink(e)} />
-          </div>
-          <div>
-            <label htmlFor='vodka'>Vodka</label>
-            <input type='radio' name='drank' value='vodka' onClick={e => this.chooseDrink(e)} />
-          </div>
-          <div>
-            <label htmlFor='tequila'>Tequila</label>
-            <input type='radio' name='drank' value='tequila' onClick={e => this.chooseDrink(e)} />
-          </div>
+        <fieldset className='playerSection hidden'>
+          <p className='intro'>Hoeveel invloed hebben jou slechte vrienden? <br />
+          Speel het spel en ontdek!</p>
+          <section className='radioSection'>
+            <div>
+              <input id='friend' type='radio' name='player' value='friend' onClick={e => this.choosePlayer(e)} />
+              <label htmlFor='friend' className='radioLabel'><img src='../../assets/img/vriendenbord.png' width='10%' height='10%' className='playerbord' /></label>
+            </div>
+            <div>
+              <input id='computer' type='radio' name='player' value='computer' onClick={e => this.choosePlayer(e)} />
+              <label htmlFor='computer' className='radioLabel'><img src='../../assets/img/computerbord.png' width='10%' height='10%' className='playerbord' /></label>
+            </div>
+          </section>
         </fieldset>
         </form>
         <section className='game hidden'>
