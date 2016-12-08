@@ -1,28 +1,62 @@
 import React from 'react';
 import React3 from 'react-three-renderer';
 import * as THREE from 'three';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
+
+// let carX;
 
 class Game extends React.Component {
+
   constructor(props, context) {
+
     super(props, context);
 
     console.log(`game`);
 
-    // construct the position vector here, because if we use 'new' within render,
-    // React will think that things have changed when they have not.
     this.cameraPosition = new THREE.Vector3(0, - 3, 2);
     this.cameraRotation = new THREE.Euler(1.4, 0, 0, `XYZ`);
 
     this.state = {
       cubeRotation: new THREE.Euler(),
+      carX: 0
     };
+  }
+
+  componentDidMount() {
+    document.addEventListener(`keydown`, this.keypressed);
+
+    // const img = new Image();
+    // img.src = `./assets/img/road.png`;
+    // const tex = new THREE.texture(img);
+    // img.tex = tex;
+
+  }
+
+  keypressed(e) {
+    const LEFT = 37;
+    const RIGHT = 39;
+
+    // let {carX} = this.state;
+
+    if (e.keyCode === LEFT) {
+      console.log(`links`);
+      // carX --;
+      // this.setState({carX});
+    }
+    else if (e.keyCode === RIGHT) {
+      console.log(`right`);
+      // carX ++;
+      // this.setState({carX});
+    }
   }
 
   render() {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
-    // const AmbientLight = React3.AmbientLight;
+    const carX = this.state.carX;
+
+    const roadTexLoader = new THREE.TextureLoader();
+    const roadTex = roadTexLoader.load(`./assets/img/road.png`);
 
     return (<React3
       mainCamera='camera' // this points to the perspectiveCamera which has the name set to "camera" below
@@ -42,7 +76,7 @@ class Game extends React.Component {
         />
         <mesh
           rotation={this.state.cubeRotation}
-          position={new THREE.Vector3(0, 0, 0)}
+          position={new THREE.Vector3(carX, 0, 0)}
           castShadow={true}
         >
           <boxGeometry
@@ -64,15 +98,13 @@ class Game extends React.Component {
             height={800}
             depth={10}
           />
+
+          {/* <spriteMaterial */}
           <meshBasicMaterial
-            color={0xff0000}
-            shading={true}
+            // scale={0.2, 0.2, 0.2}
+            map={roadTex}
           />
         </mesh>
-        {/* <AmbientLight
-          color={0xff0000}
-          intensity={30}
-        /> */}
       </scene>
     </React3>);
   }
