@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
+import GameComp from '../components/game';
 
 class Game extends Component {
+
+  state = {
+    
+  }
 
   render() {
 
     return (
-      <h1>LOL</h1>
+      <GameComp />
     );
 
   }
