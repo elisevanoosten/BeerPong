@@ -1,31 +1,41 @@
-import React, {Component} from 'react';
+
+import React, {PropTypes} from 'react';
 import * as THREE from 'three';
 
-export default class Car extends Component {
+const Car = props => {
 
-  constructor(props, context) {
-    super(props, context);
+  const Xpos = props.carX;
 
-    this.state = {
-    };
+  // let car;
+  //     //
+  //     // const carLoader = new THREE.JSONLoader();
+  //     // carLoader.load(`./assets/json/marmelab.json`, function(geometry, materials) {
+  //     //   car = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
+  //     //   car.scale.x = car.scale.y = car.scale.z = 16.75;
+  //     //   car.translation = THREE.GeometryUtils.center(geometry);
+  //     // });
 
-    // let car;
-    //
-    // const carLoader = new THREE.JSONLoader();
-    // carLoader.load(`./assets/json/marmelab.json`, function(geometry, materials) {
-    //   car = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
-    //   car.scale.x = car.scale.y = car.scale.z = 16.75;
-    //   car.translation = THREE.GeometryUtils.center(geometry);
-    // });
-  }
+  return (
+    <mesh
+      position={new THREE.Vector3(Xpos, 0, 0)}
+      castShadow={true}
+    >
+      <boxGeometry
+        width={1}
+        height={1}
+        depth={1}
+      />
+      <meshBasicMaterial
+        color={0x00ff00}
 
-  render() {
+      />
+    </mesh>
+  );
 
-    console.log(`hey`);
+};
 
-    return (
-      <div>
-      </div>
-    );
-  }
-}
+Car.propTypes = {
+  carX: PropTypes.int
+};
+
+export default Car;
