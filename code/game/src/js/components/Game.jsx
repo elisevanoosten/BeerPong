@@ -3,7 +3,7 @@ import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 // import ReactDOM from 'react-dom';
 
-// let carX;
+//import Car from '../components/gameElements/Car';
 
 class Game extends React.Component {
 
@@ -20,11 +20,17 @@ class Game extends React.Component {
       cubeRotation: new THREE.Euler(),
       carX: 0
     };
+
+    // carX = 0;
+
   }
 
   componentDidMount() {
-    document.addEventListener(`keydown`, this.keypressed);
+    // carX = 0;
+    // this.setState(carX: 0);
+    // console.log(this.state);
 
+    window.addEventListener(`keydown`, this.keypressed);
     // const img = new Image();
     // img.src = `./assets/img/road.png`;
     // const tex = new THREE.texture(img);
@@ -36,7 +42,7 @@ class Game extends React.Component {
     const LEFT = 37;
     const RIGHT = 39;
 
-    // let {carX} = this.state;
+    // const {carX} = this.state;
 
     if (e.keyCode === LEFT) {
       console.log(`links`);
@@ -48,6 +54,8 @@ class Game extends React.Component {
       // carX ++;
       // this.setState({carX});
     }
+
+    // console.log(carX);
   }
 
   render() {
@@ -57,6 +65,8 @@ class Game extends React.Component {
 
     const roadTexLoader = new THREE.TextureLoader();
     const roadTex = roadTexLoader.load(`./assets/img/road.png`);
+
+    const mesh = null;
 
     return (<React3
       mainCamera='camera' // this points to the perspectiveCamera which has the name set to "camera" below
@@ -104,7 +114,17 @@ class Game extends React.Component {
             // scale={0.2, 0.2, 0.2}
             map={roadTex}
           />
+
         </mesh>
+        {/* <Car /> */}
+
+        {/* <mesh>
+          <shape
+            type={`shape`}
+            map={carLoader}
+          />
+        </mesh> */}
+
       </scene>
     </React3>);
   }
