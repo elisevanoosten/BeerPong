@@ -3,7 +3,7 @@ import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 // import ReactDOM from 'react-dom';
 
-import {Car, Barier} from '../components/gameElements/';
+import {Car, Barier, Ground} from '../components/gameElements/';
 
 class Game extends React.Component {
 
@@ -65,10 +65,6 @@ class Game extends React.Component {
     const height = window.innerHeight; // canvas height
     const {carX} = this.state;
 
-    const roadTexLoader = new THREE.TextureLoader();
-    const roadTex = roadTexLoader.load(`./assets/img/road.png`);
-    const mesh = null;
-
     return (<React3
       mainCamera='camera' // this points to the perspectiveCamera which has the name set to "camera" below
       width={width}
@@ -84,19 +80,7 @@ class Game extends React.Component {
           rotation={this.cameraRotation}
           position={this.cameraPosition}
         />
-        <mesh>
-          <planeGeometry
-            width={10}
-            height={800}
-            depth={10}
-          />
-
-          <meshBasicMaterial
-            map={roadTex}
-          />
-
-        </mesh>
-
+        <Ground />
         <Car
           carX={carX}
         />

@@ -1,16 +1,27 @@
-import {Component} from 'react';
-//import * as THREE from 'three';
+import React, {PropTypes} from 'react';
+import * as THREE from 'three';
 
-export default class Ground extends Component {
+const Ground = () => {
 
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-    };
-  }
+  const roadTexLoader = new THREE.TextureLoader();
+  const roadTex = roadTexLoader.load(`../assets/img/road.png`);
+  const mesh = null;
 
-  render() {
+  return (
+    <mesh>
+      <planeGeometry
+        width={10}
+        height={800}
+      />
+      <meshBasicMaterial
+        map={roadTex}
+      />
+    </mesh>
+  );
+};
 
-    return (`hey`);
-  }
-}
+Ground.propTypes = {
+
+};
+
+export default Ground;
