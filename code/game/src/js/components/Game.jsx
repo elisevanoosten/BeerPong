@@ -46,6 +46,9 @@ class Game extends React.Component {
 
     if (e.keyCode === LEFT) {
       console.log(`links`);
+      this.setState({carX: 1}, function () {
+        console.log(carX);
+      });
       // carX --;
       // this.setState({carX});
     }
