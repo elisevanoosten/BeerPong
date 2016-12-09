@@ -3,7 +3,7 @@ import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 // import ReactDOM from 'react-dom';
 
-import {Car, Barier, Ground} from '../components/gameElements/';
+import {Car, Ground, Bariers} from '../components/gameElements/';
 
 class Game extends React.Component {
 
@@ -11,8 +11,11 @@ class Game extends React.Component {
 
     super(props, context);
 
-    this.cameraPosition = new THREE.Vector3(0, - 3, 2);
-    this.cameraRotation = new THREE.Euler(1.4, 0, 0, `XYZ`);
+    this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
+    this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);    //     linksrechts
+
+    // this.cameraPosition = new THREE.Vector3(0, - 3, 2);
+    // this.cameraRotation = new THREE.Euler(1.4, 0, 0, `XYZ`);
 
     this.state = {
       cubeRotation: new THREE.Euler(),
@@ -24,10 +27,6 @@ class Game extends React.Component {
 
     //LOAD 3DCAR
     this.loadCar = this.loadCar.bind(this);
-  }
-
-  componentDidMount() {
-
   }
 
   componentWillMount() {
@@ -45,18 +44,18 @@ class Game extends React.Component {
     this.setState({geometry});
     this.setState({materials});
   }
-
-  getBarier() {
-
-    const {barierY} = this.state;
-    const planeWidth = 10;
-    const barierX = Math.floor(Math.random() * planeWidth) - planeWidth / 2;
-    return <Barier barierX={barierX} barierY={barierY} />;
-    // const intervalleke = setInterval(() => {
-    //   console.log(`bariere`);
-    //   return <Barier barierX={barierX} barierY={barierY} />;
-    // }, this.state.barierInterval);
-  }
+  //
+  // getBarier() {
+  //
+  //   const {barierY} = this.state;
+  //   const planeWidth = 10;
+  //   // const barierX = Math.floor(Math.random() * planeWidth) - planeWidth / 2;
+  //   return <Barier barierX={barierX} barierY={barierY} />;
+  //   // const intervalleke = setInterval(() => {
+  //   //   console.log(`bariere`);
+  //   //   return <Barier barierX={barierX} barierY={barierY} />;
+  //   // }, this.state.barierInterval);
+  // }
 
   carMove(e) {
     const LEFT = 37;
@@ -107,7 +106,7 @@ class Game extends React.Component {
           rotation={this.cameraRotation}
         />
 
-        {this.getBarier()}
+      <Bariers />
 
       </scene>
     </React3>);
