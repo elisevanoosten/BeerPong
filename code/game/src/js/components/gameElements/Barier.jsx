@@ -6,11 +6,6 @@ const Barier = props => {
 
   const xPos = props.barierX;
   const yPos = props.barierY;
-  // const {barierY} = props;
-
-  // const {barierY} = this.state;
-  // const planeWidth = 10;
-  // const barierX = Math.floor(Math.random() * planeWidth) - planeWidth / 2;
 
   return (
     <mesh
