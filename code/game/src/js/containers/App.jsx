@@ -94,8 +94,6 @@ class App extends Component {
   goGame(e) {
     e.preventDefault();
 
-    console.log(`gogame`);
-
     const bord = document.querySelector(`.startbord`);
     bord.classList.add(`hidden`);
     const startbutton = document.querySelector(`.startbutton`);
@@ -132,8 +130,6 @@ class App extends Component {
 
   render() {
     const {strangerStream} = this.state;
-
-    console.log(this.state);
 
     return (
       <main>

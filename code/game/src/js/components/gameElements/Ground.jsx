@@ -4,7 +4,7 @@ import * as THREE from 'three';
 const Ground = () => {
 
   const roadTexLoader = new THREE.TextureLoader();
-  const roadTex = roadTexLoader.load(`../assets/img/road.png`);
+  const roadTex = roadTexLoader.load(`../assets/img/road-big.png`);
   const mesh = null;
 
   return (
@@ -18,10 +18,6 @@ const Ground = () => {
       />
     </mesh>
   );
-};
-
-Ground.propTypes = {
-
 };
 
 export default Ground;

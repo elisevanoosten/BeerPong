@@ -35,7 +35,7 @@ const Car = props => {
 };
 
 Car.propTypes = {
-  carX: PropTypes.int
+  carX: PropTypes.number
 };
 
 export default Car;

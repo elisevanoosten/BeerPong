@@ -18,8 +18,27 @@ class Game extends React.Component {
       cubeRotation: new THREE.Euler(),
       carX: 0,
       barierY: 10,
-      barierInterval: 1500
+      barierInterval: 1500,
+      carGeometry: []
     };
+  }
+
+  componentWillMount() {
+    let car;
+    let carGeometry, carMaterials;
+
+    //CAR MODEL
+    const carLoader = new THREE.JSONLoader();
+
+    carLoader.load(`./assets/json/marmelab.json`, function(geometry, materials) {
+      car = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
+      car.scale.x = car.scale.y = car.scale.z = 16.75;
+      car.translation = THREE.GeometryUtils.center(geometry);
+      carGeometry = geometry;
+    });
+    console.log(carGeometry);
+    this.setState({carGeometry: carGeometry});
+
   }
 
   componentDidMount() {
@@ -30,12 +49,11 @@ class Game extends React.Component {
   getBarier() {
 
     const {barierY} = this.state;
-
     const planeWidth = 10;
     const barierX = Math.floor(Math.random() * planeWidth) - planeWidth / 2;
     return <Barier barierX={barierX} barierY={barierY} />;
-
     // const intervalleke = setInterval(() => {
+    //   console.log(`bariere`);
     //   return <Barier barierX={barierX} barierY={barierY} />;
     // }, this.state.barierInterval);
   }
@@ -65,11 +83,12 @@ class Game extends React.Component {
     const height = window.innerHeight; // canvas height
     const {carX} = this.state;
 
-    return (<React3
-      mainCamera='camera' // this points to the perspectiveCamera which has the name set to "camera" below
-      width={width}
-      height={height}
-    >
+    return (
+      <React3
+        mainCamera='camera'
+        width={width}
+        height={height}
+      >
       <scene>
         <perspectiveCamera
           name='camera'
@@ -80,7 +99,9 @@ class Game extends React.Component {
           rotation={this.cameraRotation}
           position={this.cameraPosition}
         />
+
         <Ground />
+
         <Car
           carX={carX}
         />

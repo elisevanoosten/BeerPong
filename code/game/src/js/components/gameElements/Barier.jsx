@@ -26,8 +26,8 @@ const Barier = props => {
 };
 
 Barier.propTypes = {
-  barierX: PropTypes.int,
-  barierY: PropTypes.int
+  barierX: PropTypes.number,
+  barierY: PropTypes.number
 };
 
 export default Barier;
