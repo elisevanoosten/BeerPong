@@ -3,8 +3,6 @@ import * as THREE from 'three';
 
 const Barier = props => {
 
-  console.log(`barier`);
-
   const {barierX} = props;
   const {barierY} = props;
 

@@ -1,35 +1,41 @@
 
 import React, {PropTypes} from 'react';
+import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 
 const Car = props => {
 
   const Xpos = props.carX;
-
-  // let car;
-  //     //
-  //     // const carLoader = new THREE.JSONLoader();
-  //     // carLoader.load(`./assets/json/marmelab.json`, function(geometry, materials) {
-  //     //   car = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
-  //     //   car.scale.x = car.scale.y = car.scale.z = 16.75;
-  //     //   car.translation = THREE.GeometryUtils.center(geometry);
-  //     // });
+  const Geometry = props.geometry;
+  const Materials = props.materials;
 
   return (
+
     <mesh
       position={new THREE.Vector3(Xpos, 0, 0)}
-      castShadow={true}
     >
-      <boxGeometry
-        width={1}
-        height={1}
-        depth={1}
+      <geometry
+        geometry={Geometry.geometry}
+        vertices={Geometry.vertices}
+        faces={Geometry.faces}
+        colors={Geometry.colors}
       />
-      <meshBasicMaterial
-        color={0x00ff00}
-
+      <meshLambertMaterial
+        color={0xffffff}
       />
     </mesh>
+
+    // slot={Materials[0].slot}
+    // transparent={Materials[0].transparent}
+    // aplhaTest={Materials[0].aplhaTest}
+    // side={Materials[0].side}
+    // opacity={Materials[0].opacity}
+    // visible={Materials[0].visible}
+    // color={Materials[0].color}
+    // emissive={Materials[0].emissive}
+    // wireframe={Materials[0].wireframe}
+    // wireframeLinewidth={Materials[0].wireframeLinewidth}
+    // recourceId={Materials[0].recourceId}
   );
 
 };

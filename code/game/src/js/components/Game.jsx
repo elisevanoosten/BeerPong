@@ -19,31 +19,31 @@ class Game extends React.Component {
       carX: 0,
       barierY: 10,
       barierInterval: 1500,
-      carGeometry: []
+
     };
-  }
 
-  componentWillMount() {
-    let car;
-    let carGeometry, carMaterials;
-
-    //CAR MODEL
-    const carLoader = new THREE.JSONLoader();
-
-    carLoader.load(`./assets/json/marmelab.json`, function(geometry, materials) {
-      car = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
-      car.scale.x = car.scale.y = car.scale.z = 16.75;
-      car.translation = THREE.GeometryUtils.center(geometry);
-      carGeometry = geometry;
-    });
-    console.log(carGeometry);
-    this.setState({carGeometry: carGeometry});
-
+    //LOAD 3DCAR
+    this.loadCar = this.loadCar.bind(this);
   }
 
   componentDidMount() {
+
+  }
+
+  componentWillMount() {
     //CAR MOVEMENT
     window.addEventListener(`keydown`, e => this.carMove(e));
+
+    //LOAD 3DCAR
+    const carLoader = new THREE.JSONLoader();
+    //carLoader.load(`./assets/json/marmelab.json`, this.loadCar);
+    carLoader.load(`./assets/json/auto.json`, this.loadCar);
+    //carLoader.load(`./assets/json/board.json`, this.loadCar);
+  }
+
+  loadCar(geometry, materials) {
+    this.setState({geometry});
+    this.setState({materials});
   }
 
   getBarier() {
@@ -81,7 +81,7 @@ class Game extends React.Component {
   render() {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
-    const {carX} = this.state;
+    const {carX, geometry, materials} = this.state;
 
     return (
       <React3
@@ -99,11 +99,12 @@ class Game extends React.Component {
           rotation={this.cameraRotation}
           position={this.cameraPosition}
         />
-
         <Ground />
-
         <Car
           carX={carX}
+          geometry={geometry}
+          materials={materials}
+          rotation={this.cameraRotation}
         />
 
         {this.getBarier()}
