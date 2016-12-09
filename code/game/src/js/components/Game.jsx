@@ -35,9 +35,7 @@ class Game extends React.Component {
 
     //LOAD 3DCAR
     const carLoader = new THREE.JSONLoader();
-    //carLoader.load(`./assets/json/marmelab.json`, this.loadCar);
     carLoader.load(`./assets/json/auto.json`, this.loadCar);
-    //carLoader.load(`./assets/json/board.json`, this.loadCar);
   }
 
   loadCar(geometry, materials) {

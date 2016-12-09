@@ -9,25 +9,33 @@ class Bariers extends React.Component {
     super(props, context);
 
     this.state = {
-      barierY: - 30,
+      barierY: - 60,
       activeBariers: [`test`, `test`, `test`, `test`]
     };
   }
 
   componentDidMount() {
-    const planeWidth = 8;
-    const barierX = Math.floor(Math.random() * planeWidth) - planeWidth / 2;
-    this.setState({barierX});
-
+    let barierX;
     let {barierY} = this.state;
+
     this.countdown = setInterval(() => {
+
+      //RANDOM Y POS
       barierY += 1;
       this.setState({barierY});
 
       if (barierY > 10) {
+        //RANDOM X POS (daarna)
+        const planeWidth = 8;
+        barierX = Math.floor(Math.random() * planeWidth) - planeWidth / 2;
+        this.setState({barierX});
+
         barierY = - 30;
         this.setState({barierY: - 30});
       }
+
+      //EERSTE X POS
+      let barierX = 0;
     }, 100);
 
   }
