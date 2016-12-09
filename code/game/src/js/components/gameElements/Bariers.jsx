@@ -20,7 +20,8 @@ class Bariers extends React.Component {
 
     this.countdown = setInterval(() => {
 
-      //RANDOM Y POS
+      // Y POS ++
+// TO DO:sneller en sneller in game
       barierY += 1;
       this.setState({barierY});
 
