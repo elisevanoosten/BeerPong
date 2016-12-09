@@ -8,13 +8,11 @@ let gamePlay = 1;
 
 class App extends Component {
 
-  state = { //geen constructer meer gebruiken
-
+  state = {
     youStream: undefined,
     strangerStream: undefined,
     player: undefined,
     drank: undefined
-
   }
 
   componentDidMount() {

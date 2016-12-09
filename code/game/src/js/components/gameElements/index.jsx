@@ -1,2 +1,2 @@
 export Ground from './Ground';
-export Ground from './Car';
+export Car from './Car';

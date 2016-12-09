@@ -3,7 +3,7 @@ import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 // import ReactDOM from 'react-dom';
 
-import Car from '../components/gameElements/Car';
+import {Car} from '../components/gameElements';
 
 class Game extends React.Component {
 
@@ -16,12 +16,26 @@ class Game extends React.Component {
 
     this.state = {
       cubeRotation: new THREE.Euler(),
-      carX: 0
+      carX: 0,
+      barierX: 0,
+      barierY: 130,
+      bariereInterval: 1500
     };
   }
 
   componentDidMount() {
+
+    //CAR MOVEMENT
     window.addEventListener(`keydown`, e => this.carMove(e));
+
+    //NEW BARIERE
+    const interval = this.state.bariereInterval;
+    this.countdown = setInterval(this.timer, interval);
+
+  }
+
+  timer() {
+    console.log(`blokje`);
   }
 
   carMove(e) {
@@ -47,13 +61,13 @@ class Game extends React.Component {
   render() {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
+    const {carX} = this.state;
+    const barierX = this.state.barierX;
+    const barierY = this.state.barierY;
 
     const roadTexLoader = new THREE.TextureLoader();
     const roadTex = roadTexLoader.load(`./assets/img/road.png`);
-
     const mesh = null;
-
-    const {carX} = this.state;
 
     return (<React3
       mainCamera='camera' // this points to the perspectiveCamera which has the name set to "camera" below
@@ -72,6 +86,21 @@ class Game extends React.Component {
           position={this.cameraPosition}
         />
 
+
+        <mesh
+          rotation={this.state.cubeRotation}
+          position={new THREE.Vector3(barierX, barierY, 0)}
+          castShadow={true}
+        >
+          <boxGeometry
+            width={1}
+            height={1}
+            depth={1}
+          />
+          <meshBasicMaterial
+            color={0xffffff}
+          />
+        </mesh>
 
         <mesh
           rotation={this.state.cubeRotation}
