@@ -11,8 +11,6 @@ class Game extends React.Component {
 
     super(props, context);
 
-    console.log(`game`);
-
     this.cameraPosition = new THREE.Vector3(0, - 3, 2);
     this.cameraRotation = new THREE.Euler(1.4, 0, 0, `XYZ`);
 
@@ -26,15 +24,8 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
-    // carX = 0;
-    // this.setState(carX: 0);
-    // console.log(this.state);
 
-    window.addEventListener(`keydown`, this.keypressed);
-    // const img = new Image();
-    // img.src = `./assets/img/road.png`;
-    // const tex = new THREE.texture(img);
-    // img.tex = tex;
+    window.addEventListener(`keydown`, e => this.keypressed(e));
 
   }
 
@@ -42,20 +33,15 @@ class Game extends React.Component {
     const LEFT = 37;
     const RIGHT = 39;
 
-    // const {carX} = this.state;
-
+    let {carX} = this.state;
+    //
     if (e.keyCode === LEFT) {
-      console.log(`links`);
-      this.setState({carX: 1}, function () {
-        console.log(carX);
-      });
-      // carX --;
-      // this.setState({carX});
+      carX --;
+      this.setState({carX});
     }
     else if (e.keyCode === RIGHT) {
-      console.log(`right`);
-      // carX ++;
-      // this.setState({carX});
+      carX ++;
+      this.setState({carX});
     }
 
     // console.log(carX);
@@ -134,5 +120,3 @@ class Game extends React.Component {
 }
 
 export default Game;
-
-// ReactDOM.render(<Game />, document.body);
