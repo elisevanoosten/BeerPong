@@ -25,7 +25,6 @@ class Game extends React.Component {
   }
 
   carMove(e) {
-    console.log(`yo`);
     const LEFT = 37;
     const RIGHT = 39;
 
@@ -43,7 +42,6 @@ class Game extends React.Component {
         this.setState({carX});
       }
     }
-    console.log(carX);
   }
 
   render() {
