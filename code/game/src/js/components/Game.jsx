@@ -3,7 +3,7 @@ import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 // import ReactDOM from 'react-dom';
 
-//import Car from '../components/gameElements/Car';
+import Car from '../components/gameElements/Car';
 
 class Game extends React.Component {
 
@@ -18,44 +18,44 @@ class Game extends React.Component {
       cubeRotation: new THREE.Euler(),
       carX: 0
     };
-
-    // carX = 0;
-
   }
 
   componentDidMount() {
-
-    window.addEventListener(`keydown`, e => this.keypressed(e));
-
+    window.addEventListener(`keydown`, e => this.carMove(e));
   }
 
-  keypressed(e) {
+  carMove(e) {
+    console.log(`yo`);
     const LEFT = 37;
     const RIGHT = 39;
 
     let {carX} = this.state;
-    //
+
     if (e.keyCode === LEFT) {
-      carX --;
-      this.setState({carX});
+      if (carX > - 4) {
+        carX --;
+        this.setState({carX});
+      }
     }
     else if (e.keyCode === RIGHT) {
-      carX ++;
-      this.setState({carX});
+      if (carX < 4) {
+        carX ++;
+        this.setState({carX});
+      }
     }
-
-    // console.log(carX);
+    console.log(carX);
   }
 
   render() {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
-    const carX = this.state.carX;
 
     const roadTexLoader = new THREE.TextureLoader();
     const roadTex = roadTexLoader.load(`./assets/img/road.png`);
 
     const mesh = null;
+
+    const {carX} = this.state;
 
     return (<React3
       mainCamera='camera' // this points to the perspectiveCamera which has the name set to "camera" below
@@ -73,21 +73,7 @@ class Game extends React.Component {
           rotation={this.cameraRotation}
           position={this.cameraPosition}
         />
-        <mesh
-          rotation={this.state.cubeRotation}
-          position={new THREE.Vector3(carX, 0, 0)}
-          castShadow={true}
-        >
-          <boxGeometry
-            width={1}
-            height={1}
-            depth={1}
-          />
-          <meshBasicMaterial
-            color={0x00ff00}
 
-          />
-        </mesh>
 
         <mesh
           rotation={this.state.cubeRotation}
@@ -105,7 +91,9 @@ class Game extends React.Component {
           />
 
         </mesh>
-        {/* <Car /> */}
+        <Car
+          carX={carX}
+          />
 
         {/* <mesh>
           <shape
