@@ -3,7 +3,7 @@ import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 // import ReactDOM from 'react-dom';
 
-import Car from '../components/gameElements/Car';
+import {Car, Barier} from '../components/gameElements/';
 
 class Game extends React.Component {
 
@@ -17,25 +17,27 @@ class Game extends React.Component {
     this.state = {
       cubeRotation: new THREE.Euler(),
       carX: 0,
-      barierX: 0,
-      barierY: 130,
-      bariereInterval: 1500
+      barierY: 10,
+      barierInterval: 1500
     };
   }
 
   componentDidMount() {
-
     //CAR MOVEMENT
     window.addEventListener(`keydown`, e => this.carMove(e));
-
-    //NEW BARIERE
-    const interval = this.state.bariereInterval;
-    this.countdown = setInterval(this.timer, interval);
-
   }
 
-  timer() {
-    console.log(`blokje`);
+  getBarier() {
+
+    const {barierY} = this.state;
+
+    const planeWidth = 10;
+    const barierX = Math.floor(Math.random() * planeWidth) - planeWidth / 2;
+    return <Barier barierX={barierX} barierY={barierY} />;
+
+    // const intervalleke = setInterval(() => {
+    //   return <Barier barierX={barierX} barierY={barierY} />;
+    // }, this.state.barierInterval);
   }
 
   carMove(e) {
@@ -62,8 +64,6 @@ class Game extends React.Component {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
     const {carX} = this.state;
-    const barierX = this.state.barierX;
-    const barierY = this.state.barierY;
 
     const roadTexLoader = new THREE.TextureLoader();
     const roadTex = roadTexLoader.load(`./assets/img/road.png`);
@@ -81,53 +81,27 @@ class Game extends React.Component {
           aspect={width / height}
           near={0.01}
           far={1000}
-
           rotation={this.cameraRotation}
           position={this.cameraPosition}
         />
-
-
-        <mesh
-          rotation={this.state.cubeRotation}
-          position={new THREE.Vector3(barierX, barierY, 0)}
-          castShadow={true}
-        >
-          <boxGeometry
-            width={1}
-            height={1}
-            depth={1}
-          />
-          <meshBasicMaterial
-            color={0xffffff}
-          />
-        </mesh>
-
-        <mesh
-          rotation={this.state.cubeRotation}
-        >
+        <mesh>
           <planeGeometry
             width={10}
             height={800}
             depth={10}
           />
 
-          {/* <spriteMaterial */}
           <meshBasicMaterial
-            // scale={0.2, 0.2, 0.2}
             map={roadTex}
           />
 
         </mesh>
+
         <Car
           carX={carX}
-          />
+        />
 
-        {/* <mesh>
-          <shape
-            type={`shape`}
-            map={carLoader}
-          />
-        </mesh> */}
+        {this.getBarier()}
 
       </scene>
     </React3>);
