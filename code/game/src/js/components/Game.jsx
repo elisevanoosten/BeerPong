@@ -16,7 +16,10 @@ class Game extends React.Component {
 
     this.state = {
       cubeRotation: new THREE.Euler(),
-      carX: 0
+      carX: 0,
+      barierX: 0,
+      barierY: 130,
+      bariereInterval: 1500
     };
 
     // carX = 0;
@@ -26,8 +29,15 @@ class Game extends React.Component {
   componentDidMount() {
 
     window.addEventListener(`keydown`, e => this.keypressed(e));
+    const interval = this.state.bariereInterval;
+    this.countdown = setInterval(this.timer, interval);
 
   }
+
+  timer() {
+    console.log(`blokje`);
+  }
+
 
   keypressed(e) {
     const LEFT = 37;
@@ -51,6 +61,8 @@ class Game extends React.Component {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
     const carX = this.state.carX;
+    const barierX = this.state.barierX;
+    const barierY = this.state.barierY;
 
     const roadTexLoader = new THREE.TextureLoader();
     const roadTex = roadTexLoader.load(`./assets/img/road.png`);
@@ -86,6 +98,21 @@ class Game extends React.Component {
           <meshBasicMaterial
             color={0x00ff00}
 
+          />
+        </mesh>
+
+        <mesh
+          rotation={this.state.cubeRotation}
+          position={new THREE.Vector3(barierX, barierY, 0)}
+          castShadow={true}
+        >
+          <boxGeometry
+            width={1}
+            height={1}
+            depth={1}
+          />
+          <meshBasicMaterial
+            color={0xffffff}
           />
         </mesh>
 
