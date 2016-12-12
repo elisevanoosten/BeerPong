@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Barier from './Barier.jsx';
+import {Barier} from './singleElements/';
 
 class Bariers extends React.Component {
 

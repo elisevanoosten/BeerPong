@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import IO from 'socket.io-client';
 import Peer from 'peerjs';
 
-import {Video, Game} from '../components/';
+import {Video} from '../components/';
+import Game from './Game';
 
 let gamePlay = 1;
 

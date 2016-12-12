@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 import * as THREE from 'three';
 
 const Drink = props => {
-  console.log(props);
 
   const xPos = props.drinkX;
   const yPos = props.drinkY;

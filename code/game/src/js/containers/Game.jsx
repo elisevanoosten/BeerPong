@@ -2,7 +2,7 @@ import React from 'react';
 import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 
-import {Car, Ground, Bariers, Drinks} from '../components/gameElements/';
+import {Car, Ground, Bariers, Drinks} from '../components';
 
 class Game extends React.Component {
 
@@ -57,6 +57,10 @@ class Game extends React.Component {
         this.setState({carX});
       }
     }
+  }
+
+  collisionCar() {
+    console.log(`carcollission`);
   }
 
   render() {

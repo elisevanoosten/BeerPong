@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 import * as THREE from 'three';
 
 const Barier = props => {
-  console.log(props);
 
   const xPos = props.barierX;
   const yPos = props.barierY;

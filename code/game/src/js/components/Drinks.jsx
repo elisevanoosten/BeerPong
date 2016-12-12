@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Drink from './Drink.jsx';
+import {Drink} from './singleElements/';
 
 class Drinks extends React.Component {
 
