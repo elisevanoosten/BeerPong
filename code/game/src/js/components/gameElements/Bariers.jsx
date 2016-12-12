@@ -9,8 +9,7 @@ class Bariers extends React.Component {
     super(props, context);
 
     this.state = {
-      barierY: - 60,
-      activeBariers: [`test`, `test`, `test`, `test`]
+      barierY: - 150
     };
   }
 
@@ -31,8 +30,8 @@ class Bariers extends React.Component {
         barierX = Math.floor(Math.random() * planeWidth) - planeWidth / 2;
         this.setState({barierX});
 
-        barierY = - 30;
-        this.setState({barierY: - 30});
+        barierY = - 150;
+        this.setState({barierY: - 150});
       }
 
       //EERSTE X POS
@@ -42,12 +41,10 @@ class Bariers extends React.Component {
   }
 
   renderBariers() {
-    const {barierX, barierY, activeBariers} = this.state;
-    console.log(activeBariers);
+    const {barierX, barierY} = this.state;
     // const activeBariersList = activeBariers.map(function(name, i) {
     //   return <Barier key={i} barierX={barierX} barierY={barierY} />;
     // });
-    // console.log(activeBariersList);
 
     return <Barier barierX={barierX} barierY={barierY} />;
     // return activeBariersList;

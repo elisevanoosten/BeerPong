@@ -2,7 +2,7 @@ import React from 'react';
 import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 
-import {Car, Ground, Bariers} from '../components/gameElements/';
+import {Car, Ground, Bariers, Drinks} from '../components/gameElements/';
 
 class Game extends React.Component {
 
@@ -89,6 +89,7 @@ class Game extends React.Component {
         />
 
       <Bariers />
+      <Drinks />
 
       </scene>
     </React3>);
