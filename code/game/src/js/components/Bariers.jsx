@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 import {Barier} from './singleElements/';
 
@@ -9,35 +9,59 @@ class Bariers extends React.Component {
     super(props, context);
 
     this.state = {
-      barierY: - 150
+      barierY: - 50
     };
   }
 
   componentDidMount() {
-    let barierX;
+    //let barierX;
     let {barierY} = this.state;
+    const planeWidth = 8;
+    const randomXpos = Math.floor(Math.random() * planeWidth) - planeWidth / 2;
 
     this.countdown = setInterval(() => {
 
       // Y POS ++
-// TO DO:sneller en sneller in game
-      barierY += 1;
+      // TO DO:sneller en sneller in game
+      barierY ++;
       this.setState({barierY});
 
+      //UIT SCHERM = NIEUWE BARIER
       if (barierY > 10) {
         //RANDOM X POS (daarna)
-        const planeWidth = 8;
-        barierX = Math.floor(Math.random() * planeWidth) - planeWidth / 2;
-        this.setState({barierX});
-
-        barierY = - 150;
+        this.setState({barierX: randomXpos});
         this.setState({barierY: - 150});
+
+      } else {
+        //EERSTE X POS
+        this.setState({barierX: randomXpos});
       }
 
-      //EERSTE X POS
-      let barierX = 0;
+      // this.props.getBarierY(barierY);
+      // this.props.getBarierX(barierX);
+
+      //COLLISION MET auto
+      this.checkCollision();
     }, 100);
 
+  }
+
+  checkCollision() {
+    const carX = this.props.carX;
+    const carY = this.props.carY;
+    const barierY = this.state.barierY;
+    const barierX = this.state.barierX;
+
+    const carwidth = 0.8;
+    const carDepth = 0.8;
+
+    console.log(carX, carY, barierX, barierY);
+
+    if (barierX <= carX + carwidth && barierX >= carX) {
+      if (barierY <= carY + carDepth / 2 && barierY >= carY - carDepth / 2) {
+        console.log(`bots`);
+      }
+    }
   }
 
   renderBariers() {
@@ -56,5 +80,11 @@ class Bariers extends React.Component {
     );
   }
 }
+
+Bariers.propTypes = {
+  // getBarierY: PropTypes.func,
+  // getBarierY: PropTypes.func
+};
+
 
 export default Bariers;

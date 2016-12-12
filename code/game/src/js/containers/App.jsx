@@ -17,7 +17,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    //this.initStream();
+
   }
 
   initStream() { //webcam ophalen

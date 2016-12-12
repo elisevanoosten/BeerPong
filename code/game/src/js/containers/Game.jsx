@@ -16,6 +16,7 @@ class Game extends React.Component {
     this.state = {
       cubeRotation: new THREE.Euler(),
       carX: 0,
+      carY: 0,
       barierY: 10,
       barierInterval: 1500,
 
@@ -32,6 +33,14 @@ class Game extends React.Component {
     //LOAD 3DCAR
     const carLoader = new THREE.JSONLoader();
     carLoader.load(`./assets/json/auto.json`, this.loadCar);
+
+    requestAnimationFrame(() => {this.update();});
+  }
+
+  update() {
+
+
+    requestAnimationFrame(() => {this.update();});
   }
 
   loadCar(geometry, materials) {
@@ -59,14 +68,19 @@ class Game extends React.Component {
     }
   }
 
-  collisionCar() {
-    console.log(`carcollission`);
-  }
+  // getBarierY(barierY) {
+  //   this.setState({barierY: barierY});
+  //   // console.log(this.state);
+  // }
+  // getBarierY(barierX) {
+  //   this.setState({barierX});
+  //   // console.log(this.state);
+  // }
 
   render() {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
-    const {carX, geometry, materials} = this.state;
+    const {carX, carY, geometry, materials} = this.state;
 
     return (
       <React3
@@ -87,12 +101,18 @@ class Game extends React.Component {
         <Ground />
         <Car
           carX={carX}
+          carY={carY}
           geometry={geometry}
           materials={materials}
           rotation={this.cameraRotation}
         />
 
-      <Bariers />
+      <Bariers
+        // getBarierY={barierY => this.getBarierY(barierY)}
+        // getBarierX={barierX => this.getBarierX(barierX)}
+        carX={carX}
+        carY={carY}
+      />
       <Drinks />
 
       </scene>

@@ -14,7 +14,7 @@ class Drinks extends React.Component {
   }
 
   componentDidMount() {
-    let drinkX;
+    //let drinkX;
     let {drinkY} = this.state;
 
     this.countdown = setInterval(() => {
