@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 
 import {Barier} from './singleElements/';
 
@@ -9,7 +9,7 @@ class Bariers extends React.Component {
     super(props, context);
 
     this.state = {
-      barierY: - 50
+      barierY: - 100
     };
   }
 
@@ -20,28 +20,30 @@ class Bariers extends React.Component {
     const randomXpos = Math.floor(Math.random() * planeWidth) - planeWidth / 2;
 
     this.countdown = setInterval(() => {
-
-      // Y POS ++
       // TO DO:sneller en sneller in game
+      console.log(`intervalling`);
       barierY ++;
-      this.setState({barierY});
-
       //UIT SCHERM = NIEUWE BARIER
-      if (barierY > 10) {
-        //RANDOM X POS (daarna)
+      if (barierY >= 10) {
         this.setState({barierX: randomXpos});
-        this.setState({barierY: - 150});
+        this.setState({barierY: - 99});
+
+        //COLLISION MET auto
+        this.checkCollision();
 
       } else {
-        //EERSTE X POS
         this.setState({barierX: randomXpos});
+        this.setState({barierY});
+
+        //COLLISION MET auto
+        this.checkCollision();
+
       }
 
       // this.props.getBarierY(barierY);
       // this.props.getBarierX(barierX);
 
-      //COLLISION MET auto
-      this.checkCollision();
+
     }, 100);
 
   }
@@ -80,11 +82,11 @@ class Bariers extends React.Component {
     );
   }
 }
-
-Bariers.propTypes = {
-  // getBarierY: PropTypes.func,
-  // getBarierY: PropTypes.func
-};
+//
+// Bariers.propTypes = {
+//   // getBarierY: PropTypes.func,
+//   // getBarierY: PropTypes.func
+// };
 
 
 export default Bariers;

@@ -113,7 +113,10 @@ class Game extends React.Component {
         carX={carX}
         carY={carY}
       />
-      <Drinks />
+      <Drinks
+        carX={carX}
+        carY={carY}
+      />
 
       </scene>
     </React3>);
