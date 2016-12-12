@@ -9,35 +9,61 @@ class Bariers extends React.Component {
     super(props, context);
 
     this.state = {
-      barierY: - 150
+      barierY: - 100
     };
   }
 
   componentDidMount() {
-    let barierX;
+    //let barierX;
     let {barierY} = this.state;
+    const planeWidth = 8;
+    const randomXpos = Math.floor(Math.random() * planeWidth) - planeWidth / 2;
 
     this.countdown = setInterval(() => {
+      // TO DO:sneller en sneller in game
+      console.log(`intervalling`);
+      barierY ++;
+      //UIT SCHERM = NIEUWE BARIER
+      if (barierY >= 10) {
+        this.setState({barierX: randomXpos});
+        this.setState({barierY: - 99});
 
-      // Y POS ++
-// TO DO:sneller en sneller in game
-      barierY += 1;
-      this.setState({barierY});
+        //COLLISION MET auto
+        this.checkCollision();
 
-      if (barierY > 10) {
-        //RANDOM X POS (daarna)
-        const planeWidth = 8;
-        barierX = Math.floor(Math.random() * planeWidth) - planeWidth / 2;
-        this.setState({barierX});
+      } else {
+        this.setState({barierX: randomXpos});
+        this.setState({barierY});
 
-        barierY = - 150;
-        this.setState({barierY: - 150});
+        //COLLISION MET auto
+        this.checkCollision();
+
       }
 
-      //EERSTE X POS
-      let barierX = 0;
+      // this.props.getBarierY(barierY);
+      // this.props.getBarierX(barierX);
+
+
     }, 100);
 
+  }
+
+  checkCollision() {
+    const carX = this.props.carX;
+    const carY = this.props.carY;
+    const barierY = this.state.barierY;
+    const barierX = this.state.barierX;
+
+    const carwidth = 0.8;
+    const carDepth = 0.8;
+
+    console.log(carX, carY, barierX, barierY);
+
+    if (barierX <= carX + carwidth && barierX >= carX) {
+      if (barierY <= carY + carDepth / 2 && barierY >= carY - carDepth / 2) {
+        console.log(`bots`);
+      }
+    }
   }
 
   renderBariers() {
@@ -56,5 +82,11 @@ class Bariers extends React.Component {
     );
   }
 }
+//
+// Bariers.propTypes = {
+//   // getBarierY: PropTypes.func,
+//   // getBarierY: PropTypes.func
+// };
+
 
 export default Bariers;
