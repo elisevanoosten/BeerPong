@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 import {Barier} from './singleElements/';
 
@@ -9,84 +9,91 @@ class Bariers extends React.Component {
     super(props, context);
 
     this.state = {
-      barierY: - 100
+      barierY: - 100,
+      barierX: this.getRandomPos(),
     };
   }
 
   componentDidMount() {
-    //let barierX;
     let {barierY} = this.state;
-    const planeWidth = 8;
-    const randomXpos = Math.floor(Math.random() * planeWidth) - planeWidth / 2;
+    const delay = 1000; //1 second
 
-    this.countdown = setInterval(() => {
-      // TO DO:sneller en sneller in game
-      console.log(`intervalling`);
-      barierY ++;
-      //UIT SCHERM = NIEUWE BARIER
-      if (barierY >= 10) {
-        this.setState({barierX: randomXpos});
-        this.setState({barierY: - 99});
+    setInterval(() => {
+      // barier later laten vertrekken
+      setTimeout(() => {
 
-        //COLLISION MET auto
-        this.checkCollision();
-
-      } else {
-        this.setState({barierX: randomXpos});
+        barierY += 1;
         this.setState({barierY});
 
-        //COLLISION MET auto
         this.checkCollision();
 
-      }
+        if (barierY > 10) {
+          barierX = this.getRandomPos();
+          this.setState({barierX});
 
-      // this.props.getBarierY(barierY);
-      // this.props.getBarierX(barierX);
+          barierY = - 150;
+          this.setState({barierY: - 150});
+        }
 
+        let barierX = 0;
 
-    }, 100);
+      }, delay);
+    }, 40);
 
   }
 
+  getRandomPos() {
+    const planeWidth = 8;
+    return Math.floor(Math.random() * planeWidth) - planeWidth / 2;
+  }
+
   checkCollision() {
-    const carX = this.props.carX;
-    const carY = this.props.carY;
-    const barierY = this.state.barierY;
-    const barierX = this.state.barierX;
+    const {carX, carY} = this.props;
+    const {barierY, barierX} = this.state;
 
     const carwidth = 0.8;
     const carDepth = 0.8;
 
-    console.log(carX, carY, barierX, barierY);
-
     if (barierX <= carX + carwidth && barierX >= carX) {
       if (barierY <= carY + carDepth / 2 && barierY >= carY - carDepth / 2) {
-        console.log(`bots`);
+        console.log(`bots boem baf -- barrier rood`);
       }
     }
   }
-
-  renderBariers() {
-    const {barierX, barierY} = this.state;
-    // const activeBariersList = activeBariers.map(function(name, i) {
-    //   return <Barier key={i} barierX={barierX} barierY={barierY} />;
-    // });
-
-    return <Barier barierX={barierX} barierY={barierY} />;
-    // return activeBariersList;
-  }
+  
+  // renderBariers() {
+  //   const activeBariersList = activeBariers.map(function(name, i) {
+  //     return <Barier key={i} barierX={barierX} barierY={barierY} />;
+  //   });
+  //   return <Barier barierX={barierX} barierY={barierY} />;
+  //   return activeBariersList;
+  // }
 
   render() {
-    return (
-      this.renderBariers()
-    );
+    const {barierX, barierY} = this.state;
+    return <Barier barierX={barierX} barierY={barierY} />;
+
+    // const rows = [];
+    // const numrows = 4;
+    // for (let i = 0;i < numrows;i ++) {
+    //   rows.push({barierX: barierX, barierY: barierY});
+    // }
+    // console.log(rows);
+    // return (
+    //   {rows.map((object) => (
+    //     <Barier barierX={object.barierX} barierY={object.barierY} />
+    //   ))}
+    // );
   }
 }
-//
-// Bariers.propTypes = {
-//   // getBarierY: PropTypes.func,
-//   // getBarierY: PropTypes.func
-// };
+
+
+Bariers.propTypes = {
+  carY: PropTypes.number,
+  carX: PropTypes.number
+  // getBarierY: PropTypes.func,
+  // getBarierY: PropTypes.func
+};
 
 
 export default Bariers;

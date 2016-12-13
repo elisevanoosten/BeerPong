@@ -32,7 +32,7 @@ class Game extends React.Component {
 
     //LOAD 3DCAR
     const carLoader = new THREE.JSONLoader();
-    carLoader.load(`./assets/json/auto.json`, this.loadCar);
+    carLoader.load(`./assets/json/autofile.json`, this.loadCar);
 
     requestAnimationFrame(() => {this.update();});
   }

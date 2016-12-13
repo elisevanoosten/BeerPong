@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 import {Drink} from './singleElements/';
 
@@ -9,62 +9,54 @@ class Drinks extends React.Component {
     super(props, context);
 
     this.state = {
-      drinkY: - 100
+      drinkY: - 100,
+      drinkX: this.getRandomPos()
     };
   }
 
   componentDidMount() {
-    //let drinkX;
     let {drinkY} = this.state;
-    const planeWidth = 8;
-    const randomXpos = Math.floor(Math.random() * planeWidth) - planeWidth / 2;
 
-    this.countdown = setInterval(() => {
-      // TO DO:sneller en sneller in game
-      console.log(`intervalling`);
-      //UIT SCHERM = NIEUWE BARIER
-      if (drinkY >= 10) {
-        this.setState({drinkX: randomXpos});
-        this.setState({drinkY: - 99});
+    setInterval(() => {
 
-        //COLLISION MET auto
-        this.checkCollision();
+      // Y POS ++
+      drinkY += 1;
+      this.setState({drinkY});
+      this.checkCollision();
 
-      } else {
-        drinkY ++;
-        this.setState({drinkX: randomXpos});
-        this.setState({drinkY});
+      if (drinkY > 10) {
+        drinkX = this.getRandomPos();
+        this.setState({drinkX});
 
-        //COLLISION MET auto
-        this.checkCollision();
-
+        drinkY = - 150;
+        this.setState({drinkY: - 150});
       }
 
-      // this.props.getBarierY(drinkY);
-      // this.props.getBarierX(drinkX);
-
-
-    }, 80);
+      //EERSTE X POS
+      let drinkX = 0;
+    }, 40);
 
   }
 
+  getRandomPos() {
+    const planeWidth = 8;
+    return Math.floor(Math.random() * planeWidth) - planeWidth / 2;
+  }
+
   checkCollision() {
-    const carX = this.props.carX;
-    const carY = this.props.carY;
-    const drinkY = this.state.drinkY;
-    const drinkX = this.state.drinkX;
+    const {carX, carY} = this.props;
+    const {drinkY, drinkX} = this.state;
 
     const carwidth = 0.8;
     const carDepth = 0.8;
 
-    console.log(carX, carY, drinkX, drinkY);
-
     if (drinkX <= carX + carwidth && drinkX >= carX) {
       if (drinkY <= carY + carDepth / 2 && drinkY >= carY - carDepth / 2) {
-        console.log(`bots`);
+        console.log(`bots boem baf -- drinks groen`);
       }
     }
   }
+
 
   renderDrinks() {
     const {drinkX, drinkY} = this.state;
@@ -78,5 +70,12 @@ class Drinks extends React.Component {
     );
   }
 }
+
+Drinks.propTypes = {
+  carY: PropTypes.number,
+  carX: PropTypes.number
+  // getBarierY: PropTypes.func,
+  // getBarierY: PropTypes.func
+};
 
 export default Drinks;
