@@ -10,7 +10,8 @@ class Drinks extends React.Component {
 
     this.state = {
       drinkY: - 100,
-      drinkX: this.getRandomPos()
+      drinkX: this.getRandomPos(),
+      drinkCount: 0
     };
   }
 
@@ -53,15 +54,24 @@ class Drinks extends React.Component {
     if (drinkX <= carX + carwidth && drinkX >= carX) {
       if (drinkY <= carY + carDepth / 2 && drinkY >= carY - carDepth / 2) {
         console.log(`bots boem baf -- drinks groen`);
+        this .state.drinkCount ++;
+        this.setBlurry();
       }
     }
   }
-
 
   renderDrinks() {
     const {drinkX, drinkY} = this.state;
 
     return <Drink drinkX={drinkX} drinkY={drinkY} />;
+  }
+
+  setBlurry() {
+    console.log(`setblurry`);
+    const count =  this.state.drinkCount * 40;
+    const view = document.querySelector(`.container`);
+    //TO DO BLUR
+    view.style.filter = `grayscale(${ count }%)`;
   }
 
   render() {
@@ -73,7 +83,8 @@ class Drinks extends React.Component {
 
 Drinks.propTypes = {
   carY: PropTypes.number,
-  carX: PropTypes.number
+  carX: PropTypes.number,
+  drinkCount: PropTypes.number
   // getBarierY: PropTypes.func,
   // getBarierY: PropTypes.func
 };
