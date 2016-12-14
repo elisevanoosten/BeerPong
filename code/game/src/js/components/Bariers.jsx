@@ -11,6 +11,7 @@ class Bariers extends React.Component {
     this.state = {
       barierY: - 100,
       barierX: this.getRandomPos(),
+      gameEnd: false
     };
   }
 
@@ -57,10 +58,12 @@ class Bariers extends React.Component {
     if (barierX <= carX + carwidth && barierX >= carX) {
       if (barierY <= carY + carDepth / 2 && barierY >= carY - carDepth / 2) {
         console.log(`bots boem baf -- barrier rood`);
+        this.state.gameEnd = true;
+        console.log(`einde spel`, this.state.gameEnd);
       }
     }
   }
-  
+
   // renderBariers() {
   //   const activeBariersList = activeBariers.map(function(name, i) {
   //     return <Barier key={i} barierX={barierX} barierY={barierY} />;
@@ -90,7 +93,8 @@ class Bariers extends React.Component {
 
 Bariers.propTypes = {
   carY: PropTypes.number,
-  carX: PropTypes.number
+  carX: PropTypes.number,
+  gameEnd: PropTypes.bool
   // getBarierY: PropTypes.func,
   // getBarierY: PropTypes.func
 };

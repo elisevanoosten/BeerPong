@@ -68,6 +68,10 @@ class Game extends React.Component {
     }
   }
 
+  // endGameState(endGame) {
+  //   console.log(endGame);
+  // }
+
   // getBarierY(barierY) {
   //   this.setState({barierY: barierY});
   //   // console.log(this.state);
@@ -112,6 +116,7 @@ class Game extends React.Component {
         // getBarierX={barierX => this.getBarierX(barierX)}
         carX={carX}
         carY={carY}
+        //endGameState={endGame => console.log(endGame)}
       />
       <Drinks
         carX={carX}
