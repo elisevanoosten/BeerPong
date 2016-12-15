@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 
@@ -18,8 +18,7 @@ class Game extends React.Component {
       carX: 0,
       carY: 0,
       barierY: 10,
-      barierInterval: 1500,
-
+      barierInterval: 1500
     };
 
     //LOAD 3DCAR
@@ -81,6 +80,10 @@ class Game extends React.Component {
   //   // console.log(this.state);
   // }
 
+  gameEnd() {
+    this.props.gameEnd();
+  }
+
   render() {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
@@ -116,6 +119,7 @@ class Game extends React.Component {
         // getBarierX={barierX => this.getBarierX(barierX)}
         carX={carX}
         carY={carY}
+        gameEnd={() => this.gameEnd()}
         //endGameState={endGame => console.log(endGame)}
       />
       <Drinks
@@ -127,5 +131,10 @@ class Game extends React.Component {
     </React3>);
   }
 }
+
+Game.propTypes = {
+  gameEnd: PropTypes.func
+};
+
 
 export default Game;
