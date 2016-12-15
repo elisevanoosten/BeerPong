@@ -89,7 +89,6 @@ class App extends Component {
     const call = this.peer.call(strangerId, youStream);
     call.on(`stream`, this.handleStrangerStream);
     call.on(`close`, this.handleCloseStream);
-
   }
 
   goGame(e) {
@@ -106,6 +105,7 @@ class App extends Component {
     const player = e.currentTarget.value;
     this.setState({player});
   }
+
   choosePlayer(e) {
     e.preventDefault();
 
@@ -129,13 +129,30 @@ class App extends Component {
       console.log(`gameend`);
       if (gamePlay === true) {
         console.log(`gameplay`);
-        return <Game gameEnd={() => this.gameOver()} />;
+        return <Game gameEnd={kmTeller => this.gameOver(kmTeller)} />;
       }
     }
   }
 
-  gameOver() {
+  gameOver(kmTeller) {
+    const gameSection = document.querySelector(`.game-over`);
+    gameSection.classList.remove(`hidden`);
     this.setState({gameEnd: true});
+
+    let text;
+    if (kmTeller < 0) {
+      console.log(`gewonnen`);
+      text = `<p>Hoera! Je bent ondanks de slechte invloed van je vrienden thuis geraakt!</p>`;
+      text += `<p>Maar pas in het vervolg toch maar een beetje op met drinken ;-)</p>`;
+    } else {
+      text = `<p>Oei, je hebt dit ritje niet overleefd, zie dat je dit in het echte leven niet ook meemaakt... Bel op tijd een taxi!</p>`;
+      text += `<p>Jouw laatste rustplaats was op ${  Math.round(kmTeller * 100) / 100  } km afstand van je huis. Slaapwel vriend.`
+      ;
+      console.log(`verloren`);
+    }
+    const gameOverText = document.querySelector(`.game-over`);
+    gameOverText.innerHTML = text;
+
   }
 
   render() {
@@ -163,11 +180,14 @@ class App extends Component {
         </fieldset>
         </form>
 
-        <section className='game'>
+        <section className='game hidden'>
           <Video meta={`stranger`} stream={strangerStream} />
           <container></container>
         </section>
         {this.startGame()}
+
+        <section className='game-over hidden'>
+        </section>
       </main>
     );
 

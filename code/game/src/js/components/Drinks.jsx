@@ -18,7 +18,7 @@ class Drinks extends React.Component {
   componentDidMount() {
     let {drinkY} = this.state;
 
-    setInterval(() => {
+    this.loadInterval = setInterval(() => {
 
       // Y POS ++
       drinkY += 1;
@@ -70,6 +70,11 @@ class Drinks extends React.Component {
     const count =  this.state.drinkCount * 2;
     const view = document.querySelector(`.gamePlay`);
     view.style.filter = `blur(${ count }px)`;
+  }
+
+  componentWillUnmount () {
+    this.loadInterval && clearInterval(this.loadInterval);
+    this.loadInterval = false;
   }
 
   render() {
