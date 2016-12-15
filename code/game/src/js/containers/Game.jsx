@@ -19,9 +19,8 @@ class Game extends React.Component {
       carY: 0,
       barierY: 10,
       barierInterval: 1500,
-
+      kmTeller: 5
     };
-
     //LOAD 3DCAR
     this.loadCar = this.loadCar.bind(this);
   }
@@ -34,13 +33,17 @@ class Game extends React.Component {
     const carLoader = new THREE.JSONLoader();
     carLoader.load(`./assets/json/autofile.json`, this.loadCar);
 
-    requestAnimationFrame(() => {this.update();});
+    //KM TOT THUIS
+    this.kmTeller();
   }
 
-  update() {
+  kmTeller() {
+    let km = this.state.kmTeller;
 
-
-    requestAnimationFrame(() => {this.update();});
+    setInterval(() => {
+      km -= 0.1;
+      this.setState({kmTeller: km});
+    }, 500);
   }
 
   loadCar(geometry, materials) {
@@ -85,46 +88,53 @@ class Game extends React.Component {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
     const {carX, carY, geometry, materials} = this.state;
+    const km =  Math.round(this.state.kmTeller * 100) / 100;
 
     return (
-      <React3
-        mainCamera='camera'
-        width={width}
-        height={height}
-      >
-      <scene>
-        <perspectiveCamera
-          name='camera'
-          fov={75}
-          aspect={width / height}
-          near={0.01}
-          far={1000}
-          rotation={this.cameraRotation}
-          position={this.cameraPosition}
-        />
-        <Ground />
-        <Car
-          carX={carX}
-          carY={carY}
-          geometry={geometry}
-          materials={materials}
-          rotation={this.cameraRotation}
-        />
-
-      <Bariers
-        // getBarierY={barierY => this.getBarierY(barierY)}
-        // getBarierX={barierX => this.getBarierX(barierX)}
-        carX={carX}
-        carY={carY}
-        //endGameState={endGame => console.log(endGame)}
-      />
-      <Drinks
-        carX={carX}
-        carY={carY}
-      />
-
-      </scene>
-    </React3>);
+      <div>
+        <div className='gamePlay'>
+          <React3
+            mainCamera='camera'
+            width={width}
+            height={height}
+          >
+            <scene>
+              <perspectiveCamera
+                name='camera'
+                fov={75}
+                aspect={width / height}
+                near={0.01}
+                far={1000}
+                rotation={this.cameraRotation}
+                position={this.cameraPosition}
+              />
+              <Ground />
+              <Car
+                carX={carX}
+                carY={carY}
+                geometry={geometry}
+                materials={materials}
+                rotation={this.cameraRotation}
+              />
+              <Bariers
+                // getBarierY={barierY => this.getBarierY(barierY)}
+                // getBarierX={barierX => this.getBarierX(barierX)}
+                carX={carX}
+                carY={carY}
+                //endGameState={endGame => console.log(endGame)}
+              />
+              <Drinks
+                carX={carX}
+                carY={carY}
+              />
+            </scene>
+          </React3>
+      </div>
+      <div className='kmteller'>
+        {km}
+      </div>
+    </div>
+    );
   }
 }
 

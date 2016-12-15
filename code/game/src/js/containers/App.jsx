@@ -5,7 +5,7 @@ import Peer from 'peerjs';
 import {Video} from '../components/';
 import Game from './Game';
 
-let gamePlay = 1;
+let gamePlay = 0;
 
 class App extends Component {
 

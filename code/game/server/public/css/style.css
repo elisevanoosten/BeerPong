@@ -80,7 +80,7 @@ body {
   margin-top: 10rem;
 }
 
-.startbord, .startbutton{
+.startbord, .startbutton {
   margin: auto;
 }
 
@@ -130,6 +130,14 @@ input[type=radio] {
   line-height: 5rem;
   text-align: center;
   margin: auto;
+}
+
+.kmteller {
+  color: white;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-size: 80px;
 }
 
 /*# sourceMappingURL=style.css.map*/

@@ -58,7 +58,7 @@ class Bariers extends React.Component {
     if (barierX <= carX + carwidth && barierX >= carX) {
       if (barierY <= carY + carDepth / 2 && barierY >= carY - carDepth / 2) {
         console.log(`bots boem baf -- barrier rood`);
-        this.state.gameEnd = true;
+        this.setState({gameEnd: true});
         console.log(`einde spel`, this.state.gameEnd);
       }
     }

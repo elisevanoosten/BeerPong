@@ -68,7 +68,7 @@ class Drinks extends React.Component {
 
   setBlurry() {
     const count =  this.state.drinkCount * 2;
-    const view = document.querySelector(`.container`);
+    const view = document.querySelector(`.gamePlay`);
     view.style.filter = `blur(${ count }px)`;
   }
 
