@@ -24,18 +24,6 @@ const Car = props => {
         color={0xffffff}
       />
     </mesh>
-
-    // slot={Materials[0].slot}
-    // transparent={Materials[0].transparent}
-    // aplhaTest={Materials[0].aplhaTest}
-    // side={Materials[0].side}
-    // opacity={Materials[0].opacity}
-    // visible={Materials[0].visible}
-    // color={Materials[0].color}
-    // emissive={Materials[0].emissive}
-    // wireframe={Materials[0].wireframe}
-    // wireframeLinewidth={Materials[0].wireframeLinewidth}
-    // recourceId={Materials[0].recourceId}
   );
 
 };

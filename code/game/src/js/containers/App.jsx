@@ -12,7 +12,7 @@ class App extends Component {
     strangerStream: undefined,
     player: undefined,
     drank: undefined,
-    gamePlay: false,
+    gamePlay: true,
     gameEnd: false
   }
 

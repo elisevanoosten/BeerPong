@@ -71,10 +71,6 @@ class Game extends React.Component {
     }
   }
 
-  // endGameState(endGame) {
-  //   console.log(endGame);
-  // }
-
   // getBarierY(barierY) {
   //   this.setState({barierY: barierY});
   //   // console.log(this.state);
@@ -111,6 +107,9 @@ class Game extends React.Component {
               far={1000}
               rotation={this.cameraRotation}
               position={this.cameraPosition}
+            />
+            <ambientLight
+
             />
             <Ground />
             <Car
