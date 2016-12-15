@@ -40,9 +40,13 @@ class Game extends React.Component {
   kmTeller() {
     let km = this.state.kmTeller;
 
-    setInterval(() => {
+    this.loadInterval = setInterval(() => {
       km -= 0.1;
       this.setState({kmTeller: km});
+
+      if (km <= 0) {
+        this.gameEnd();
+      }
     }, 500);
   }
 
@@ -85,7 +89,12 @@ class Game extends React.Component {
   // }
 
   gameEnd() {
-    this.props.gameEnd();
+    this.props.gameEnd(this.state.kmTeller);
+  }
+
+  componentWillUnmount () {
+    this.loadInterval && clearInterval(this.loadInterval);
+    this.loadInterval = false;
   }
 
   render() {

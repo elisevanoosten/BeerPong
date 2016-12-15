@@ -54,7 +54,7 @@ input[type=radio] {
   height: 200px;
 }
 
-.intro {
+.intro, .game-over {
   font-size: 3rem;
   color: white;
   line-height: 5rem;

@@ -18,7 +18,7 @@ class Bariers extends React.Component {
     let {barierY} = this.state;
     const delay = 1000; //1 second
 
-    setInterval(() => {
+    this.loadInterval = setInterval(() => {
       // barier later laten vertrekken
       setTimeout(() => {
 
@@ -69,6 +69,11 @@ class Bariers extends React.Component {
   //   return <Barier barierX={barierX} barierY={barierY} />;
   //   return activeBariersList;
   // }
+
+  componentWillUnmount () {
+    this.loadInterval && clearInterval(this.loadInterval);
+    this.loadInterval = false;
+  }
 
   render() {
     const {barierX, barierY} = this.state;
