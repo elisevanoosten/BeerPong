@@ -75,21 +75,31 @@ class Bariers extends React.Component {
     this.loadInterval = false;
   }
 
+  renderBariers() {
+    const {barierX, barierY} = this.state;
+
+
+    const bariers = [];
+    for (let i = 0;i < 53;i += 30) {
+      console.log(i + barierX);
+      bariers.push(<Barier key={i} barierX={barierX + i} barierY={barierY} />);
+    }
+
+    // console.log(bariers);
+    return {bariers};
+  }
+
   render() {
     const {barierX, barierY} = this.state;
-    return <Barier barierX={barierX} barierY={barierY} />;
 
-    // const rows = [];
-    // const numrows = 4;
-    // for (let i = 0;i < numrows;i ++) {
-    //   rows.push({barierX: barierX, barierY: barierY});
-    // }
-    // console.log(rows);
-    // return (
-    //   {rows.map((object) => (
-    //     <Barier barierX={object.barierX} barierY={object.barierY} />
-    //   ))}
-    // );
+    const bariers = this.renderBariers();
+    console.log(bariers[1]);
+    return (
+      // bariers.map(bariers => (
+        // {bariers}
+        <Barier  barierX={barierX} barierY={barierY} />
+      // ))
+    );
   }
 }
 
