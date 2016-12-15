@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 
@@ -84,6 +84,10 @@ class Game extends React.Component {
   //   // console.log(this.state);
   // }
 
+  gameEnd() {
+    this.props.gameEnd();
+  }
+
   render() {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
@@ -98,44 +102,51 @@ class Game extends React.Component {
             width={width}
             height={height}
           >
-            <scene>
-              <perspectiveCamera
-                name='camera'
-                fov={75}
-                aspect={width / height}
-                near={0.01}
-                far={1000}
-                rotation={this.cameraRotation}
-                position={this.cameraPosition}
-              />
-              <Ground />
-              <Car
-                carX={carX}
-                carY={carY}
-                geometry={geometry}
-                materials={materials}
-                rotation={this.cameraRotation}
-              />
-              <Bariers
-                // getBarierY={barierY => this.getBarierY(barierY)}
-                // getBarierX={barierX => this.getBarierX(barierX)}
-                carX={carX}
-                carY={carY}
-                //endGameState={endGame => console.log(endGame)}
-              />
-              <Drinks
-                carX={carX}
-                carY={carY}
-              />
-            </scene>
-          </React3>
+          <scene>
+            <perspectiveCamera
+              name='camera'
+              fov={75}
+              aspect={width / height}
+              near={0.01}
+              far={1000}
+              rotation={this.cameraRotation}
+              position={this.cameraPosition}
+            />
+            <Ground />
+            <Car
+              carX={carX}
+              carY={carY}
+              geometry={geometry}
+              materials={materials}
+              rotation={this.cameraRotation}
+            />
+
+          <Bariers
+            // getBarierY={barierY => this.getBarierY(barierY)}
+            // getBarierX={barierX => this.getBarierX(barierX)}
+            carX={carX}
+            carY={carY}
+            gameEnd={() => this.gameEnd()}
+            //endGameState={endGame => console.log(endGame)}
+          />
+          <Drinks
+            carX={carX}
+            carY={carY}
+          />
+
+          </scene>
+        </React3>);
       </div>
       <div className='kmteller'>
         {km}
       </div>
     </div>
-    );
-  }
+    );}
 }
+
+Game.propTypes = {
+  gameEnd: PropTypes.func
+};
+
 
 export default Game;

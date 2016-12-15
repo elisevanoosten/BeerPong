@@ -5,15 +5,15 @@ import Peer from 'peerjs';
 import {Video} from '../components/';
 import Game from './Game';
 
-let gamePlay = 0;
-
 class App extends Component {
 
   state = {
     youStream: undefined,
     strangerStream: undefined,
     player: undefined,
-    drank: undefined
+    drank: undefined,
+    gamePlay: false,
+    gameEnd: false
   }
 
   componentDidMount() {
@@ -118,20 +118,28 @@ class App extends Component {
     const player = e.currentTarget.value;
     this.setState({player});
 
-    gamePlay = 1;
+    this.setState({gamePlay: true});
 
     this.initStream();
   }
 
   startGame() {
-    if (gamePlay === 1) {
-      return <Game />;
+    const {gameEnd, gamePlay} = this.state;
+    if (gameEnd !== true) {
+      console.log(`gameend`);
+      if (gamePlay === true) {
+        console.log(`gameplay`);
+        return <Game gameEnd={() => this.gameOver()} />;
+      }
     }
+  }
+
+  gameOver() {
+    this.setState({gameEnd: true});
   }
 
   render() {
     const {strangerStream} = this.state;
-
     return (
       <main>
         <form>
@@ -155,7 +163,7 @@ class App extends Component {
         </fieldset>
         </form>
 
-        <section className='game hidden'>
+        <section className='game'>
           <Video meta={`stranger`} stream={strangerStream} />
           <container></container>
         </section>
@@ -164,7 +172,6 @@ class App extends Component {
     );
 
   }
-
 }
 
 export default App;
