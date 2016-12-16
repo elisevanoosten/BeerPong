@@ -77,29 +77,24 @@ class Bariers extends React.Component {
 
   renderBariers() {
     const {barierX, barierY} = this.state;
-
+    const geometry = this.props.geometry;
 
     const bariers = [];
     for (let i = 0;i < 53;i += 30) {
       //console.log(i + barierX);
-      bariers.push(<Barier key={i} barierX={barierX + i} barierY={barierY} />);
+      bariers.push(<Barier key={i} barierX={barierX + i} barierY={barierY} geometry={geometry} />);
     }
-
     // console.log(bariers);
-    return {bariers};
+    return bariers;
   }
 
   render() {
-    const {barierX, barierY} = this.state;
-    const geometry = this.props.geometry;
-
-    const bariers = this.renderBariers();
+    // const {barierX, barierY} = this.state;
     //console.log(bariers[1]);
     return (
-      // bariers.map(bariers => (
-        // {bariers}
-        <Barier  barierX={barierX} barierY={barierY} geometry={geometry} />
-      // ))
+      <group>
+      {this.renderBariers()}
+    </group>
     );
   }
 }
@@ -110,7 +105,7 @@ Bariers.propTypes = {
   carX: PropTypes.number,
   // getBarierY: PropTypes.func,
   gameEnd: PropTypes.func,
-  geometry: PropTypes.object
+  geometry: PropTypes.func
 };
 
 
