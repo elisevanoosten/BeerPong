@@ -12,12 +12,12 @@ class App extends Component {
     strangerStream: undefined,
     player: undefined,
     drank: undefined,
-    gamePlay: true,
+    gamePlay: false,
     gameEnd: false
   }
 
   componentDidMount() {
-    this.initStream();
+    //this.initStream();
   }
 
   initStream() { //webcam ophalen
@@ -56,6 +56,7 @@ class App extends Component {
 
     this.peer.on(`open`, () => {
       this.socket.emit(`search`);
+      this.socket.emit(`joinRoom`, data);
     });
 
     this.peer.on(`call`, call => {
@@ -145,8 +146,8 @@ class App extends Component {
       text = `<p>Hoera! Je bent ondanks de slechte invloed van je vrienden thuis geraakt!</p>`;
       text += `<p>Maar pas in het vervolg toch maar een beetje op met drinken ;-)</p>`;
     } else {
-      text = `<p>Oei, je hebt dit ritje niet overleefd, zie dat je dit in het echte leven niet ook meemaakt... Bel op tijd een taxi!</p>`;
-      text += `<p>Jouw laatste rustplaats was op ${  Math.round(kmTeller * 100) / 100  } km afstand van je huis. Slaapwel vriend.`
+      text = `<p>Oei, je hebt dit ritje niet overleefd, zie dat je dit in het echte leven niet ook meemaakt... Bel op tijd een Uber!</p>`;
+      text += `<p>Jouw laatste rustplaats was op ${  Math.round(kmTeller * 100) / 100  } km van je huis. Slaapwel vriend.`
       ;
       console.log(`verloren`);
     }

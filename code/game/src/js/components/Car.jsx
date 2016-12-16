@@ -30,8 +30,8 @@ const Car = props => {
 
 Car.propTypes = {
   carX: PropTypes.number,
-  geometry: PropTypes.object,
-  // materials: PropTypes.object
+  geometry: PropTypes.object
+  //materials: PropTypes.object
 };
 
 export default Car;

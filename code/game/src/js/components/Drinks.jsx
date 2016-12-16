@@ -62,8 +62,9 @@ class Drinks extends React.Component {
 
   renderDrinks() {
     const {drinkX, drinkY} = this.state;
+    const geometry = this.props.geometry;
 
-    return <Drink drinkX={drinkX} drinkY={drinkY} />;
+    return <Drink drinkX={drinkX} drinkY={drinkY} geometry={geometry} />;
   }
 
   setBlurry() {
@@ -87,7 +88,8 @@ class Drinks extends React.Component {
 Drinks.propTypes = {
   carY: PropTypes.number,
   carX: PropTypes.number,
-  drinkCount: PropTypes.number
+  drinkCount: PropTypes.number,
+  geometry: PropTypes.object
   // getBarierY: PropTypes.func,
   // getBarierY: PropTypes.func
 };

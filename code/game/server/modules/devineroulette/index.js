@@ -19,27 +19,30 @@ module.exports.register = (server, options, next) => {
 
     users.push(me);
 
-    socket.on(`search`, () => {
-
-      const stranger = search(users, me);
-
-      if (stranger) {
-        me.status = Status.PAIRED;
-        me.paired = stranger.socketId;
-        users = linkStranger(users, me);
-
-        socket.emit(`found`, stranger.socketId);
-      }
-
-      console.log(users);
-
+    socket.on('Room', data =>{
+      socket.emit(`publicMsg`, data)
     });
+    // console.log(socketId);
+    // socket.on(`search`, () => {
+    //
+    //   const stranger = search(users, me);
+    //
+    //   if (stranger) {
+    //     me.status = Status.PAIRED;
+    //     me.paired = stranger.socketId;
+    //     users = linkStranger(users, me);
+    //
+    //     socket.emit(`found`, stranger.socketId);
+    //   }
+    //
+    //   console.log(users);
+    //
+    // });
 
     socket.on(`disconnect`, () => {
       users = users.filter(c => c.socketId !== socketId);
       users = cleanPaired(users, me);
     });
-
 
   });
 

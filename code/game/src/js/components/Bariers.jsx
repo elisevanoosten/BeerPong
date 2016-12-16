@@ -56,7 +56,7 @@ class Bariers extends React.Component {
 
     if (barierX <= carX + carwidth && barierX >= carX) {
       if (barierY <= carY + carDepth / 2 && barierY >= carY - carDepth / 2) {
-        console.log(`bots boem baf -- barrier rood`);
+        //console.log(`bots boem baf -- barrier rood`);
         this.props.gameEnd();
       }
     }
@@ -81,7 +81,7 @@ class Bariers extends React.Component {
 
     const bariers = [];
     for (let i = 0;i < 53;i += 30) {
-      console.log(i + barierX);
+      //console.log(i + barierX);
       bariers.push(<Barier key={i} barierX={barierX + i} barierY={barierY} />);
     }
 
@@ -91,13 +91,14 @@ class Bariers extends React.Component {
 
   render() {
     const {barierX, barierY} = this.state;
+    const geometry = this.props.geometry;
 
     const bariers = this.renderBariers();
-    console.log(bariers[1]);
+    //console.log(bariers[1]);
     return (
       // bariers.map(bariers => (
         // {bariers}
-        <Barier  barierX={barierX} barierY={barierY} />
+        <Barier  barierX={barierX} barierY={barierY} geometry={geometry} />
       // ))
     );
   }
@@ -108,7 +109,8 @@ Bariers.propTypes = {
   carY: PropTypes.number,
   carX: PropTypes.number,
   // getBarierY: PropTypes.func,
-  gameEnd: PropTypes.func
+  gameEnd: PropTypes.func,
+  geometry: PropTypes.object
 };
 
 

@@ -23,6 +23,9 @@ class Game extends React.Component {
     };
     //LOAD 3DCAR
     this.loadCar = this.loadCar.bind(this);
+    this.loadCan = this.loadCan.bind(this);
+    this.loadBarier = this.loadBarier.bind(this);
+
   }
 
   componentWillMount() {
@@ -32,6 +35,12 @@ class Game extends React.Component {
     //LOAD 3DCAR
     const carLoader = new THREE.JSONLoader();
     carLoader.load(`./assets/json/autofile.json`, this.loadCar);
+
+    const canLoader = new THREE.JSONLoader();
+    canLoader.load(`./assets/json/can.json`, this.loadCan);
+
+    const barierLoader = new THREE.JSONLoader();
+    barierLoader.load(`./assets/json/RoadBarrier.json`, this.loadBarier);
 
     //KM TOT THUIS
     this.kmTeller();
@@ -50,9 +59,19 @@ class Game extends React.Component {
     }, 500);
   }
 
-  loadCar(geometry, materials) {
-    this.setState({geometry});
-    this.setState({materials});
+  loadCar(carGeometry, carMaterials) {
+    this.setState({carGeometry});
+    this.setState({carMaterials});
+  }
+
+  loadCan(canGeometry, canMaterials) {
+    this.setState({canGeometry});
+    this.setState({canMaterials});
+  }
+
+  loadBarier(barierGeometry, barierMaterials) {
+    this.setState({barierGeometry});
+    this.setState({barierMaterials});
   }
 
   carMove(e) {
@@ -96,7 +115,7 @@ class Game extends React.Component {
   render() {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
-    const {carX, carY, geometry, materials} = this.state;
+    const {carX, carY, carGeometry, carMaterials, canGeometry, canMaterials, barierGeometry, barierMaterials} = this.state;
     const km =  Math.round(this.state.kmTeller * 100) / 100;
 
     return (
@@ -124,8 +143,8 @@ class Game extends React.Component {
             <Car
               carX={carX}
               carY={carY}
-              geometry={geometry}
-              materials={materials}
+              geometry={carGeometry}
+              materials={carMaterials}
               rotation={this.cameraRotation}
             />
 
@@ -135,11 +154,15 @@ class Game extends React.Component {
             carX={carX}
             carY={carY}
             gameEnd={() => this.gameEnd()}
+            geometry={barierGeometry}
+            materials={barierMaterials}
             //endGameState={endGame => console.log(endGame)}
           />
           <Drinks
             carX={carX}
             carY={carY}
+            geometry={canGeometry}
+            materials={canMaterials}
           />
 
           </scene>
