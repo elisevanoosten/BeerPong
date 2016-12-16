@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import IO from 'socket.io-client';
-import Peer from 'peerjs';
+import io from 'socket.io-client';
+// import Peer from 'peerjs';
 
 // import {Video} from '../components/';
 import Game from './Game';
@@ -8,8 +8,8 @@ import Game from './Game';
 class App extends Component {
 
   state = {
-    youStream: undefined,
-    strangerStream: undefined,
+    // youStream: undefined,
+    // strangerStream: undefined,
     player: undefined,
     drank: undefined,
     gamePlay: false,
@@ -17,87 +17,23 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // this.initStream();
-    // this.socket.on(`room`, this.handlerWSYo);
+    //this.initStream();
+    this.socket = io(`/`);
+    this.socket.on(`init`, this.handleWSInit);
+    this.socket.on(`join`, this.handleWSJoin);
+    this.socket.on(`room`, this.handleWSRoom);
   }
 
-  initStream() { //webcam ophalen
-
-    navigator.getUserMedia(
-      {video: true},
-      this.handleYouStream,
-      this.handleYouStreamError
-    );
-
+  handleWSInit() {
+    console.log(`je bent heir voor de eerste keer`);
   }
 
-  handleYouStream = youStream => {
-    this.setState({youStream});
-    this.initSocket();
+  handleWSJoin() {
+    console.log(`iemand is er bij gekomen`);
   }
 
-  handleYouStreamError = e => console.error(e);
+  handleWSRoom() {
 
-  initSocket = () => {
-
-    this.socket = IO(`/`);
-    this.socket.on(`connect`, this.initPeer);
-    this.socket.on(`elise`, this.hey);
-    this.socket.on(`found`, this.handleWSFound);
-
-  }
-
-  hey() {
-    console.log(`oi`);
-  }
-
-  initPeer = () => {
-    console.log(`initpeeertje`);
-
-    const {id} = this.socket;
-    this.peer = new Peer(id, {
-      host: `obscure-cliffs-71485.herokuapp.com`,
-      port: ``,
-      path: `/api`,
-      secure: true
-    });
-
-    this.peer.on(`open`, () => {
-      this.socket.emit(`search`);
-      this.socket.emit(`elise`);
-    });
-
-    this.peer.on(`call`, call => {
-      const {youStream} = this.state;
-      call.answer(youStream);
-
-      call.on(`stream`, this.handleStrangerStream);
-      call.on(`close`, this.handleCloseStream);
-
-    });
-
-  }
-
-  handleStrangerStream = strangerStream => this.setState({strangerStream});
-
-  handleCloseStream = () => {
-
-    let {strangerStream} = this.state;
-    strangerStream = ``;
-
-    this.socket.emit(`search`);
-
-    this.setState({strangerStream});
-
-  }
-
-  handleWSFound = strangerId => {
-
-    const {youStream} = this.state;
-
-    const call = this.peer.call(strangerId, youStream);
-    call.on(`stream`, this.handleStrangerStream);
-    call.on(`close`, this.handleCloseStream);
   }
 
   goGame(e) {
@@ -129,7 +65,7 @@ class App extends Component {
 
     this.setState({gamePlay: true});
 
-    this.initStream();
+    // this.initStream();
   }
 
   startGame() {

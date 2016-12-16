@@ -56,7 +56,7 @@ class Bariers extends React.Component {
 
     if (barierX <= carX + carwidth && barierX >= carX) {
       if (barierY <= carY + carDepth / 2 && barierY >= carY - carDepth / 2) {
-        // barier botst
+        //console.log(`bots boem baf -- barrier rood`);
         this.props.gameEnd();
       }
     }
@@ -77,37 +77,24 @@ class Bariers extends React.Component {
 
   renderBariers() {
     const {barierX, barierY} = this.state;
+    const geometry = this.props.geometry;
 
     const bariers = [];
     for (let i = 0;i < 53;i += 30) {
-      bariers.push(<Barier key={i} barierX={barierX + i} barierY={barierY} />);
+      //console.log(i + barierX);
+      bariers.push(<Barier key={i} barierX={barierX + i} barierY={barierY} geometry={geometry} />);
     }
-
     // console.log(bariers);
-    return {bariers};
+    return bariers;
   }
 
   render() {
-    const {barierX, barierY} = this.state;
-    // return <Barier barierX={barierX} barierY={barierY} />;
-
-    // const rows = [];
-    // const numrows = 4;
-    // for (let i = 0;i < numrows;i ++) {
-    //   rows.push({barierX: barierX, barierY: barierY});
-    // }
-    // console.log(rows);
-    // return (
-    //   this.renderBariers()
-    // );
-
-    // const bariers = this.renderBariers();
-    // console.log(bariers[1]);
+    // const {barierX, barierY} = this.state;
+    //console.log(bariers[1]);
     return (
-      // bariers.map(bariers => (
-        // {bariers}
-        <Barier  barierX={barierX} barierY={barierY} />
-      // ))
+      <group>
+      {this.renderBariers()}
+    </group>
     );
   }
 }
@@ -117,7 +104,8 @@ Bariers.propTypes = {
   carY: PropTypes.number,
   carX: PropTypes.number,
   // getBarierY: PropTypes.func,
-  gameEnd: PropTypes.func
+  gameEnd: PropTypes.func,
+  geometry: PropTypes.func
 };
 
 

@@ -5,19 +5,21 @@ const Drink = props => {
 
   const xPos = props.drinkX;
   const yPos = props.drinkY;
+  const geometry = props.geometry;
 
   return (
     <mesh
       position={new THREE.Vector3(xPos, 0, yPos)}
-      castShadow={true}
+      scale={new THREE.Vector3(0.15, 0.15, 0.15)}
     >
-      <boxGeometry
-        width={1}
-        height={1}
-        depth={1}
+      <geometry
+        geometry={geometry.geometry}
+        vertices={geometry.vertices}
+        faces={geometry.faces}
+        colors={geometry.colors}
       />
-      <meshBasicMaterial
-        color={0x00ff00}
+      <meshLambertMaterial
+        color={0xffffff}
       />
     </mesh>
   );
@@ -25,7 +27,8 @@ const Drink = props => {
 
 Drink.propTypes = {
   drinkX: PropTypes.number,
-  drinkY: PropTypes.number
+  drinkY: PropTypes.number,
+  geometry: PropTypes.object
 };
 
 export default Drink;
