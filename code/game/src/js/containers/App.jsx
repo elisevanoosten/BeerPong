@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import IO from 'socket.io-client';
 import Peer from 'peerjs';
 
-import {Video} from '../components/';
+// import {Video} from '../components/';
 import Game from './Game';
 
 class App extends Component {
@@ -12,12 +12,13 @@ class App extends Component {
     strangerStream: undefined,
     player: undefined,
     drank: undefined,
-    gamePlay: true,
+    gamePlay: false,
     gameEnd: false
   }
 
   componentDidMount() {
-    this.initStream();
+    // this.initStream();
+    // this.socket.on(`room`, this.handlerWSYo);
   }
 
   initStream() { //webcam ophalen
@@ -41,21 +42,29 @@ class App extends Component {
 
     this.socket = IO(`/`);
     this.socket.on(`connect`, this.initPeer);
+    this.socket.on(`elise`, this.hey);
     this.socket.on(`found`, this.handleWSFound);
 
   }
 
+  hey() {
+    console.log(`oi`);
+  }
+
   initPeer = () => {
+    console.log(`initpeeertje`);
 
     const {id} = this.socket;
     this.peer = new Peer(id, {
-      host: `localhost`,
-      port: 9000,
-      path: `/api`
+      host: `obscure-cliffs-71485.herokuapp.com`,
+      port: ``,
+      path: `/api`,
+      secure: true
     });
 
     this.peer.on(`open`, () => {
       this.socket.emit(`search`);
+      this.socket.emit(`elise`);
     });
 
     this.peer.on(`call`, call => {
@@ -126,9 +135,7 @@ class App extends Component {
   startGame() {
     const {gameEnd, gamePlay} = this.state;
     if (gameEnd !== true) {
-      console.log(`gameend`);
       if (gamePlay === true) {
-        console.log(`gameplay`);
         return <Game gameEnd={kmTeller => this.gameOver(kmTeller)} />;
       }
     }
@@ -141,14 +148,12 @@ class App extends Component {
 
     let text;
     if (kmTeller < 0) {
-      console.log(`gewonnen`);
       text = `<p>Hoera! Je bent ondanks de slechte invloed van je vrienden thuis geraakt!</p>`;
       text += `<p>Maar pas in het vervolg toch maar een beetje op met drinken ;-)</p>`;
     } else {
-      text = `<p>Oei, je hebt dit ritje niet overleefd, zie dat je dit in het echte leven niet ook meemaakt... Bel op tijd een taxi!</p>`;
-      text += `<p>Jouw laatste rustplaats was op ${  Math.round(kmTeller * 100) / 100  } km afstand van je huis. Slaapwel vriend.`
+      text = `<p>Oei, je hebt dit ritje niet overleefd, zie dat je dit in het echte leven niet ook meemaakt... Bel op tijd een Uber!</p>`;
+      text += `<p>Jouw laatste rustplaats was op ${  Math.round(kmTeller * 100) / 100  } km van je huis. Slaapwel vriend.`
       ;
-      console.log(`verloren`);
     }
     const gameOverText = document.querySelector(`.game-over`);
     gameOverText.innerHTML = text;
@@ -156,7 +161,7 @@ class App extends Component {
   }
 
   render() {
-    const {strangerStream} = this.state;
+    // const {strangerStream} = this.state;
     return (
       <main>
         <form>
@@ -181,7 +186,7 @@ class App extends Component {
         </form>
 
         <section className='game hidden'>
-          <Video meta={`stranger`} stream={strangerStream} />
+          {/* <Video meta={`stranger`} stream={strangerStream} /> */}
           <container></container>
         </section>
         {this.startGame()}

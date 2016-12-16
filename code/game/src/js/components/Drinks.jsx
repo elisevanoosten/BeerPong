@@ -53,7 +53,7 @@ class Drinks extends React.Component {
 
     if (drinkX <= carX + carwidth && drinkX >= carX) {
       if (drinkY <= carY + carDepth / 2 && drinkY >= carY - carDepth / 2) {
-        console.log(`bots boem baf -- drinks groen`);
+        // drink botst
         this .state.drinkCount ++;
         this.setBlurry();
       }
