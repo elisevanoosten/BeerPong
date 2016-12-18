@@ -18,8 +18,7 @@ class Game extends React.Component {
       barierInterval: 1500,
       kmTeller: 5,
     };
-    //LOAD 3DCAR
-    //this.loadCar = this.loadCar.bind(this);
+
     this.loadCan = this.loadCan.bind(this);
     this.loadBarier = this.loadBarier.bind(this);
 
@@ -33,10 +32,6 @@ class Game extends React.Component {
   componentWillMount() {
     //CAR MOVEMENT
     window.addEventListener(`keydown`, e => this.carMove(e));
-
-    //LOAD 3DCAR
-    // const carLoader = new THREE.JSONLoader();
-    // carLoader.load(`./assets/json/autofile.json`, this.loadCar);
 
     const canLoader = new THREE.JSONLoader();
     canLoader.load(`./assets/json/can.json`, this.loadCan);
@@ -111,19 +106,6 @@ class Game extends React.Component {
   // getBarierY(barierX) {
   //   this.setState({barierX});
   //   // console.log(this.state);
-  // }
-
-  // renderCar() {
-  //   const {carX, carY, carGeometry, carMaterials} = this.state;
-  //   return (
-  //     <Car
-  //       carX={carX}
-  //       carY={carY}
-  //       geometry={carGeometry}
-  //       materials={carMaterials}
-  //       rotation={this.cameraRotation}
-  //     />
-  //   );
   // }
 
   gameEnd() {
