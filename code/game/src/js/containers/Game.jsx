@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 
-import {Car, Ground, Bariers, Drinks} from '../components';
+import {Car, Ground} from '../components';
 
 class Game extends React.Component {
 
@@ -10,22 +10,24 @@ class Game extends React.Component {
 
     super(props, context);
 
-    this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
-    this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);    //     linksrechts
-
     this.state = {
       cubeRotation: new THREE.Euler(),
-      carX: 0,
+      carX: - 0.2,
       carY: 0,
       barierY: 10,
       barierInterval: 1500,
-      kmTeller: 5
+      kmTeller: 5,
     };
     //LOAD 3DCAR
     //this.loadCar = this.loadCar.bind(this);
     this.loadCan = this.loadCan.bind(this);
     this.loadBarier = this.loadBarier.bind(this);
 
+  }
+
+  componentDidMount() {
+    this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
+    this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);
   }
 
   componentWillMount() {
@@ -59,11 +61,6 @@ class Game extends React.Component {
     }, 500);
   }
 
-  // loadCar(carGeometry, carMaterials) {
-  //   this.setState({carGeometry});
-  //   this.setState({carMaterials});
-  // }
-
   loadCan(canGeometry, canMaterials) {
     this.setState({canGeometry});
     this.setState({canMaterials});
@@ -86,18 +83,25 @@ class Game extends React.Component {
 
     let {carX} = this.state;
 
+    // const rotation = carX / 10;
+    // const position = carX * 1.1;
+    //
+    // this.cameraPosition = new THREE.Vector3(position, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
+    // this.cameraRotation = new THREE.Euler(- 0.3, rotation, 0, `XYZ`);
+
     if (e.keyCode === LEFT) {
-      if (carX > - 4) {
-        carX --;
+      if (carX > - 4.2) {
+        carX -= 0.5;
         this.setState({carX});
       }
     }
     else if (e.keyCode === RIGHT) {
-      if (carX < 4) {
-        carX ++;
+      if (carX < 3.8) {
+        carX += 0.5;
         this.setState({carX});
       }
     }
+
   }
 
   // getBarierY(barierY) {
@@ -138,6 +142,13 @@ class Game extends React.Component {
     const {carX, carY} = this.state;
     const km =  Math.round(this.state.kmTeller * 100) / 100;
 
+    this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
+    this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);
+    const cameraLookat = new THREE.Vector3(carX, carY, - 8, `XYZ`); //linksrechts, bovenonder, diepte
+
+    const lightLookat = new THREE.Vector3(carX, carY - 10, - 8, `XYZ`); //linksrechts, bovenonder, diepte
+
+
     return (
       <div>
         <div className='gamePlay'>
@@ -155,9 +166,15 @@ class Game extends React.Component {
               far={1000}
               rotation={this.cameraRotation}
               position={this.cameraPosition}
+              lookAt={cameraLookat}
             />
-            <ambientLight
-
+            <directionalLight
+              // color={0xffffff}
+              lookAt={lightLookat}
+              castShadow={true}
+              // intensity={6}
+              // shadowDarkness={8}
+              visible={true}
             />
             <Ground />
             <Car

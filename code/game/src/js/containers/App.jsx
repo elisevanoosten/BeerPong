@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import io from 'socket.io-client';
-// import Peer from 'peerjs';
+import Peer from 'peerjs';
 
 // import {Video} from '../components/';
 import Game from './Game';
@@ -12,28 +12,51 @@ class App extends Component {
     // strangerStream: undefined,
     player: undefined,
     drank: undefined,
-    gamePlay: false,
-    gameEnd: false
+    gamePlay: true,
+    gameEnd: false,
+    mySocketId: undefined
   }
 
   componentDidMount() {
-    //this.initStream();
+    this.initSocket();
+    // this.socket.emit(`send message`, {
+    //   room: conversationId,
+    //   message: `Some message`
+    // });
+    // this.socket.on(`conversation private post`, function(data) {
+    //   console.log(data, `message`);
+    // });
+  }
+
+  initSocket = () => { //initialiseren socket server, nieuwe persoon aanmaken die searching is
+
     this.socket = io(`/`);
+    this.socket.on(`connect`, this.initPeer);
+    this.socket.on(`found`, this.handleWSFound);
+
+  }
+
+  initPeer = () => {
+
+    const {id} = this.socket;
+    this.peer = new Peer(id, {
+      host: `cryptic-island-50117.herokuapp.com`,
+      port: ``,
+      path: `/api`,
+      secure: true
+    });
+
+    this.socket = io(`/`);
+    console.log(window.location.href);
     this.socket.on(`init`, this.handleWSInit);
-    this.socket.on(`join`, this.handleWSJoin);
-    this.socket.on(`room`, this.handleWSRoom);
+
   }
 
-  handleWSInit() {
-    console.log(`je bent heir voor de eerste keer`);
-  }
-
-  handleWSJoin() {
-    console.log(`iemand is er bij gekomen`);
-  }
-
-  handleWSRoom() {
-
+  handleWSInit = socketId => {
+    console.log(`socket id opslaan`);
+    this.setState({mySocketId: socketId});
+    console.log(this.state);
+    this.socket.emit(`subscribe`, socketId);
   }
 
   goGame(e) {
@@ -51,7 +74,7 @@ class App extends Component {
     this.setState({player});
   }
 
-  choosePlayer(e) {
+  handleChoosePlayer(e) {
     e.preventDefault();
 
     const playerSection = document.querySelector(`.playerSection`);
@@ -91,9 +114,18 @@ class App extends Component {
       text += `<p>Jouw laatste rustplaats was op ${  Math.round(kmTeller * 100) / 100  } km van je huis. Slaapwel vriend.`
       ;
     }
-    const gameOverText = document.querySelector(`.game-over`);
+    const gameOverText = document.querySelector(`.game-over-text`);
     gameOverText.innerHTML = text;
+  }
 
+  handleNewGame() {
+    console.log(`newgame`);
+
+    const gameSection = document.querySelector(`.game-over`);
+    gameSection.classList.add(`hidden`);
+
+    const playerSection = document.querySelector(`.playerSection`);
+    playerSection.classList.remove(`hidden`);
   }
 
   render() {
@@ -110,11 +142,11 @@ class App extends Component {
           Speel het spel en ontdek!</p>
           <section className='radioSection'>
             <div>
-              <input id='friend' type='radio' name='player' value='friend' onClick={e => this.choosePlayer(e)} />
+              <input id='friend' type='radio' name='player' value='friend' onClick={e => this.handleChoosePlayer(e)} />
               <label htmlFor='friend' className='radioLabel'><img src='../../assets/img/vriendenbord.png' width='10%' height='10%' className='playerbord' /></label>
             </div>
             <div>
-              <input id='computer' type='radio' name='player' value='computer' onClick={e => this.choosePlayer(e)} />
+              <input id='computer' type='radio' name='player' value='computer' onClick={e => this.handleChoosePlayer(e)} />
               <label htmlFor='computer' className='radioLabel'><img src='../../assets/img/computerbord.png' width='10%' height='10%' className='playerbord' /></label>
             </div>
           </section>
@@ -128,6 +160,8 @@ class App extends Component {
         {this.startGame()}
 
         <section className='game-over hidden'>
+          <div className='game-over-text'></div>
+          <button onClick={this.handleNewGame}>Opnieuw spelen</button>
         </section>
       </main>
     );

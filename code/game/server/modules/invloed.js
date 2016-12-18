@@ -3,13 +3,24 @@ module.exports.register = (server, options, next) => {
   const io = require(`socket.io`)(server.listener);
 
   io.on(`connection`, socket => {
-    socket.emit('init');
 
-    socket.broadcast.emit('join');
+    const {id: socketId} = socket;
 
-    socket.on('room', to => {
-      io.to(to).emit('room', socketId)
-    })
+    socket.emit(`init`, socketId);
+
+    socket.on(`subscribe`, function(room) {
+      console.log(`joining room`, room);
+      socket.join(room);
+    });
+
+    // socket.on(`send message`, function(data) {
+    //   console.log(`sending room post`, data.room);
+    //   socket.broadcast.to(data.room).emit(`conversation private post`, {
+    //     message: data.message
+    //   });
+    // });
+
+
   });
 
   next();
