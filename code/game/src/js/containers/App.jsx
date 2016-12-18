@@ -47,15 +47,15 @@ class App extends Component {
     });
 
     this.socket = io(`/`);
-    console.log(window.location.href);
+    // console.log(window.location.href);
     this.socket.on(`init`, this.handleWSInit);
 
   }
 
   handleWSInit = socketId => {
-    console.log(`socket id opslaan`);
+    // console.log(`socket id opslaan`);
     this.setState({mySocketId: socketId});
-    console.log(this.state);
+    // console.log(this.state);
     this.socket.emit(`subscribe`, socketId);
   }
 
@@ -119,7 +119,7 @@ class App extends Component {
   }
 
   handleNewGame() {
-    console.log(`newgame`);
+    // console.log(`newgame`);
 
     const gameSection = document.querySelector(`.game-over`);
     gameSection.classList.add(`hidden`);

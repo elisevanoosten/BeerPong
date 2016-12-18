@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 
-import {Car, Ground} from '../components';
+import {Car, Ground, Bariers} from '../components';
 
 class Game extends React.Component {
 
@@ -19,8 +19,8 @@ class Game extends React.Component {
       kmTeller: 5,
     };
 
-    this.loadCan = this.loadCan.bind(this);
-    this.loadBarier = this.loadBarier.bind(this);
+    // this.loadCan = this.loadCan.bind(this);
+    // this.loadBarier = this.loadBarier.bind(this);
 
   }
 
@@ -32,12 +32,6 @@ class Game extends React.Component {
   componentWillMount() {
     //CAR MOVEMENT
     window.addEventListener(`keydown`, e => this.carMove(e));
-
-    const canLoader = new THREE.JSONLoader();
-    canLoader.load(`./assets/json/can.json`, this.loadCan);
-
-    const barierLoader = new THREE.JSONLoader();
-    barierLoader.load(`./assets/json/RoadBarrier.json`, this.loadBarier);
 
     //KM TOT THUIS
     this.kmTeller();
@@ -54,22 +48,6 @@ class Game extends React.Component {
         this.gameEnd();
       }
     }, 500);
-  }
-
-  loadCan(canGeometry, canMaterials) {
-    this.setState({canGeometry});
-    this.setState({canMaterials});
-  }
-
-  loadBarier(barierGeometry, barierMaterials) {
-    this.setState({barierGeometry});
-    this.setState({barierMaterials});
-  }
-
-  loadBaloon(baloonG, baloonM) {
-    this.setState({baloonG});
-    this.setState({baloonM});
-    console.log(baloonM);
   }
 
   carMove(e) {
@@ -164,16 +142,14 @@ class Game extends React.Component {
               carY={carY}
               rotation={this.cameraRotation}
             />
-            {/* <Bariers
+            <Bariers
             // getBarierY={barierY => this.getBarierY(barierY)}
             // getBarierX={barierX => this.getBarierX(barierX)}
             carX={carX}
             carY={carY}
             gameEnd={() => this.gameEnd()}
-            geometry={barierGeometry}
-            materials={barierMaterials}
             //endGameState={endGame => console.log(endGame)}
-          /> */}
+          />
           {/* <Drinks
             carX={carX}
             carY={carY}

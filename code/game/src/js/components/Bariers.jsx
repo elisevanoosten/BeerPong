@@ -11,34 +11,37 @@ class Bariers extends React.Component {
     this.state = {
       barierY: - 100,
       barierX: this.getRandomPos(),
+      randomDistance: 40
     };
   }
 
   componentDidMount() {
     let {barierY} = this.state;
+
+    const randomDistance = Math.random() * (500 - 1000) + 500;
+
     const delay = 1000; //1 second
 
     this.loadInterval = setInterval(() => {
       // barier later laten vertrekken
-      setTimeout(() => {
 
-        barierY += 1;
-        this.setState({barierY});
+      barierY += 1;
+      this.setState({barierY});
 
-        this.checkCollision();
+      this.checkCollision();
 
-        if (barierY > 10) {
-          barierX = this.getRandomPos();
-          this.setState({barierX});
+      if (barierY > 10) {
+        barierX = this.getRandomPos();
+        this.setState({barierX});
 
-          barierY = - 150;
-          this.setState({barierY: - 150});
-        }
+        barierY = - 150;
+        this.setState({barierY: - 150});
 
-        let barierX = 0;
+      }
 
-      }, delay);
-    }, 40);
+      let barierX = 0;
+
+    }, 35);
 
   }
 
@@ -56,45 +59,35 @@ class Bariers extends React.Component {
 
     if (barierX <= carX + carwidth && barierX >= carX) {
       if (barierY <= carY + carDepth / 2 && barierY >= carY - carDepth / 2) {
-        //console.log(`bots boem baf -- barrier rood`);
         this.props.gameEnd();
       }
     }
   }
 
-  // renderBariers() {
-  //   const activeBariersList = activeBariers.map(function(name, i) {
-  //     return <Barier key={i} barierX={barierX} barierY={barierY} />;
-  //   });
-  //   return <Barier barierX={barierX} barierY={barierY} />;
-  //   return activeBariersList;
-  // }
-
   componentWillUnmount () {
     this.loadInterval && clearInterval(this.loadInterval);
     this.loadInterval = false;
   }
-
+  //const randomDistance = Math.random() * (40 - 80) + 40;
   renderBariers() {
     const {barierX, barierY} = this.state;
-    const geometry = this.props.geometry;
 
     const bariers = [];
-    for (let i = 0;i < 53;i += 30) {
+
+    // for (let i = 0;i < 3;i += distance) {
       //console.log(i + barierX);
-      bariers.push(<Barier key={i} barierX={barierX + i} barierY={barierY} geometry={geometry} />);
-    }
-    // console.log(bariers);
+    //bariers.push(<Barier key={i} barierX={barierX} barierY={barierY + i} />);
+    bariers.push(<Barier key={barierX} barierX={barierX} barierY={barierY} />);
+
+    //}
     return bariers;
   }
 
   render() {
-    // const {barierX, barierY} = this.state;
-    //console.log(bariers[1]);
     return (
       <group>
-      {this.renderBariers()}
-    </group>
+        {this.renderBariers()}
+      </group>
     );
   }
 }
@@ -105,7 +98,6 @@ Bariers.propTypes = {
   carX: PropTypes.number,
   // getBarierY: PropTypes.func,
   gameEnd: PropTypes.func,
-  geometry: PropTypes.func
 };
 
 

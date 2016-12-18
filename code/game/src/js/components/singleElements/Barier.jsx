@@ -1,50 +1,47 @@
-import React, {PropTypes} from 'react';
+import React, {Component} from 'react';
+import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 
-const Barier = props => {
+export default class Barier extends Component {
 
-  const xPos = props.barierX;
-  const yPos = props.barierY;
-  const geometry = props.geometry;
+  state = {}
 
-  return (
-    <mesh
-      position={new THREE.Vector3(xPos, 0, yPos)}
-      scale={new THREE.Vector3(1, 1, 1)}
-    >
-      <geometry
-        geometry={geometry.geometry}
-        vertices={geometry.vertices}
-        faces={geometry.faces}
-        colors={geometry.colors}
-      />
-      <meshLambertMaterial
-        color={0xffffff}
-      />
-    </mesh>
-  );
-};
+  componentDidMount() {
+    const barierLoader = new THREE.JSONLoader();
+    barierLoader.load(`./assets/json/RoadBarrier.json`, this.loadBarier);
+  }
 
-Barier.propTypes = {
-  barierX: PropTypes.number,
-  barierY: PropTypes.number,
-  geometry: PropTypes.obj
-};
+  loadBarier = barierGeometry => {
+    this.setState({barierGeometry});
+  }
 
-export default Barier;
+  render() {
+    const {barierGeometry} = this.state;
+    const Ypos = this.props.barierY;
+    const Xpos = this.props.barierX;
 
+    if (barierGeometry) {
+      return (
+        <mesh
+          position={new THREE.Vector3(Xpos, 0, Ypos)}
+          scale={new THREE.Vector3(1, 1, 1)}
+        >
+          <geometry
+            vertices={barierGeometry.vertices}
+            faces={barierGeometry.faces}
+            colors={barierGeometry.colors}
+          />
+          <meshLambertMaterial
+            color={0xffffff}
+          />
+        </mesh>
+      );
+    } else {
+      return (
+        <group></group>
+      );
+    }
 
+  }
 
-{/* <mesh
-  position={new THREE.Vector3(barierX, 0, barierY)}
-  castShadow={true}
->
-  <boxGeometry
-    width={1}
-    height={1}
-    depth={1}
-  />
-  <meshBasicMaterial
-    color={0xff0000}
-  />
-</mesh> */}
+}

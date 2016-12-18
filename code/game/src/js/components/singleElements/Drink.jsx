@@ -32,3 +32,12 @@ Drink.propTypes = {
 };
 
 export default Drink;
+
+//
+// const canLoader = new THREE.JSONLoader();
+// canLoader.load(`./assets/json/can.json`, this.loadCan);
+//
+// loadCan(canGeometry, canMaterials) {
+//   this.setState({canGeometry});
+//   this.setState({canMaterials});
+// }
