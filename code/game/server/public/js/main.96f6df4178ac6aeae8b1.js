@@ -66130,6 +66130,7 @@ var App = function (_Component) {
 
   App.prototype.componentDidMount = function componentDidMount() {
     this.initSocket();
+    console.log('rerender');
   };
 
   // initPeer = () => {
@@ -66147,12 +66148,13 @@ var App = function (_Component) {
   // }
 
   App.prototype.render = function render() {
+
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_1_react_router__["BrowserRouter"],
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 51
+          lineNumber: 53
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -66160,7 +66162,7 @@ var App = function (_Component) {
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 52
+            lineNumber: 54
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -66168,7 +66170,7 @@ var App = function (_Component) {
           component: __WEBPACK_IMPORTED_MODULE_2__pages___["a" /* Home */],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 53
+            lineNumber: 55
           }
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -66176,7 +66178,7 @@ var App = function (_Component) {
           component: __WEBPACK_IMPORTED_MODULE_2__pages___["b" /* Choose */],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 57
+            lineNumber: 59
           }
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -66184,7 +66186,7 @@ var App = function (_Component) {
           component: __WEBPACK_IMPORTED_MODULE_2__pages___["c" /* Demo */],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 61
+            lineNumber: 63
           }
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -66192,7 +66194,7 @@ var App = function (_Component) {
           component: __WEBPACK_IMPORTED_MODULE_2__pages___["c" /* Demo */],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 65
+            lineNumber: 67
           }
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -66200,7 +66202,7 @@ var App = function (_Component) {
           component: __WEBPACK_IMPORTED_MODULE_2__pages___["d" /* Game */],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 69
+            lineNumber: 71
           }
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -66208,7 +66210,7 @@ var App = function (_Component) {
           component: __WEBPACK_IMPORTED_MODULE_2__pages___["d" /* Game */],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 73
+            lineNumber: 75
           }
         })
       )
@@ -66347,6 +66349,7 @@ var Game = function (_React$Component) {
   };
 
   Game.prototype.render = function render() {
+    console.log('rerender');
     var width = window.innerWidth; // canvas width
     var height = window.innerHeight; // canvas height
     //const {carX, carY, canGeometry, canMaterials, barierGeometry, barierMaterials} = this.state;
@@ -66375,14 +66378,14 @@ var Game = function (_React$Component) {
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 122
+          lineNumber: 123
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'gamePlay', __source: {
             fileName: _jsxFileName,
-            lineNumber: 123
+            lineNumber: 124
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -66393,7 +66396,7 @@ var Game = function (_React$Component) {
             height: height,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 124
+              lineNumber: 125
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -66401,7 +66404,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 129
+                lineNumber: 130
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('perspectiveCamera', {
@@ -66415,7 +66418,7 @@ var Game = function (_React$Component) {
               lookAt: cameraLookat,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 130
+                lineNumber: 131
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('directionalLight', {
@@ -66427,13 +66430,13 @@ var Game = function (_React$Component) {
               , visible: true,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 140
+                lineNumber: 141
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["a" /* Ground */], {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 148
+                lineNumber: 149
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["b" /* Car */], {
@@ -66442,7 +66445,7 @@ var Game = function (_React$Component) {
               rotation: this.cameraRotation,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 149
+                lineNumber: 150
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["c" /* Bariers */]
@@ -66454,7 +66457,7 @@ var Game = function (_React$Component) {
               //endGameState={endGame => console.log(endGame)}
               , __source: {
                 fileName: _jsxFileName,
-                lineNumber: 154
+                lineNumber: 155
               }
             })
           )
@@ -66465,7 +66468,7 @@ var Game = function (_React$Component) {
         'div',
         { className: 'kmteller', __source: {
             fileName: _jsxFileName,
-            lineNumber: 171
+            lineNumber: 172
           }
         },
         km
@@ -92794,4 +92797,4 @@ module.exports = __webpack_require__(167);
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.56778c08dee434f045ea.js.map
+//# sourceMappingURL=main.96f6df4178ac6aeae8b1.js.map

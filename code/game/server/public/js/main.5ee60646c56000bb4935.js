@@ -65572,7 +65572,7 @@ Bariers.propTypes = {
   gameEnd: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].func
 };
 
-/* unused harmony default export */ var _unused_webpack_default_export = Bariers;
+/* harmony default export */ exports["a"] = Bariers;
 
 /***/ },
 /* 172 */
@@ -65893,7 +65893,7 @@ var Ground = function Ground() {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Bariers__ = __webpack_require__(171);
-/* unused harmony reexport Bariers */
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__Bariers__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Car__ = __webpack_require__(172);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__Car__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Drinks__ = __webpack_require__(173);
@@ -66130,6 +66130,7 @@ var App = function (_Component) {
 
   App.prototype.componentDidMount = function componentDidMount() {
     this.initSocket();
+    console.log('rerender');
   };
 
   // initPeer = () => {
@@ -66147,12 +66148,13 @@ var App = function (_Component) {
   // }
 
   App.prototype.render = function render() {
+
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_1_react_router__["BrowserRouter"],
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 51
+          lineNumber: 53
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -66160,7 +66162,7 @@ var App = function (_Component) {
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 52
+            lineNumber: 54
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -66168,7 +66170,7 @@ var App = function (_Component) {
           component: __WEBPACK_IMPORTED_MODULE_2__pages___["a" /* Home */],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 53
+            lineNumber: 55
           }
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -66176,7 +66178,7 @@ var App = function (_Component) {
           component: __WEBPACK_IMPORTED_MODULE_2__pages___["b" /* Choose */],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 57
+            lineNumber: 59
           }
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -66184,7 +66186,7 @@ var App = function (_Component) {
           component: __WEBPACK_IMPORTED_MODULE_2__pages___["c" /* Demo */],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 61
+            lineNumber: 63
           }
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -66192,7 +66194,7 @@ var App = function (_Component) {
           component: __WEBPACK_IMPORTED_MODULE_2__pages___["c" /* Demo */],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 65
+            lineNumber: 67
           }
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -66200,7 +66202,7 @@ var App = function (_Component) {
           component: __WEBPACK_IMPORTED_MODULE_2__pages___["d" /* Game */],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 69
+            lineNumber: 71
           }
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -66208,7 +66210,7 @@ var App = function (_Component) {
           component: __WEBPACK_IMPORTED_MODULE_2__pages___["d" /* Game */],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 73
+            lineNumber: 75
           }
         })
       )
@@ -66259,8 +66261,7 @@ var Game = function (_React$Component) {
       carX: -0.2,
       carY: 0,
       barierY: 10,
-      barierInterval: 1500,
-      kmTeller: 5
+      barierInterval: 1500
     };
 
     // this.loadCan = this.loadCan.bind(this);
@@ -66289,18 +66290,16 @@ var Game = function (_React$Component) {
   };
 
   Game.prototype.kmTeller = function kmTeller() {
-    var _this3 = this;
-
-    var km = this.state.kmTeller;
-
-    this.loadInterval = setInterval(function () {
-      km -= 0.1;
-      _this3.setState({ kmTeller: km });
-
-      if (km <= 0) {
-        _this3.gameEnd();
-      }
-    }, 500);
+    //   let km = this.state.kmTeller;
+    //
+    //   this.loadInterval = setInterval(() => {
+    //     km -= 0.1;
+    //     this.setState({kmTeller: km});
+    //
+    //     if (km <= 0) {
+    //       this.gameEnd();
+    //     }
+    //   }, 500);
   };
 
   Game.prototype.carMove = function carMove(e) {
@@ -66353,10 +66352,10 @@ var Game = function (_React$Component) {
     var _state = this.state,
         carX = _state.carX,
         carY = _state.carY;
-
-    var km = Math.round(this.state.kmTeller * 100) / 100;
+    // const km =  Math.round(this.state.kmTeller * 100) / 100;
 
     // //SPELER 1
+
     this.cameraPosition = new __WEBPACK_IMPORTED_MODULE_2_three__["Vector3"](0, 3, 4, 'XYZ'); //linksrechts, bovenonder, diepte
     this.cameraRotation = new __WEBPACK_IMPORTED_MODULE_2_three__["Euler"](-0.3, 0, 0, 'XYZ');
 
@@ -66444,20 +66443,28 @@ var Game = function (_React$Component) {
                 fileName: _jsxFileName,
                 lineNumber: 149
               }
+            }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["c" /* Bariers */]
+            // getBarierY={barierY => this.getBarierY(barierY)}
+            // getBarierX={barierX => this.getBarierX(barierX)}
+            , { carX: carX,
+              carY: carY
+              // gameEnd={() => this.gameEnd()}
+              //endGameState={endGame => console.log(endGame)}
+              , __source: {
+                fileName: _jsxFileName,
+                lineNumber: 154
+              }
             })
           )
         ),
         ');'
       ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        { className: 'kmteller', __source: {
-            fileName: _jsxFileName,
-            lineNumber: 172
-          }
-        },
-        km
-      )
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'kmteller', __source: {
+          fileName: _jsxFileName,
+          lineNumber: 171
+        }
+      })
     );
   };
 
@@ -92782,4 +92789,4 @@ module.exports = __webpack_require__(167);
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.03eea75eed32bc341c37.js.map
+//# sourceMappingURL=main.5ee60646c56000bb4935.js.map

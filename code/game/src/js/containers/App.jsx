@@ -15,6 +15,7 @@ class App extends Component {
 
   componentDidMount() {
     this.initSocket();
+    console.log(`rerender`);
   }
 
   initSocket = () => {
@@ -47,6 +48,7 @@ class App extends Component {
 
 
   render() {
+
     return (
       <Router>
         <main>

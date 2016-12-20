@@ -16,7 +16,7 @@ class Game extends React.Component {
       carY: 0,
       barierY: 10,
       barierInterval: 1500,
-      kmTeller: 5,
+      // kmTeller: 5,
     };
 
     // this.loadCan = this.loadCan.bind(this);
@@ -40,16 +40,16 @@ class Game extends React.Component {
   }
 
   kmTeller() {
-    let km = this.state.kmTeller;
-
-    this.loadInterval = setInterval(() => {
-      km -= 0.1;
-      this.setState({kmTeller: km});
-
-      if (km <= 0) {
-        this.gameEnd();
-      }
-    }, 500);
+  //   let km = this.state.kmTeller;
+  //
+  //   this.loadInterval = setInterval(() => {
+  //     km -= 0.1;
+  //     this.setState({kmTeller: km});
+  //
+  //     if (km <= 0) {
+  //       this.gameEnd();
+  //     }
+  //   }, 500);
   }
 
   carMove(e) {
@@ -102,7 +102,7 @@ class Game extends React.Component {
     const height = window.innerHeight; // canvas height
     //const {carX, carY, canGeometry, canMaterials, barierGeometry, barierMaterials} = this.state;
     const {carX, carY} = this.state;
-    const km =  Math.round(this.state.kmTeller * 100) / 100;
+    // const km =  Math.round(this.state.kmTeller * 100) / 100;
 
     // //SPELER 1
     this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
@@ -169,7 +169,7 @@ class Game extends React.Component {
         </React3>);
       </div>
       <div className='kmteller'>
-        {km}
+        {/* {km} */}
       </div>
     </div>
     );
