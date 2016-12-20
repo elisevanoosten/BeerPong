@@ -10,8 +10,32 @@ class Bariers extends React.Component {
 
     this.state = {
       barierY: - 100,
-      barierX: this.getRandomPos(),
-      //randomDistance: 40
+      barierPos: [
+        {
+          xPos: this.getRandomPos(),
+          distance: 20
+        },
+        {
+          xPos: this.getRandomPos(),
+          distance: 40
+        },
+        {
+          xPos: this.getRandomPos(),
+          distance: 10
+        },
+        {
+          xPos: this.getRandomPos(),
+          distance: 30
+        },
+        {
+          xPos: this.getRandomPos(),
+          distance: 20
+        },
+        {
+          xPos: this.getRandomPos(),
+          distance: 10}
+      ]
+      //barierX: this.getRandomPos(),
     };
   }
 
@@ -19,28 +43,29 @@ class Bariers extends React.Component {
     let {barierY} = this.state;
 
     //const randomDistance = Math.random() * (500 - 1000) + 500;
-
     //const delay = 1000; //1 second
 
-    this.loadInterval = setInterval(() => {
-      // barier later laten vertrekken
+    this.checkCollision();
 
+    this.loadInterval = setInterval(() => {
+    //   // barier later laten vertrekken
+    //
       barierY += 1;
       this.setState({barierY});
-
-      this.checkCollision();
-
-      if (barierY > 10) {
-        barierX = this.getRandomPos();
-        this.setState({barierX});
-
-        barierY = - 150;
-        this.setState({barierY: - 150});
-
-      }
-
-      let barierX = 0;
-
+    //
+    //   this.checkCollision();
+    //
+    //   if (barierY > 10) {
+    //     //barierX = this.getRandomPos();
+    //     //this.setState({barierX});
+    //
+    //     barierY = - 250;
+    //     this.setState({barierY: - 150});
+    //
+    //   }
+    //
+    //   const barierX = 0;
+    //
     }, 35);
 
   }
@@ -68,18 +93,36 @@ class Bariers extends React.Component {
     this.loadInterval && clearInterval(this.loadInterval);
     this.loadInterval = false;
   }
-  //const randomDistance = Math.random() * (40 - 80) + 40;
-  renderBariers() {
-    const {barierX, barierY} = this.state;
 
+  //const randomDistance = Math.random() * (40 - 80) + 40;
+
+  renderBariers() {
     const bariers = [];
 
-    for (let i = 0;i <= 1;i ++) {
-      //console.log(i + barierX);
-      //bariers.push(<Barier key={i} barierX={barierX} barierY={barierY + i} />);
+    this.loopBariers(bariers);
+
+    if (bariers) {
+      return bariers;
+    } else {
+      console.log(`end`);
+    }
+    //requestAnimationFrame(() => {this.update()});
+  }
+
+  loopBariers(bariers) {
+
+    const {barierX, barierY, barierPos} = this.state;
+
+    for (let i = 0;i <= (barierPos.length - 1);i ++) {
+      console.log(`for`);
       //const Ypos = barierY - i * 100;
-      bariers.push(<Barier key={i} barierX={barierX} barierY={barierY - i * 100} />);
-      console.log(bariers);
+      bariers.push(<Barier key={i} barierX={barierPos[i].xPos} barierY={barierY - i * barierPos[i].distance} />);
+
+      if (i + 1 === barierPos.length) {
+        console.log(`end`);
+        // bariers = [];
+        // this.loopBariers();
+      }
     }
 
     return bariers;

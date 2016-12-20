@@ -65621,7 +65621,25 @@ var Bariers = function (_React$Component) {
 
     _this.state = {
       barierY: -100,
-      barierX: _this.getRandomPos()
+      barierPos: [{
+        xPos: _this.getRandomPos(),
+        distance: 20
+      }, {
+        xPos: _this.getRandomPos(),
+        distance: 40
+      }, {
+        xPos: _this.getRandomPos(),
+        distance: 10
+      }, {
+        xPos: _this.getRandomPos(),
+        distance: 30
+      }, {
+        xPos: _this.getRandomPos(),
+        distance: 20
+      }, {
+        xPos: _this.getRandomPos(),
+        distance: 10 }]
+      //barierX: this.getRandomPos(),
     };
     return _this;
   }
@@ -65632,26 +65650,29 @@ var Bariers = function (_React$Component) {
     var barierY = this.state.barierY;
 
     //const randomDistance = Math.random() * (500 - 1000) + 500;
-
     //const delay = 1000; //1 second
 
-    this.loadInterval = setInterval(function () {
-      // barier later laten vertrekken
+    this.checkCollision();
 
+    this.loadInterval = setInterval(function () {
+      //   // barier later laten vertrekken
+      //
       barierY += 1;
       _this2.setState({ barierY: barierY });
-
-      _this2.checkCollision();
-
-      if (barierY > 10) {
-        barierX = _this2.getRandomPos();
-        _this2.setState({ barierX: barierX });
-
-        barierY = -150;
-        _this2.setState({ barierY: -150 });
-      }
-
-      var barierX = 0;
+      //
+      //   this.checkCollision();
+      //
+      //   if (barierY > 10) {
+      //     //barierX = this.getRandomPos();
+      //     //this.setState({barierX});
+      //
+      //     barierY = - 250;
+      //     this.setState({barierY: - 150});
+      //
+      //   }
+      //
+      //   const barierX = 0;
+      //
     }, 35);
   };
 
@@ -65683,27 +65704,42 @@ var Bariers = function (_React$Component) {
     this.loadInterval && clearInterval(this.loadInterval);
     this.loadInterval = false;
   };
+
   //const randomDistance = Math.random() * (40 - 80) + 40;
 
-
   Bariers.prototype.renderBariers = function renderBariers() {
-    var _state2 = this.state,
-        barierX = _state2.barierX,
-        barierY = _state2.barierY;
-
-
     var bariers = [];
 
-    for (var i = 0; i <= 1; i++) {
-      //console.log(i + barierX);
-      //bariers.push(<Barier key={i} barierX={barierX} barierY={barierY + i} />);
+    this.loopBariers(bariers);
+
+    if (bariers) {
+      return bariers;
+    } else {
+      console.log('end');
+    }
+    //requestAnimationFrame(() => {this.update()});
+  };
+
+  Bariers.prototype.loopBariers = function loopBariers(bariers) {
+    var _state2 = this.state,
+        barierX = _state2.barierX,
+        barierY = _state2.barierY,
+        barierPos = _state2.barierPos;
+
+
+    for (var i = 0; i <= barierPos.length - 1; i++) {
       //const Ypos = barierY - i * 100;
-      bariers.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__singleElements___["b" /* Barier */], { key: i, barierX: barierX, barierY: barierY - i * 100, __source: {
+      bariers.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__singleElements___["b" /* Barier */], { key: i, barierX: barierPos[i].xPos, barierY: barierY - i * barierPos[i].distance, __source: {
           fileName: _jsxFileName,
-          lineNumber: 81
+          lineNumber: 118
         }
       }));
-      console.log(bariers);
+
+      if (i + 1 === barierPos.length) {
+        console.log('end');
+        bariers = [];
+        this.loopBariers();
+      }
     }
 
     return bariers;
@@ -65715,7 +65751,7 @@ var Bariers = function (_React$Component) {
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 90
+          lineNumber: 132
         }
       },
       this.renderBariers()
@@ -65785,8 +65821,9 @@ var Car = function (_Component) {
 
     var Xpos = this.props.carX;
 
-    var material = new __WEBPACK_IMPORTED_MODULE_1_three__["MultiMaterial"](carMaterials);
-    if (carGeometry && material) {
+    // const material = new THREE.MultiMaterial(carMaterials);
+
+    if (carGeometry && carMaterials) {
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'mesh',
@@ -65795,7 +65832,7 @@ var Car = function (_Component) {
           rotation: new __WEBPACK_IMPORTED_MODULE_1_three__["Euler"](0, 3.16, 0),
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 27
+            lineNumber: 28
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('geometry', {
@@ -65805,11 +65842,11 @@ var Car = function (_Component) {
           colors: carGeometry.colors,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 31
+            lineNumber: 32
           }
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('meshStandardMaterial', {
-          // {...carMaterials}
+          //{...carMaterials}
           visible: carMaterials.visible,
           transparent: carMaterials.transparent,
           alphaTest: carMaterials.alphaTest,
@@ -65834,7 +65871,7 @@ var Car = function (_Component) {
           resourceId: carMaterials.resourceId,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 37
+            lineNumber: 38
           }
         })
       );
@@ -65842,7 +65879,7 @@ var Car = function (_Component) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('group', {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 66
+          lineNumber: 67
         }
       });
     }
@@ -66827,8 +66864,8 @@ var Game = function (_React$Component) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('directionalLight', {
               // color={0xffffff}
               lookAt: lightLookat,
-              castShadow: true
-              // intensity={6}
+              castShadow: true,
+              intensity: 3
               // shadowDarkness={8}
               , visible: true,
               __source: {
@@ -91596,4 +91633,4 @@ module.exports = __webpack_require__(156);
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.d582919c0ad11d14ead1.js.map
+//# sourceMappingURL=main.c8b560cc7a62a3b94e6a.js.map

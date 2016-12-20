@@ -139,7 +139,7 @@ class Game extends React.Component {
               // color={0xffffff}
               lookAt={lightLookat}
               castShadow={true}
-              // intensity={6}
+              intensity={3}
               // shadowDarkness={8}
               visible={true}
             />

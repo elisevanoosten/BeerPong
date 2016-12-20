@@ -20,8 +20,9 @@ export default class Car extends Component {
     const {carGeometry, carMaterials} = this.state;
     const Xpos = this.props.carX;
 
-    const material = new THREE.MultiMaterial(carMaterials);
-    if (carGeometry && material) {
+    // const material = new THREE.MultiMaterial(carMaterials);
+
+    if (carGeometry && carMaterials) {
 
       return (
           <mesh
@@ -35,7 +36,7 @@ export default class Car extends Component {
               colors={carGeometry.colors}
             />
             <meshStandardMaterial
-              // {...carMaterials}
+              //{...carMaterials}
               visible={carMaterials.visible}
               transparent={carMaterials.transparent}
               alphaTest={carMaterials.alphaTest}
