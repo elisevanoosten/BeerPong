@@ -11,16 +11,16 @@ class Bariers extends React.Component {
     this.state = {
       barierY: - 100,
       barierX: this.getRandomPos(),
-      randomDistance: 40
+      //randomDistance: 40
     };
   }
 
   componentDidMount() {
     let {barierY} = this.state;
 
-    const randomDistance = Math.random() * (500 - 1000) + 500;
+    //const randomDistance = Math.random() * (500 - 1000) + 500;
 
-    const delay = 1000; //1 second
+    //const delay = 1000; //1 second
 
     this.loadInterval = setInterval(() => {
       // barier later laten vertrekken
@@ -54,8 +54,8 @@ class Bariers extends React.Component {
     const {carX, carY} = this.props;
     const {barierY, barierX} = this.state;
 
-    const carwidth = 0.8;
-    const carDepth = 0.8;
+    const carwidth = 2;
+    const carDepth = 1;
 
     if (barierX <= carX + carwidth && barierX >= carX) {
       if (barierY <= carY + carDepth / 2 && barierY >= carY - carDepth / 2) {
@@ -74,12 +74,14 @@ class Bariers extends React.Component {
 
     const bariers = [];
 
-    // for (let i = 0;i < 3;i += distance) {
+    for (let i = 0;i <= 1;i ++) {
       //console.log(i + barierX);
-    //bariers.push(<Barier key={i} barierX={barierX} barierY={barierY + i} />);
-    bariers.push(<Barier key={barierX} barierX={barierX} barierY={barierY} />);
+      //bariers.push(<Barier key={i} barierX={barierX} barierY={barierY + i} />);
+      //const Ypos = barierY - i * 100;
+      bariers.push(<Barier key={i} barierX={barierX} barierY={barierY - i * 100} />);
+      console.log(bariers);
+    }
 
-    //}
     return bariers;
   }
 

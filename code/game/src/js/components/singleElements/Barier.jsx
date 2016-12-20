@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import React3 from 'react-three-renderer';
+import React, {Component, PropTypes} from 'react';
+//import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 
 export default class Barier extends Component {
@@ -41,7 +41,10 @@ export default class Barier extends Component {
         <group></group>
       );
     }
-
   }
-
 }
+
+Barier.propTypes = {
+  barierY: PropTypes.number,
+  barierX: PropTypes.number,
+};

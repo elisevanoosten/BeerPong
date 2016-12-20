@@ -102,12 +102,19 @@ class Game extends React.Component {
     const {carX, carY} = this.state;
     const km =  Math.round(this.state.kmTeller * 100) / 100;
 
+    // //SPELER 1
     this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
     this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);
-    const cameraLookat = new THREE.Vector3(carX, carY, - 8, `XYZ`); //linksrechts, bovenonder, diepte
 
+    const cameraLookat = new THREE.Vector3(carX, carY, - 8, `XYZ`); //linksrechts, bovenonder, diepte
     const lightLookat = new THREE.Vector3(carX, carY - 10, - 8, `XYZ`); //linksrechts, bovenonder, diepte
 
+    //SPELER 2
+    // this.cameraPosition = new THREE.Vector3(0, 2, - 20, `XYZ`);
+    // this.cameraRotation = new THREE.Euler(0, 0, 0, `XYZ`);
+    //
+    // const cameraLookat = new THREE.Vector3(carX, carY, 8, `XYZ`); //linksrechts, bovenonder, diepte
+    // const lightLookat = new THREE.Vector3(carX, carY - 10, 8, `XYZ`); //linksrechts, bovenonder, diepte
 
     return (
       <div>

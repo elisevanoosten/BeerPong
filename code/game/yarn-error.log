@@ -1,14 +1,14 @@
 Arguments: 
-  /Users/Elise/.nvm/versions/node/v6.7.0/bin/node /Users/Elise/.nvm/versions/node/v6.7.0/bin/yarn
+  /Users/SVD/.nvm/versions/node/v6.8.0/bin/node /Users/SVD/.nvm/versions/node/v6.8.0/bin/yarn remove webpack
 
 PATH: 
-  /Users/Elise/.nvm/versions/node/v6.7.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+  /Users/SVD/.nvm/versions/node/v6.8.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/SVD/.composer/vendor/bin
 
 Yarn version: 
-  0.16.1
+  0.18.1
 
 Node version: 
-  6.7.0
+  6.8.0
 
 Platform: 
   darwin x64
@@ -79,9 +79,6 @@ npm manifest:
   }
 
 yarn manifest: 
-  No manifest
-
-bower manifest: 
   No manifest
 
 Lockfile: 
@@ -7258,10 +7255,10 @@ Lockfile:
 
 Trace: 
   SyntaxError: Unknown token 6527:1
-      at Parser.unexpected (/Users/Elise/.nvm/versions/node/v6.7.0/lib/node_modules/yarn/lib/lockfile/parse.js:218:11)
-      at Parser.parse (/Users/Elise/.nvm/versions/node/v6.7.0/lib/node_modules/yarn/lib/lockfile/parse.js:323:14)
-      at exports.default (/Users/Elise/.nvm/versions/node/v6.7.0/lib/node_modules/yarn/lib/lockfile/parse.js:13:17)
-      at /Users/Elise/.nvm/versions/node/v6.7.0/lib/node_modules/yarn/lib/lockfile/wrapper.js:129:60
+      at Parser.unexpected (/Users/SVD/.nvm/versions/node/v6.8.0/lib/node_modules/yarn/updates/0.18.1/lib/lockfile/parse.js:224:11)
+      at Parser.parse (/Users/SVD/.nvm/versions/node/v6.8.0/lib/node_modules/yarn/updates/0.18.1/lib/lockfile/parse.js:329:14)
+      at exports.default (/Users/SVD/.nvm/versions/node/v6.8.0/lib/node_modules/yarn/updates/0.18.1/lib/lockfile/parse.js:13:17)
+      at /Users/SVD/.nvm/versions/node/v6.8.0/lib/node_modules/yarn/updates/0.18.1/lib/lockfile/wrapper.js:129:60
       at next (native)
-      at step (/Users/Elise/.nvm/versions/node/v6.7.0/lib/node_modules/yarn/node_modules/babel-runtime/helpers/asyncToGenerator.js:17:30)
-      at /Users/Elise/.nvm/versions/node/v6.7.0/lib/node_modules/yarn/node_modules/babel-runtime/helpers/asyncToGenerator.js:28:20
+      at step (/Users/SVD/.nvm/versions/node/v6.8.0/lib/node_modules/yarn/updates/0.18.1/node_modules/babel-runtime/helpers/asyncToGenerator.js:17:30)
+      at /Users/SVD/.nvm/versions/node/v6.8.0/lib/node_modules/yarn/updates/0.18.1/node_modules/babel-runtime/helpers/asyncToGenerator.js:28:13
