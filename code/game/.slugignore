@@ -1,9 +1,10 @@
-/src/*
-nodemon.json
-*.config.json
 .babelrc
 .editorconfig
-.env
+.eslintignore
 .eslintrc
+.flowconfig
 .stylelintrc
-READM.md
+/src
+nodemon.json
+*.config.js
+README.md

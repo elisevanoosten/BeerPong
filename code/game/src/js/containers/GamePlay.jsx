@@ -25,6 +25,8 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
+    console.log(`PROPS`, this.props);
+
     this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
     this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);
   }
@@ -144,26 +146,25 @@ class Game extends React.Component {
               visible={true}
             />
             <Ground />
-            <Car
-              carX={carX}
-              carY={carY}
-              rotation={this.cameraRotation}
-            />
-            <Bariers
-            // getBarierY={barierY => this.getBarierY(barierY)}
-            // getBarierX={barierX => this.getBarierX(barierX)}
-            carX={carX}
-            carY={carY}
-            gameEnd={() => this.gameEnd()}
-            //endGameState={endGame => console.log(endGame)}
-          />
+              <Car
+                carX={carX}
+                carY={carY}
+                rotation={this.cameraRotation}
+              />
+              <Bariers
+                // getBarierY={barierY => this.getBarierY(barierY)}
+                // getBarierX={barierX => this.getBarierX(barierX)}
+                carX={carX}
+                carY={carY}
+                gameEnd={() => this.gameEnd()}
+                //endGameState={endGame => console.log(endGame)}
+              />
           {/* <Drinks
             carX={carX}
             carY={carY}
             geometry={canGeometry}
             materials={canMaterials}
           /> */}
-
           </scene>
         </React3>);
       </div>

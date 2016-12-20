@@ -104,22 +104,22 @@ class Bariers extends React.Component {
     if (bariers) {
       return bariers;
     } else {
-      console.log(`end`);
+      //console.log(`end`);
     }
     //requestAnimationFrame(() => {this.update()});
   }
 
   loopBariers(bariers) {
 
-    const {barierX, barierY, barierPos} = this.state;
+    const {barierY, barierPos} = this.state;
 
     for (let i = 0;i <= (barierPos.length - 1);i ++) {
-      console.log(`for`);
+      //console.log(`for`);
       //const Ypos = barierY - i * 100;
       bariers.push(<Barier key={i} barierX={barierPos[i].xPos} barierY={barierY - i * barierPos[i].distance} />);
 
       if (i + 1 === barierPos.length) {
-        console.log(`end`);
+        //console.log(`end`);
         // bariers = [];
         // this.loopBariers();
       }

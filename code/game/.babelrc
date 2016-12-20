@@ -6,6 +6,10 @@
     "react"
   ],
 
+  "plugins": [
+    ["transform-flow-strip-types"]
+  ],
+
   "env": {
 
     "development": {
@@ -14,7 +18,7 @@
       ]
     },
 
-  "production": {
+    "production": {
       "plugins": [
         "lodash",
         "transform-react-remove-prop-types"

@@ -13,14 +13,6 @@ module.exports.register = (server, options, next) => {
       socket.join(room);
     });
 
-    // socket.on(`send message`, function(data) {
-    //   console.log(`sending room post`, data.room);
-    //   socket.broadcast.to(data.room).emit(`conversation private post`, {
-    //     message: data.message
-    //   });
-    // });
-
-
   });
 
   next();
