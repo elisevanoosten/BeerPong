@@ -8,7 +8,7 @@ export default class Car extends Component {
 
   componentDidMount() {
     const carLoader = new THREE.JSONLoader();
-    carLoader.load(`./assets/json/car.json`, this.loadCar);
+    carLoader.load(`../assets/json/car.json`, this.loadCar);
   }
 
   loadCar = (carGeometry, carMaterials) => {

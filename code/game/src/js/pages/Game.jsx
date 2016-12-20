@@ -5,7 +5,7 @@ import {GamePlay} from '../containers';
 class Game extends Component {
 
   state = {
-    //socketId: undefined
+    socketId: undefined
   }
 
   componentWillMount() {
@@ -15,20 +15,11 @@ class Game extends Component {
 
   render() {
     const {socketId} = this.state;
-    if (socketId === undefined) {
-      return (
-        <div>
-          <GamePlay />
-        </div>
-      );
-    }
-    else {
-      return (
+    return (
         <div>
           <GamePlay player={socketId} />
         </div>
-      );
-    }
+    );
   }
 }
 

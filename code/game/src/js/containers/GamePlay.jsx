@@ -89,7 +89,7 @@ class Game extends React.Component {
   // }
 
   gameEnd() {
-    this.props.gameEnd(this.state.kmTeller);
+    // this.props.gameEnd(this.state.kmTeller);
   }
 
   componentWillUnmount () {
@@ -146,25 +146,25 @@ class Game extends React.Component {
               visible={true}
             />
             <Ground />
-              <Car
-                carX={carX}
-                carY={carY}
-                rotation={this.cameraRotation}
-              />
-              <Bariers
-                // getBarierY={barierY => this.getBarierY(barierY)}
-                // getBarierX={barierX => this.getBarierX(barierX)}
-                carX={carX}
-                carY={carY}
-                gameEnd={() => this.gameEnd()}
-                //endGameState={endGame => console.log(endGame)}
-              />
-          {/* <Drinks
-            carX={carX}
-            carY={carY}
-            geometry={canGeometry}
-            materials={canMaterials}
-          /> */}
+            <Car
+              carX={carX}
+              carY={carY}
+              rotation={this.cameraRotation}
+            />
+            <Bariers
+              // getBarierY={barierY => this.getBarierY(barierY)}
+              // getBarierX={barierX => this.getBarierX(barierX)}
+              carX={carX}
+              carY={carY}
+              // gameEnd={() => this.gameEnd()}
+              //endGameState={endGame => console.log(endGame)}
+            />
+            {/* <Drinks
+              carX={carX}
+              carY={carY}
+              geometry={canGeometry}
+              materials={canMaterials}
+            /> */}
           </scene>
         </React3>);
       </div>
@@ -172,12 +172,13 @@ class Game extends React.Component {
         {km}
       </div>
     </div>
-    );}
+    );
+  }
 }
 
 Game.propTypes = {
-  gameEnd: PropTypes.func
+  // gameEnd: PropTypes.func,
+  player: PropTypes.string
 };
-
 
 export default Game;

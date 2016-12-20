@@ -25,7 +25,7 @@ const copy = new CopyWebpackPlugin([{
 });
 
 const config = {
-  
+
   entry: [
     `./src/css/style.css`,
     `./src/js/script.js`

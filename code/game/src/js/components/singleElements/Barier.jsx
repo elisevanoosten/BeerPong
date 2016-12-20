@@ -8,7 +8,7 @@ export default class Barier extends Component {
 
   componentDidMount() {
     const barierLoader = new THREE.JSONLoader();
-    barierLoader.load(`./assets/json/RoadBarrier.json`, this.loadBarier);
+    barierLoader.load(`../assets/json/RoadBarrier.json`, this.loadBarier);
   }
 
   loadBarier = barierGeometry => {

@@ -65572,7 +65572,7 @@ Bariers.propTypes = {
   gameEnd: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].func
 };
 
-/* harmony default export */ exports["a"] = Bariers;
+/* unused harmony default export */ var _unused_webpack_default_export = Bariers;
 
 /***/ },
 /* 172 */
@@ -65615,7 +65615,7 @@ var Car = function (_Component) {
 
   Car.prototype.componentDidMount = function componentDidMount() {
     var carLoader = new __WEBPACK_IMPORTED_MODULE_1_three__["JSONLoader"]();
-    carLoader.load('./assets/json/car.json', this.loadCar);
+    carLoader.load('../assets/json/car.json', this.loadCar);
   };
 
   Car.prototype.render = function render() {
@@ -65893,7 +65893,7 @@ var Ground = function Ground() {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Bariers__ = __webpack_require__(171);
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__Bariers__["a"]; });
+/* unused harmony reexport Bariers */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Car__ = __webpack_require__(172);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__Car__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Drinks__ = __webpack_require__(173);
@@ -66338,7 +66338,7 @@ var Game = function (_React$Component) {
   // }
 
   Game.prototype.gameEnd = function gameEnd() {
-    this.props.gameEnd(this.state.kmTeller);
+    // this.props.gameEnd(this.state.kmTeller);
   };
 
   Game.prototype.componentWillUnmount = function componentWillUnmount() {
@@ -66347,8 +66347,6 @@ var Game = function (_React$Component) {
   };
 
   Game.prototype.render = function render() {
-    var _this4 = this;
-
     var width = window.innerWidth; // canvas width
     var height = window.innerHeight; // canvas height
     //const {carX, carY, canGeometry, canMaterials, barierGeometry, barierMaterials} = this.state;
@@ -66446,20 +66444,6 @@ var Game = function (_React$Component) {
                 fileName: _jsxFileName,
                 lineNumber: 149
               }
-            }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["c" /* Bariers */]
-            // getBarierY={barierY => this.getBarierY(barierY)}
-            // getBarierX={barierX => this.getBarierX(barierX)}
-            , { carX: carX,
-              carY: carY,
-              gameEnd: function gameEnd() {
-                return _this4.gameEnd();
-              }
-              //endGameState={endGame => console.log(endGame)}
-              , __source: {
-                fileName: _jsxFileName,
-                lineNumber: 154
-              }
             })
           )
         ),
@@ -66469,7 +66453,7 @@ var Game = function (_React$Component) {
         'div',
         { className: 'kmteller', __source: {
             fileName: _jsxFileName,
-            lineNumber: 171
+            lineNumber: 172
           }
         },
         km
@@ -66481,7 +66465,8 @@ var Game = function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 Game.propTypes = {
-  gameEnd: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].func
+  // gameEnd: PropTypes.func,
+  player: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string
 };
 
 /* harmony default export */ exports["a"] = Game;
@@ -66738,7 +66723,7 @@ var Game = function (_Component) {
     }
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
-      //socketId: undefined
+      socketId: undefined
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -66750,38 +66735,20 @@ var Game = function (_Component) {
   Game.prototype.render = function render() {
     var socketId = this.state.socketId;
 
-    if (socketId === undefined) {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 20
-          }
-        },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers__["b" /* GamePlay */], {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 21
-          }
-        })
-      );
-    } else {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 27
-          }
-        },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers__["b" /* GamePlay */], { player: socketId, __source: {
-            fileName: _jsxFileName,
-            lineNumber: 28
-          }
-        })
-      );
-    }
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 19
+        }
+      },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers__["b" /* GamePlay */], { player: socketId, __source: {
+          fileName: _jsxFileName,
+          lineNumber: 20
+        }
+      })
+    );
   };
 
   return Game;
@@ -92815,4 +92782,4 @@ module.exports = __webpack_require__(167);
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.a7263edbeb030af7fbb5.js.map
+//# sourceMappingURL=main.f33c396896ba27501461.js.map
