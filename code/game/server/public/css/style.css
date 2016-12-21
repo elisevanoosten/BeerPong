@@ -87,6 +87,22 @@ body {
   margin-top: -12rem;
 }
 
+.home {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.startbord {
+  position: absolute;
+  height: 70%;
+  width: auto;
+}
+
 .startbord, .startbutton {
   margin: auto;
 }
@@ -95,13 +111,29 @@ body {
   background-color: #d02321;
   color: white;
   border: none;
-  padding: 20px;
+  padding: 30px;
   margin-top: 64px;
   margin-top: 4rem;
   font-weight: bold;
   font-size: 24px;
   font-size: 1.5rem;
   border-radius: 15px;
+  text-decoration: none;
+}
+
+.choose{
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 .playerSection {
@@ -143,6 +175,8 @@ input[type=radio] {
   margin: auto;
   margin-top: 160px;
   margin-top: 10rem;
+  margin-bottom: 160px;
+  margin-bottom: 10rem;
 }
 
 .kmteller {

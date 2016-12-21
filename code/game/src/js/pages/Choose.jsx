@@ -14,15 +14,26 @@ class Room extends Component {
     console.log(this.state);
   }
 
+  // <div>
+  //           <input id='friend' type='radio' name='player' value='friend' onClick={e => this.handleChoosePlayer(e)} />
+  //           <label htmlFor='friend' className='radioLabel'></label>
+  //         </div>
+  //         <div>
+  //           <input id='computer' type='radio' name='player' value='computer' onClick={e => this.handleChoosePlayer(e)} />
+  //           <label htmlFor='computer' className='radioLabel'><img src='../../assets/img/computerbord.png' width='10%' height='10%' className='playerbord' /></label>
+  //         </div>
+
   render() {
     const socketId = 343;
     return (
-      <div>
+      <div className='choose'>
         <p className='intro'>Hoeveel invloed hebben jou slechte vrienden? <br />
         Speel het spel en ontdek!</p>
-        <Link className='startbutton' to='/demo'>Speel tegen de computer</Link>
-        <Link className='startbutton' to={`/demo/${socketId}`}>Speel tegen een vriend</Link>
-      </div>
+        <div>
+          <Link to='/demo'><img src='../../assets/img/vriendenbord.png' width='10%' height='10%' className='playerbord' /></Link>
+          <Link to={`/demo/${socketId}`}><img src='../../assets/img/computerbord.png' width='10%' height='10%' className='playerbord' /></Link>
+        </div>
+    </div>
     );
   }
 }

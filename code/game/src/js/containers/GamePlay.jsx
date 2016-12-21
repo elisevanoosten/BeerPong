@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 
-import {Car, Ground, Bariers} from '../components';
+import {Car, Ground, Bariers, Mountains} from '../components';
 
 class Game extends React.Component {
 
@@ -17,6 +17,35 @@ class Game extends React.Component {
       barierY: 10,
       barierInterval: 1500,
       // kmTeller: 5,
+      mountainX: 0,
+      mountainY: 0,
+
+      barierPos: [
+        {
+          xPos: this.getRandomPos(),
+          distance: 60,
+        },
+        {
+          xPos: this.getRandomPos(),
+          distance: 80
+        },
+        {
+          xPos: this.getRandomPos(),
+          distance: 50
+        },
+        {
+          xPos: this.getRandomPos(),
+          distance: 90
+        },
+        {
+          xPos: this.getRandomPos(),
+          distance: 10
+        },
+        {
+          xPos: this.getRandomPos(),
+          distance: 40
+        }
+      ]
     };
 
     // this.loadCan = this.loadCan.bind(this);
@@ -37,6 +66,11 @@ class Game extends React.Component {
 
     //KM TOT THUIS
     this.kmTeller();
+  }
+
+  getRandomPos() {
+    const planeWidth = 8;
+    return Math.floor(Math.random() * planeWidth) - planeWidth / 2;
   }
 
   kmTeller() {
@@ -89,7 +123,8 @@ class Game extends React.Component {
   // }
 
   gameEnd() {
-    // this.props.gameEnd(this.state.kmTeller);
+    console.log(`DOOOODDDD`);
+    //this.props.gameEnd(this.state.kmTeller);
   }
 
   componentWillUnmount () {
@@ -101,7 +136,7 @@ class Game extends React.Component {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
     //const {carX, carY, canGeometry, canMaterials, barierGeometry, barierMaterials} = this.state;
-    const {carX, carY} = this.state;
+    const {carX, carY, mountainX, mountainY, barierPos} = this.state;
     // const km =  Math.round(this.state.kmTeller * 100) / 100;
 
     // //SPELER 1
@@ -156,9 +191,14 @@ class Game extends React.Component {
               // getBarierX={barierX => this.getBarierX(barierX)}
               carX={carX}
               carY={carY}
-              // gameEnd={() => this.gameEnd()}
+              gameEnd={() => this.gameEnd()}
+              barierPos={barierPos}
               //endGameState={endGame => console.log(endGame)}
             />
+          {/* <Mountains
+            mountainX={mountainX}
+            mountainY={mountainY}
+          /> */}
             {/* <Drinks
               carX={carX}
               carY={carY}
@@ -177,7 +217,7 @@ class Game extends React.Component {
 }
 
 Game.propTypes = {
-  // gameEnd: PropTypes.func,
+  gameEnd: PropTypes.func,
   player: PropTypes.string
 };
 
