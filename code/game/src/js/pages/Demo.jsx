@@ -13,15 +13,17 @@ class Demo extends Component {
       return (
         <div>
           <h3>DEMO TEGEN COMPUTER</h3>
-          <Link className='startbutton' to='/game'>SPEEL HET SPEL!</Link>
+          <Link className='startBig' to='/game'>SPEEL HET SPEL!</Link>
         </div>
       );
     } else {
       return (
         <div>
           <h3>stuur dit naar vriend: link.be/join/{urlSocketId}</h3>
-          <Link className='startbutton' to={`/game/${urlSocketId}`}>SPEEL HET SPEL!</Link>
-      </div>
+          {/* <game player='friend' /> */}
+          {/* <Link className='startbutton' to={`/game/\${socketId}`}>Speel tegen een vriend</Link> */}
+          <Link className='startBig' to={`/game/${urlSocketId}`}>SPEEL HET SPEL!</Link>
+        </div>
       );
     }
   }

@@ -63,7 +63,49 @@ main {
 body {
   font-family: Roboto, Helvetica, Arial, sans-serif;
   font-size: 62.5%;
-  background-color: #bdf2ea;
+  background-color: #010419;
+  background-image: url(/assets/img/bg_2.png);
+  background-repeat: repeat;
+  -webkit-animation: backgroundsize 1s infinite;
+          animation: backgroundsize 1s infinite;
+}
+
+@-webkit-keyframes backgroundsize {
+
+  0%,100% {
+    background-size: 30%;
+  }
+
+  25% {
+    background-size: 32.5%;
+  }
+
+  50% {
+    background-size: 35%;
+  }
+
+  75% {
+    background-size: 37.5%;
+  }
+}
+
+@keyframes backgroundsize {
+
+  0%,100% {
+    background-size: 30%;
+  }
+
+  25% {
+    background-size: 32.5%;
+  }
+
+  50% {
+    background-size: 35%;
+  }
+
+  75% {
+    background-size: 37.5%;
+  }
 }
 
 .hidden {
@@ -75,16 +117,8 @@ body {
   display: -ms-flexbox;
   display: flex;
   width: 100%;
-  height: 100%;
   margin-top: 160px;
   margin-top: 10rem;
-  //margin-top: -32px;
-  //margin-top: -2rem;
-}
-
-.gamePlay {
-  margin-top: -192px;
-  margin-top: -12rem;
 }
 
 .home {
@@ -95,36 +129,136 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  vertical-align: center;
+  text-align: center;
+  padding-top: 320px;
+  padding-top: 20rem;
 }
 
 .startbord {
-  position: absolute;
-  height: 70%;
+  height: 10%;
   width: auto;
+  -webkit-animation: shake 2s infinite cubic-bezier(.36, .07, .19, .97);
+          animation: shake 2s infinite cubic-bezier(.36, .07, .19, .97);
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+
+@-webkit-keyframes shake {
+
+  10%, 30%, 90% {
+    -webkit-transform: translate3d(-1px, 0, 0);
+            transform: translate3d(-1px, 0, 0);
+    -webkit-transform: rotate(2deg);
+            transform: rotate(2deg);
+  }
+
+  20%, 80% {
+    -webkit-transform: translate3d(2px, 0, 0);
+            transform: translate3d(2px, 0, 0);
+    -webkit-transform: rotate(-1deg);
+            transform: rotate(-1deg);
+  }
+
+  30%, 50%, 70% {
+    -webkit-transform: translate3d(-4px, 0, 0);
+            transform: translate3d(-4px, 0, 0);
+    -webkit-transform: rotate(1deg);
+            transform: rotate(1deg);
+  }
+
+  40%, 60% {
+    -webkit-transform: translate3d(4px, 0, 0);
+            transform: translate3d(4px, 0, 0);
+    -webkit-transform: rotate(-2deg);
+            transform: rotate(-2deg);
+  }
+}
+
+@keyframes shake {
+
+  10%, 30%, 90% {
+    -webkit-transform: translate3d(-1px, 0, 0);
+            transform: translate3d(-1px, 0, 0);
+    -webkit-transform: rotate(2deg);
+            transform: rotate(2deg);
+  }
+
+  20%, 80% {
+    -webkit-transform: translate3d(2px, 0, 0);
+            transform: translate3d(2px, 0, 0);
+    -webkit-transform: rotate(-1deg);
+            transform: rotate(-1deg);
+  }
+
+  30%, 50%, 70% {
+    -webkit-transform: translate3d(-4px, 0, 0);
+            transform: translate3d(-4px, 0, 0);
+    -webkit-transform: rotate(1deg);
+            transform: rotate(1deg);
+  }
+
+  40%, 60% {
+    -webkit-transform: translate3d(4px, 0, 0);
+            transform: translate3d(4px, 0, 0);
+    -webkit-transform: rotate(-2deg);
+            transform: rotate(-2deg);
+  }
 }
 
 .startbord, .startbutton {
   margin: auto;
 }
 
+.home .startbutton {
+  position: absolute;
+  bottom: 0;
+  margin-left: -144px;
+  margin-left: -9rem;
+}
+
 .startbutton {
-  background-color: #d02321;
+  background-color: #8e288f;
   color: white;
   border: none;
   padding: 30px;
-  margin-top: 64px;
-  margin-top: 4rem;
   font-weight: bold;
   font-size: 24px;
   font-size: 1.5rem;
-  border-radius: 15px;
+  border-radius: 15px 15px 0 0;
+  text-decoration: none;
+  height: 128px;
+  height: 8rem;
+  margin-left: 20px;
+}
+
+.links {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  position: absolute;
+  bottom: 0;
+}
+
+.startBig {
+  border-radius: 300px;
+  background-color: #8e288f;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  font-size: 1.5rem;
+  padding: 100px;
   text-decoration: none;
 }
 
-.choose{
-  display:-webkit-box;
-  display:-ms-flexbox;
-  display:flex;
+.choose {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -134,6 +268,8 @@ body {
           align-items: center;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  margin-top: 320px;
+  margin-top: 20rem;
 }
 
 .playerSection {
@@ -154,7 +290,7 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-top:100px;
+  margin-top: 100px;
 }
 
 input[type=radio] {

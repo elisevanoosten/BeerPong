@@ -46,10 +46,10 @@ export default class Barier extends Component {
           <geometry
             vertices={barierGeometry.vertices}
             faces={barierGeometry.faces}
-            colors={barierGeometry.colors}
+            //colors={barierGeometry.colors}
           />
           <meshLambertMaterial
-            color={0xffffff}
+            color={0x5965F4}
           />
         </mesh>
       );

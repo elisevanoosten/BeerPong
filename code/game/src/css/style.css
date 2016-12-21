@@ -3,7 +3,29 @@
 body {
   font-family: Roboto, Helvetica, Arial, sans-serif;
   font-size: 62.5%;
-  background-color: #bdf2ea;
+  background-color: #010419;
+  background-image: url(../../src/assets/img/bg_2.png);
+  background-repeat: repeat;
+  animation: backgroundsize 1s infinite;
+}
+
+@keyframes backgroundsize {
+
+  0%,100% {
+    background-size: 30%;
+  }
+
+  25% {
+    background-size: 32.5%;
+  }
+
+  50% {
+    background-size: 35%;
+  }
+
+  75% {
+    background-size: 37.5%;
+  }
 }
 
 .hidden {
@@ -13,47 +35,93 @@ body {
 .gameSection {
   display: flex;
   width: 100%;
-  height: 100%;
   margin-top: 10rem;
-  //margin-top: -2rem;
-}
-
-.gamePlay {
-  margin-top: -12rem;
 }
 
 .home {
   display: flex;
   flex-direction: column;
+  vertical-align: center;
+  text-align: center;
+  padding-top: 20rem;
 }
 
 .startbord {
-  position: absolute;
-  height: 70%;
+  height: 10%;
   width: auto;
+  animation: shake 2s infinite cubic-bezier(.36, .07, .19, .97);
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes shake {
+
+  10%, 30%, 90% {
+    transform: translate3d(-1px, 0, 0);
+    transform: rotate(2deg);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+    transform: rotate(-1deg);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+    transform: rotate(1deg);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+    transform: rotate(-2deg);
+  }
 }
 
 .startbord, .startbutton {
   margin: auto;
 }
 
+.home .startbutton {
+  position: absolute;
+  bottom: 0;
+  margin-left: -9rem;
+}
+
 .startbutton {
-  background-color: #d02321;
+  background-color: #8e288f;
   color: white;
   border: none;
   padding: 30px;
-  margin-top: 4rem;
   font-weight: bold;
   font-size: 1.5rem;
-  border-radius: 15px;
+  border-radius: 15px 15px 0 0;
+  text-decoration: none;
+  height: 8rem;
+  margin-left: 20px;
+}
+
+.links {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  bottom: 0;
+}
+
+.startBig {
+  border-radius: 300px;
+  background-color: #8e288f;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding: 100px;
   text-decoration: none;
 }
 
-.choose{
-  display:flex;
+.choose {
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  margin-top: 20rem;
 }
 
 .playerSection {
@@ -69,7 +137,7 @@ body {
   height: auto;
   display: flex;
   justify-content: center;
-  margin-top:100px;
+  margin-top: 100px;
 }
 
 input[type=radio] {

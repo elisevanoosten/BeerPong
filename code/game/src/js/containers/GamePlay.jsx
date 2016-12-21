@@ -145,6 +145,9 @@ class GamePlay extends React.Component {
             mainCamera='camera'
             width={width}
             height={height}
+            clearColor={0x7DD71B}
+            alpha={true}
+            clearAlpha={0.0}
           >
           <scene>
             <perspectiveCamera
@@ -172,18 +175,12 @@ class GamePlay extends React.Component {
               rotation={this.cameraRotation}
             />
             <Bariers
-              // getBarierY={barierY => this.getBarierY(barierY)}
-              // getBarierX={barierX => this.getBarierX(barierX)}
               carX={carX}
               carY={carY}
               gameEnd={() => this.gameEnd()}
               barierPos={barierPos}
-              //endGameState={endGame => console.log(endGame)}
             />
-          {/* <Mountains
-            mountainX={mountainX}
-            mountainY={mountainY}
-          /> */}
+          {/* <Drink /> */}
             {/* <Drinks
               carX={carX}
               carY={carY}
