@@ -1,43 +1,51 @@
-import React, {PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import * as THREE from 'three';
 
-const Drink = props => {
+export default class Drink extends Component {
 
-  const xPos = props.drinkX;
-  const yPos = props.drinkY;
-  const geometry = props.geometry;
+  state = {
+    Ypos: - 100
+  }
 
-  return (
-    <mesh
-      position={new THREE.Vector3(xPos, 0, yPos)}
-      scale={new THREE.Vector3(0.15, 0.15, 0.15)}
-    >
-      <geometry
-        geometry={geometry.geometry}
-        vertices={geometry.vertices}
-        faces={geometry.faces}
-        colors={geometry.colors}
-      />
-      <meshLambertMaterial
-        color={0xffffff}
-      />
-    </mesh>
-  );
-};
+  componentDidMount() {
+    const barierLoader = new THREE.JSONLoader();
+    barierLoader.load(`../assets/json/bottle.json`, this.loadDrink);
+  }
+
+  loadDrink = drinkGeometry => {
+    this.setState({drinkGeometry});
+  }
+
+  render() {
+    const {drinkGeometry, Ypos} = this.state;
+    const {distance} = this.props;
+    //const Ypos = this.props.drinkY;
+    //const Xpos = this.props.drinkX;
+    if (drinkGeometry) {
+      return (
+        <mesh
+          position={new THREE.Vector3(2, 0, 0)}
+          scale={new THREE.Vector3(1, 1, 1)}
+        >
+          <geometry
+            vertices={drinkGeometry.vertices}
+            faces={drinkGeometry.faces}
+            colors={drinkGeometry.colors}
+          />
+          <meshLambertMaterial
+            color={0x00ff00}
+          />
+        </mesh>
+      );
+    } else {
+      return (
+        <group></group>
+      );
+    }
+  }
+}
 
 Drink.propTypes = {
-  drinkX: PropTypes.number,
-  drinkY: PropTypes.number,
-  geometry: PropTypes.object
+  barierY: PropTypes.number,
+  barierX: PropTypes.number
 };
-
-export default Drink;
-
-//
-// const canLoader = new THREE.JSONLoader();
-// canLoader.load(`./assets/json/can.json`, this.loadCan);
-//
-// loadCan(canGeometry, canMaterials) {
-//   this.setState({canGeometry});
-//   this.setState({canMaterials});
-// }

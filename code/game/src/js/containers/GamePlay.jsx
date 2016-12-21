@@ -3,6 +3,7 @@ import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 
 import {Car, Ground, Bariers, Mountains} from '../components';
+import {Drink} from '../components/singleElements';
 
 class Game extends React.Component {
 
@@ -195,6 +196,7 @@ class Game extends React.Component {
               barierPos={barierPos}
               //endGameState={endGame => console.log(endGame)}
             />
+          <Drink />
           {/* <Mountains
             mountainX={mountainX}
             mountainY={mountainY}
