@@ -1,0 +1,13 @@
+import React, {PropTypes} from 'react';
+
+import {Barier} from './singleElements/';
+
+const Bariers {
+
+
+getRandomPos() {
+  const planeWidth = 8;
+  return Math.floor(Math.random() * planeWidth) - planeWidth / 2;
+}
+
+}

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Match, BrowserRouter as Router} from 'react-router';
 
-import {Home, Demo, Game, Choose} from '../pages/';
+import {Home, Demo, Choose} from '../pages/';
+import {GamePlay} from './';
 
 import io from 'socket.io-client';
 // import Peer from 'peerjs';
@@ -58,24 +59,42 @@ class App extends Component {
             />
             <Match
               pattern='/choose'
-              component={Choose}
+              render={() => <Choose mySocketId={mySocketId} />}
             />
+
             <Match
               exactly pattern='/demo'
-              component={Demo}
+              component={Home}
             />
             <Match
-              exactly pattern='/demo/:mySocketId'
-              component={Demo}
-            />
-            <Match
-              exactly pattern='/game/:urlSocketId'
-              // component={Game}
-              render={() => <Game mySocketId={mySocketId} />}
+              exactly pattern='/demo/:urlSocketId'
+              render={props => {
+                const {mySocketId} = this.state;
+                const {urlSocketId} = props.params;
+                return (<Demo urlSocketId={urlSocketId} mySocketId={mySocketId} />);
+              }}
             />
             <Match
               exactly pattern='/game'
-              component={Game}
+              component={Home}
+            />
+            <Match
+              exactly pattern='/game/:urlSocketId'
+              render={props => {
+                const {mySocketId, rooms} = this.state;
+                const {urlSocketId} = props.params;
+
+                if (urlSocketId === `computer`) {
+                  return (<GamePlay player={`computer`} />);
+                } else {
+                  // console.log(includes(rooms, mySocketId));
+                  if (urlSocketId === mySocketId) {
+                    return (<GamePlay player={`me`} mySocketId={mySocketId} urlSocketId={urlSocketId} rooms={rooms} />);
+                  } else {
+                    return (<GamePlay player={`friend`} mySocketId={mySocketId} urlSocketId={urlSocketId} rooms={rooms} />);
+                  }
+                }
+              }}
             />
           </main>
         </Router>
@@ -87,5 +106,9 @@ class App extends Component {
     }
   }
 }
+
+// App.propTypes = {
+//   urlSocketId: PropTypes.string
+// };
 
 export default App;

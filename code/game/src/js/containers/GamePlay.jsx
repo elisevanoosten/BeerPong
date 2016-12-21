@@ -3,8 +3,9 @@ import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 
 import {Car, Ground, Bariers} from '../components';
+import {includes} from 'lodash';
 
-class Game extends React.Component {
+class GamePlay extends React.Component {
 
   constructor(props, context) {
 
@@ -16,7 +17,10 @@ class Game extends React.Component {
       carY: 0,
       barierY: 10,
       barierInterval: 1500,
+      rooms: []
       // kmTeller: 5,
+      // mountainX: 0,
+      // mountainY: 0,
     };
 
     // this.loadCan = this.loadCan.bind(this);
@@ -25,10 +29,20 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
-    console.log(`PROPS`, this.props);
-
+    const {rooms} = this.state;
+    const {player, mySocketId} = this.props;
     this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
     this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);
+
+    if (player === `me`) {
+      if (!includes(rooms, mySocketId)) {
+        rooms.push(mySocketId);
+        this.setState({rooms});
+        console.log(`new room`);
+      }
+    } else if (player === `friend`) {
+      console.log(`join room`);
+    }
   }
 
   componentWillMount() {
@@ -37,6 +51,11 @@ class Game extends React.Component {
 
     //KM TOT THUIS
     this.kmTeller();
+  }
+
+  getRandomPos() {
+    const planeWidth = 8;
+    return Math.floor(Math.random() * planeWidth) - planeWidth / 2;
   }
 
   kmTeller() {
@@ -89,7 +108,8 @@ class Game extends React.Component {
   // }
 
   gameEnd() {
-    // this.props.gameEnd(this.state.kmTeller);
+    console.log(`DOOOODDDD`);
+    //this.props.gameEnd(this.state.kmTeller);
   }
 
   componentWillUnmount () {
@@ -101,7 +121,7 @@ class Game extends React.Component {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
     //const {carX, carY, canGeometry, canMaterials, barierGeometry, barierMaterials} = this.state;
-    const {carX, carY} = this.state;
+    const {carX, carY, barierPos} = this.state;
     // const km =  Math.round(this.state.kmTeller * 100) / 100;
 
     // //SPELER 1
@@ -156,9 +176,14 @@ class Game extends React.Component {
               // getBarierX={barierX => this.getBarierX(barierX)}
               carX={carX}
               carY={carY}
-              // gameEnd={() => this.gameEnd()}
+              gameEnd={() => this.gameEnd()}
+              barierPos={barierPos}
               //endGameState={endGame => console.log(endGame)}
             />
+          {/* <Mountains
+            mountainX={mountainX}
+            mountainY={mountainY}
+          /> */}
             {/* <Drinks
               carX={carX}
               carY={carY}
@@ -176,9 +201,11 @@ class Game extends React.Component {
   }
 }
 
-Game.propTypes = {
-  // gameEnd: PropTypes.func,
-  player: PropTypes.string
+GamePlay.propTypes = {
+  gameEnd: PropTypes.func,
+  player: PropTypes.string,
+  urlSocketId: PropTypes.string,
+  mySocketId: PropTypes.string
 };
 
-export default Game;
+export default GamePlay;

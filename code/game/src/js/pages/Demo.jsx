@@ -7,8 +7,8 @@ class Demo extends Component {
   }
 
   render() {
-    const {urlSocketId} = this.props.params;
-
+    const {urlSocketId} = this.props;
+    //
     if (urlSocketId === undefined) {
       return (
         <div>
@@ -29,7 +29,8 @@ class Demo extends Component {
 
 Demo.propTypes = {
   params: PropTypes.object,
-  mySocketId: PropTypes.string
+  mySocketId: PropTypes.string,
+  urlSocketId: PropTypes.string
 };
 
 export default Demo;

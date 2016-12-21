@@ -22,6 +22,17 @@ body {
   margin-top: -12rem;
 }
 
+.home {
+  display: flex;
+  flex-direction: column;
+}
+
+.startbord {
+  position: absolute;
+  height: 70%;
+  width: auto;
+}
+
 .startbord, .startbutton {
   margin: auto;
 }
@@ -30,11 +41,19 @@ body {
   background-color: #d02321;
   color: white;
   border: none;
-  padding: 20px;
+  padding: 30px;
   margin-top: 4rem;
   font-weight: bold;
   font-size: 1.5rem;
   border-radius: 15px;
+  text-decoration: none;
+}
+
+.choose{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .playerSection {
@@ -68,6 +87,7 @@ input[type=radio] {
   text-align: center;
   margin: auto;
   margin-top: 10rem;
+  margin-bottom: 10rem;
 }
 
 .kmteller {

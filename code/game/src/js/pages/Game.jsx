@@ -1,58 +1,45 @@
-import React, {Component, PropTypes} from 'react';
+// CLICK START TO START
 
-import {GamePlay} from '../containers';
+import React, {PropTypes} from 'react';
 
-class Game extends Component {
+// import GamePlay from '../components';
 
-  state = {
-    urlSocketId: undefined,
-    mySocketId: undefined
-    // rooms: []
-  };
+const Game = props => {
 
-  componentDidMount() {
-    console.log(this.props.params, `YESSS`);
-  }
+  console.log(props);
 
-  componentWillMount() {
-    // const urlSocketId = this.props.params.urlSocketId;
-    // this.setState({urlSocketId});
-  }
+  // let urlSocketId;
+  // let mySocketId;
 
-  render() {
-    // const {urlSocketId} = this.state;
-    // const {mySocketId} = this.state;
-    // console.log(urlSocketId, mySocketId, `hey`);
+  // const {urlSocketId} = props.params;\if
+  // if (params) {
+  //   console.log(`er zijn params`);
+  //   urlSocketId = params.urlSocketId;
+  //   // console.log(props.params, props.mySocketId);
+  //   console.log(params);
+  // }
 
-    // if (urlSocketId === undefined) {
-    //   // tegen computer
-    //   return (
-    //     <div>
-    //       <GamePlay player='computer' />
-    //     </div>
-    //   );
-    // } else {
-    //   if (urlSocketId === mySocketId) {
-    //     // me
-    //     return (
-    //         <div>
-    //           <GamePlay player='me' />
-    //         </div>
-    //     );
-    //   } else {
-        // friend
-    return (
-          <div>
-            <GamePlay player='friend' />
-          </div>
-    );
-      // }
-    // }
-  }
-}
+  // if (props) {
+  //   console.log(`er zijn props`);
+  //   mySocketId = props.mySocketId;
+  //   console.log(mySocketId);
+  // }
+  //
+  // if (mySocketId && urlSocketId) {
+
+  // }
+  // if (urlSocketId) {
+  return (
+      <div>
+        {/* <GamePlay player='friend' /> */}
+      </div>
+  );
+
+};
 
 Game.propTypes = {
-  params: PropTypes.object
+  params: PropTypes.object,
+  mySocketId: PropTypes.string
 };
 
 export default Game;
