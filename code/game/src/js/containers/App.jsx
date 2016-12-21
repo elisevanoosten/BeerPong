@@ -10,7 +10,6 @@ class App extends Component {
 
   state = {
     // rooms: []
-    mySocketId: undefined
   };
 
   componentDidMount() {
@@ -21,6 +20,8 @@ class App extends Component {
   initSocket = () => {
 
     this.socket = io(`/`);
+    this.socket.on(`init`, this.handleWSInit);
+
     // this.socket.on(`connect`, this.initPeer);
 
   }
@@ -40,45 +41,50 @@ class App extends Component {
   // }
 
   handleWSInit = socketId => {
-    console.log(`socket id opslaan`);
     this.setState({mySocketId: socketId});
-    console.log(this.state);
-    this.socket.emit(`subscribe`, socketId);
+    // this.socket.emit(`subscribe`, socketId);
   }
 
 
   render() {
-
-    return (
-      <Router>
-        <main>
-          <Match
-            exactly pattern='/'
-            component={Home}
-          />
-          <Match
-            pattern='/choose'
-            component={Choose}
-          />
-          <Match
-            exactly pattern='/demo'
-            component={Demo}
-          />
-          <Match
-            exactly pattern='/demo/:socketId'
-            component={Demo}
-          />
-          <Match
-            exactly pattern='/game/:socketId'
-            component={Game}
-          />
-          <Match
-            exactly pattern='/game'
-            component={Game}
-          />
-        </main>
-      </Router>
-    );
+    const {mySocketId} = this.state;
+    if (mySocketId) {
+      return (
+        <Router>
+          <main>
+            <Match
+              exactly pattern='/'
+              component={Home}
+            />
+            <Match
+              pattern='/choose'
+              component={Choose}
+            />
+            <Match
+              exactly pattern='/demo'
+              component={Demo}
+            />
+            <Match
+              exactly pattern='/demo/:mySocketId'
+              component={Demo}
+            />
+            <Match
+              exactly pattern='/game/:urlSocketId'
+              // component={Game}
+              render={() => <Game mySocketId={mySocketId} />}
+            />
+            <Match
+              exactly pattern='/game'
+              component={Game}
+            />
+          </main>
+        </Router>
+      );
+    } else {
+      return (
+        <main></main>
+      );
+    }
   }
 }
 

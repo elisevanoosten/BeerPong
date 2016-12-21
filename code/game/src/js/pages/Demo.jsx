@@ -3,23 +3,15 @@ import {Link} from 'react-router';
 
 class Demo extends Component {
 
-  state = {
-    socketId: undefined
-  }
-
-  componentWillMount() {
-    const socketId = this.props.params.socketId;
-    this.setState({socketId});
-    // console.log(this.state);
-    // console.log(this.props);
+  componentDidMount() {
   }
 
   render() {
-    const {socketId} = this.state;
-    if (socketId === undefined) {
+    const {urlSocketId} = this.props.params;
+
+    if (urlSocketId === undefined) {
       return (
         <div>
-          {/* <game player='computer' /> */}
           <h3>DEMO TEGEN COMPUTER</h3>
           <Link className='startbutton' to='/game'>SPEEL HET SPEL!</Link>
         </div>
@@ -27,10 +19,8 @@ class Demo extends Component {
     } else {
       return (
         <div>
-          <h3>stuur dit naar vriend: link.be/join/{this.state.socketId}</h3>
-          {/* <game player='friend' /> */}
-          {/* <Link className='startbutton' to={`/game/\${socketId}`}>Speel tegen een vriend</Link> */}
-          <Link className='startbutton' to={`/game/${socketId}`}>SPEEL HET SPEL!</Link>
+          <h3>stuur dit naar vriend: link.be/join/{urlSocketId}</h3>
+          <Link className='startbutton' to={`/game/${urlSocketId}`}>SPEEL HET SPEL!</Link>
       </div>
       );
     }
@@ -38,7 +28,8 @@ class Demo extends Component {
 }
 
 Demo.propTypes = {
-  params: PropTypes.object
+  params: PropTypes.object,
+  mySocketId: PropTypes.string
 };
 
 export default Demo;

@@ -5,21 +5,49 @@ import {GamePlay} from '../containers';
 class Game extends Component {
 
   state = {
-    socketId: undefined
+    urlSocketId: undefined,
+    mySocketId: undefined
+    // rooms: []
+  };
+
+  componentDidMount() {
+    console.log(this.props.params, `YESSS`);
   }
 
   componentWillMount() {
-    const socketId = this.props.params.socketId;
-    this.setState({socketId});
+    // const urlSocketId = this.props.params.urlSocketId;
+    // this.setState({urlSocketId});
   }
 
   render() {
-    const {socketId} = this.state;
+    // const {urlSocketId} = this.state;
+    // const {mySocketId} = this.state;
+    // console.log(urlSocketId, mySocketId, `hey`);
+
+    // if (urlSocketId === undefined) {
+    //   // tegen computer
+    //   return (
+    //     <div>
+    //       <GamePlay player='computer' />
+    //     </div>
+    //   );
+    // } else {
+    //   if (urlSocketId === mySocketId) {
+    //     // me
+    //     return (
+    //         <div>
+    //           <GamePlay player='me' />
+    //         </div>
+    //     );
+    //   } else {
+        // friend
     return (
-        <div>
-          <GamePlay player={socketId} />
-        </div>
+          <div>
+            <GamePlay player='friend' />
+          </div>
     );
+      // }
+    // }
   }
 }
 
