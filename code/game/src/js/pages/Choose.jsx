@@ -1,6 +1,6 @@
 // CHOOSE BETWEEN COMPUTER OR FRIEND
 
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 
 const Room = props => {
@@ -18,7 +18,7 @@ const Room = props => {
         Speel het spel en ontdek!</p>
         <div className='links'>
           <Link className='startbutton' to='/demo/computer'>TEGEN DE COMPUTER</Link>
-          <Link className='startbutton' to={`/demo/${socketId}`}>TEGEN EEN SLECHTE VRIEND</Link>
+          <Link className='startbutton' to={`/demo/${mySocketId}`}>TEGEN EEN SLECHTE VRIEND</Link>
         </div>
     </div>
   );
