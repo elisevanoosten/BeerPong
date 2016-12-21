@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {Match, BrowserRouter as Router} from 'react-router';
 
-import {Home, Demo, Choose} from '../pages/';
-import {GamePlay} from './';
+import {Home, Start, Choose, Game} from '../pages/';
 
 import io from 'socket.io-client';
 // import Peer from 'peerjs';
@@ -71,7 +70,7 @@ class App extends Component {
               render={props => {
                 const {mySocketId} = this.state;
                 const {urlSocketId} = props.params;
-                return (<Demo urlSocketId={urlSocketId} mySocketId={mySocketId} />);
+                return (<Start urlSocketId={urlSocketId} mySocketId={mySocketId} />);
               }}
             />
             <Match
@@ -85,13 +84,13 @@ class App extends Component {
                 const {urlSocketId} = props.params;
 
                 if (urlSocketId === `computer`) {
-                  return (<GamePlay player={`computer`} />);
+                  return (<Game player={`computer`} />);
                 } else {
                   // console.log(includes(rooms, mySocketId));
                   if (urlSocketId === mySocketId) {
-                    return (<GamePlay player={`me`} mySocketId={mySocketId} urlSocketId={urlSocketId} rooms={rooms} />);
+                    return (<Game player={`me`} mySocketId={mySocketId} urlSocketId={urlSocketId} rooms={rooms} />);
                   } else {
-                    return (<GamePlay player={`friend`} mySocketId={mySocketId} urlSocketId={urlSocketId} rooms={rooms} />);
+                    return (<Game player={`friend`} mySocketId={mySocketId} urlSocketId={urlSocketId} rooms={rooms} />);
                   }
                 }
               }}

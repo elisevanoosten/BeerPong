@@ -1,4 +1,4 @@
 export Home from './Home';
 export Game from './Game';
 export Choose from './Choose';
-export Demo from './Demo';
+export Start from './Start';

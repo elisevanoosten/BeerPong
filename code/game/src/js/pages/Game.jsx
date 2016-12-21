@@ -1,44 +1,205 @@
-// CLICK START TO START
-
 import React, {PropTypes} from 'react';
+import React3 from 'react-three-renderer';
+import * as THREE from 'three';
 
-// import GamePlay from '../components';
+import {Car, Ground, Bariers} from '../components';
+import {includes} from 'lodash';
 
-const Game = props => {
+class Game extends React.Component {
 
-  console.log(props);
+  constructor(props, context) {
 
-  // let urlSocketId;
-  // let mySocketId;
+    super(props, context);
 
-  // const {urlSocketId} = props.params;\if
-  // if (params) {
-  //   console.log(`er zijn params`);
-  //   urlSocketId = params.urlSocketId;
-  //   // console.log(props.params, props.mySocketId);
-  //   console.log(params);
-  // }
+    this.state = {
+      cubeRotation: new THREE.Euler(),
+      carX: - 0.2,
+      carY: 0,
+      barierY: 10,
+      barierInterval: 1500,
+      rooms: []
+      // kmTeller: 5,
+    };
 
-  // if (props) {
-  //   console.log(`er zijn props`);
-  //   mySocketId = props.mySocketId;
-  //   console.log(mySocketId);
-  // }
+    // this.loadCan = this.loadCan.bind(this);
+    // this.loadBarier = this.loadBarier.bind(this);
+
+  }
+
+  componentDidMount() {
+    const {rooms} = this.state;
+    const {player, mySocketId} = this.props;
+    this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
+    this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);
+
+    if (player === `me`) {
+      if (!includes(rooms, mySocketId)) {
+        rooms.push(mySocketId);
+        this.setState({rooms});
+        console.log(`new room`);
+      }
+    } else if (player === `friend`) {
+      console.log(`join room`);
+    }
+  }
+
+  componentWillMount() {
+    //CAR MOVEMENT
+    window.addEventListener(`keydown`, e => this.carMove(e));
+
+    //KM TOT THUIS
+    this.kmTeller();
+  }
+
+  getRandomPos() {
+    const planeWidth = 8;
+    return Math.floor(Math.random() * planeWidth) - planeWidth / 2;
+  }
+
+  kmTeller() {
+  //   let km = this.state.kmTeller;
   //
-  // if (mySocketId && urlSocketId) {
+  //   this.loadInterval = setInterval(() => {
+  //     km -= 0.1;
+  //     this.setState({kmTeller: km});
+  //
+  //     if (km <= 0) {
+  //       this.gameEnd();
+  //     }
+  //   }, 500);
+  }
 
+  carMove(e) {
+    const LEFT = 37;
+    const RIGHT = 39;
+
+    let {carX} = this.state;
+
+    // const rotation = carX / 10;
+    // const position = carX * 1.1;
+    //
+    // this.cameraPosition = new THREE.Vector3(position, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
+    // this.cameraRotation = new THREE.Euler(- 0.3, rotation, 0, `XYZ`);
+
+    if (e.keyCode === LEFT) {
+      if (carX > - 4.2) {
+        carX -= 0.5;
+        this.setState({carX});
+      }
+    }
+    else if (e.keyCode === RIGHT) {
+      if (carX < 3.8) {
+        carX += 0.5;
+        this.setState({carX});
+      }
+    }
+
+  }
+
+  // getBarierY(barierY) {
+  //   this.setState({barierY: barierY});
+  //   // console.log(this.state);
   // }
-  // if (urlSocketId) {
-  return (
-      <div>
-        {/* <GamePlay player='friend' /> */}
-      </div>
-  );
+  // getBarierY(barierX) {
+  //   this.setState({barierX});
+  //   // console.log(this.state);
+  // }
 
-};
+  gameEnd() {
+    console.log(`DOOOODDDD`);
+    //this.props.gameEnd(this.state.kmTeller);
+  }
+
+  componentWillUnmount () {
+    this.loadInterval && clearInterval(this.loadInterval);
+    this.loadInterval = false;
+  }
+
+  render() {
+    const width = window.innerWidth; // canvas width
+    const height = window.innerHeight; // canvas height
+    //const {carX, carY, canGeometry, canMaterials, barierGeometry, barierMaterials} = this.state;
+    const {carX, carY, barierPos} = this.state;
+    // const km =  Math.round(this.state.kmTeller * 100) / 100;
+
+    // //SPELER 1
+    this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
+    this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);
+
+    const cameraLookat = new THREE.Vector3(carX, carY, - 8, `XYZ`); //linksrechts, bovenonder, diepte
+    const lightLookat = new THREE.Vector3(carX, carY - 10, - 8, `XYZ`); //linksrechts, bovenonder, diepte
+
+    //SPELER 2
+    // this.cameraPosition = new THREE.Vector3(0, 2, - 20, `XYZ`);
+    // this.cameraRotation = new THREE.Euler(0, 0, 0, `XYZ`);
+    //
+    // const cameraLookat = new THREE.Vector3(carX, carY, 8, `XYZ`); //linksrechts, bovenonder, diepte
+    // const lightLookat = new THREE.Vector3(carX, carY - 10, 8, `XYZ`); //linksrechts, bovenonder, diepte
+
+    return (
+      <div>
+        <div className='gamePlay'>
+          <React3
+            mainCamera='camera'
+            width={width}
+            height={height}
+            clearColor={0x7DD71B}
+            alpha={true}
+            clearAlpha={0.0}
+          >
+          <scene>
+            <perspectiveCamera
+              name='camera'
+              fov={75}
+              aspect={width / height}
+              near={0.01}
+              far={1000}
+              rotation={this.cameraRotation}
+              position={this.cameraPosition}
+              lookAt={cameraLookat}
+            />
+            <directionalLight
+              // color={0xffffff}
+              lookAt={lightLookat}
+              castShadow={true}
+              intensity={3}
+              // shadowDarkness={8}
+              visible={true}
+            />
+            <Ground />
+            <Car
+              carX={carX}
+              carY={carY}
+              rotation={this.cameraRotation}
+            />
+            <Bariers
+              carX={carX}
+              carY={carY}
+              gameEnd={() => this.gameEnd()}
+              barierPos={barierPos}
+            />
+          {/* <Drink /> */}
+            {/* <Drinks
+              carX={carX}
+              carY={carY}
+              geometry={canGeometry}
+              materials={canMaterials}
+            /> */}
+          </scene>
+        </React3>);
+      </div>
+      <div className='kmteller'>
+        {/* {km} */}
+      </div>
+    </div>
+    );
+  }
+}
 
 Game.propTypes = {
-  params: PropTypes.object,
+  gameEnd: PropTypes.func,
+  player: PropTypes.string,
+  urlSocketId: PropTypes.string,
   mySocketId: PropTypes.string
 };
 

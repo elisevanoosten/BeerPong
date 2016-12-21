@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
-class Demo extends Component {
+class Start extends Component {
 
   componentDidMount() {
   }
@@ -29,10 +29,10 @@ class Demo extends Component {
   }
 }
 
-Demo.propTypes = {
+Start.propTypes = {
   params: PropTypes.object,
   mySocketId: PropTypes.string,
   urlSocketId: PropTypes.string
 };
 
-export default Demo;
+export default Start;
