@@ -17,12 +17,12 @@ export default class Car extends Component {
   }
 
   render() {
-    const {carGeometry, carMaterials} = this.state;
+    const {carGeometry} = this.state;
     const Xpos = this.props.carX;
 
     // const material = new THREE.MultiMaterial(carMaterials);
 
-    if (carGeometry && carMaterials) {
+    if (carGeometry) {
 
       return (
           <mesh
@@ -35,7 +35,10 @@ export default class Car extends Component {
               faces={carGeometry.faces}
               colors={carGeometry.colors}
             />
-            <meshStandardMaterial
+            <meshLambertMaterial
+              color={0x901595}
+            />
+            {/* <meshStandardMaterial
               //{...carMaterials}
               visible={carMaterials.visible}
               transparent={carMaterials.transparent}
@@ -59,7 +62,7 @@ export default class Car extends Component {
               morphTargets={carMaterials.morphTargets}
               morphNormals={carMaterials.morphNormals}
               resourceId={carMaterials.resourceId}
-            />
+            /> */}
           </mesh>
       );
     } else {

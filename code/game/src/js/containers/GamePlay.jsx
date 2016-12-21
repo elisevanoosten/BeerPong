@@ -161,6 +161,9 @@ class Game extends React.Component {
             mainCamera='camera'
             width={width}
             height={height}
+            clearColor={0x7DD71B}
+            alpha={true}
+            clearAlpha={0.0}
           >
           <scene>
             <perspectiveCamera

@@ -21,7 +21,7 @@ class Demo extends Component {
         <div>
           {/* <game player='computer' /> */}
           <h3>DEMO TEGEN COMPUTER</h3>
-          <Link className='startbutton' to='/game'>SPEEL HET SPEL!</Link>
+          <Link className='startBig' to='/game'>SPEEL HET SPEL!</Link>
         </div>
       );
     } else {
@@ -30,8 +30,8 @@ class Demo extends Component {
           <h3>stuur dit naar vriend: link.be/join/{this.state.socketId}</h3>
           {/* <game player='friend' /> */}
           {/* <Link className='startbutton' to={`/game/\${socketId}`}>Speel tegen een vriend</Link> */}
-          <Link className='startbutton' to={`/game/${socketId}`}>SPEEL HET SPEL!</Link>
-      </div>
+          <Link className='startBig' to={`/game/${socketId}`}>SPEEL HET SPEL!</Link>
+        </div>
       );
     }
   }

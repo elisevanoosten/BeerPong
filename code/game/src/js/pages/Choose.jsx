@@ -15,13 +15,13 @@ class Room extends Component {
   }
 
   // <div>
-  //           <input id='friend' type='radio' name='player' value='friend' onClick={e => this.handleChoosePlayer(e)} />
-  //           <label htmlFor='friend' className='radioLabel'></label>
-  //         </div>
-  //         <div>
-  //           <input id='computer' type='radio' name='player' value='computer' onClick={e => this.handleChoosePlayer(e)} />
-  //           <label htmlFor='computer' className='radioLabel'><img src='../../assets/img/computerbord.png' width='10%' height='10%' className='playerbord' /></label>
-  //         </div>
+  // <input id='friend' type='radio' name='player' value='friend' onClick={e => this.handleChoosePlayer(e)} />
+  // <label htmlFor='friend' className='radioLabel'></label>
+  // </div>
+  // <div>
+  // <input id='computer' type='radio' name='player' value='computer' onClick={e => this.handleChoosePlayer(e)} />
+  // <label htmlFor='computer' className='radioLabel'><img src='../../assets/img/computerbord.png' width='10%' height='10%' className='playerbord' /></label>
+  // </div>
 
   render() {
     const socketId = 343;
@@ -29,9 +29,9 @@ class Room extends Component {
       <div className='choose'>
         <p className='intro'>Hoeveel invloed hebben jou slechte vrienden? <br />
         Speel het spel en ontdek!</p>
-        <div>
-          <Link to='/demo'><img src='../../assets/img/vriendenbord.png' width='10%' height='10%' className='playerbord' /></Link>
-          <Link to={`/demo/${socketId}`}><img src='../../assets/img/computerbord.png' width='10%' height='10%' className='playerbord' /></Link>
+        <div className='links'>
+          <Link className='startbutton' to='/demo'>TEGEN DE COMPUTER</Link>
+          <Link className='startbutton' to={`/demo/${socketId}`}>TEGEN EEN SLECHTE VRIEND</Link>
         </div>
     </div>
     );
