@@ -7,6 +7,7 @@ const Ground = () => {
   // const roadTex = roadTexLoader.load(`../assets/img/road.png`);
   // const mesh = null;
 
+  // const planeRotation = new THREE.Euler(- 1.32, 0, 0, `XYZ`);
   const planeRotation = new THREE.Euler(36.105, 0, 0, `XYZ`);
 
   return (

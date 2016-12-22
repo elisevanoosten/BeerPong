@@ -68,6 +68,9 @@ body {
   background-repeat: repeat;
   -webkit-animation: backgroundsize 1s infinite;
           animation: backgroundsize 1s infinite;
+  -webkit-animation-timing-function: step-start;
+          animation-timing-function: step-start;
+
 }
 
 @-webkit-keyframes backgroundsize {

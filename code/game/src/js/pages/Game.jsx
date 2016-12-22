@@ -120,22 +120,27 @@ class Game extends React.Component {
     const height = window.innerHeight; // canvas height
     //const {carX, carY, canGeometry, canMaterials, barierGeometry, barierMaterials} = this.state;
     const {carX, carY, barierPos} = this.state;
+    const {player} = this.props;
     // const km =  Math.round(this.state.kmTeller * 100) / 100;
 
-    // //SPELER 1
-    this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
-    this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);
+    let lightLookat;
+    let cameraLookat;
 
-    const cameraLookat = new THREE.Vector3(carX, carY, - 8, `XYZ`); //linksrechts, bovenonder, diepte
-    const lightLookat = new THREE.Vector3(carX, carY - 10, - 8, `XYZ`); //linksrechts, bovenonder, diepte
+    if (player === `me` || player === `computer`) {
+      // I PLAY
+      this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
+      this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);
 
-    //SPELER 2
-    // this.cameraPosition = new THREE.Vector3(0, 2, - 20, `XYZ`);
-    // this.cameraRotation = new THREE.Euler(0, 0, 0, `XYZ`);
-    //
-    // const cameraLookat = new THREE.Vector3(carX, carY, 8, `XYZ`); //linksrechts, bovenonder, diepte
-    // const lightLookat = new THREE.Vector3(carX, carY - 10, 8, `XYZ`); //linksrechts, bovenonder, diepte
+      cameraLookat = new THREE.Vector3(carX, carY, - 8, `XYZ`); //linksrechts, bovenonder, diepte
+      lightLookat = new THREE.Vector3(carX, carY - 10, - 8, `XYZ`); //linksrechts, bovenonder, diepte
+    } else if (player === `friend`) {
+      // FRIEND PLAYS
+      this.cameraPosition = new THREE.Vector3(0, 2, - 20, `XYZ`);
+      this.cameraRotation = new THREE.Euler(0, 0, 0, `XYZ`);
 
+      cameraLookat = new THREE.Vector3(carX, carY, 8, `XYZ`); //linksrechts, bovenonder, diepte
+      lightLookat = new THREE.Vector3(carX, carY - 10, 8, `XYZ`); //linksrechts, bovenonder, diepte
+    }
     return (
       <div>
         <div className='gamePlay'>

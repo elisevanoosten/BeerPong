@@ -7,6 +7,8 @@ body {
   background-image: url(../../src/assets/img/bg_2.png);
   background-repeat: repeat;
   animation: backgroundsize 1s infinite;
+  animation-timing-function: step-start;
+
 }
 
 @keyframes backgroundsize {
