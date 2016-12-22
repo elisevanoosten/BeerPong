@@ -384,4 +384,9 @@ input[type=radio] {
           justify-content: space-between;
 }
 
+.endpage p{
+  width: 1440px;
+  width: 90rem;
+}
+
 /*# sourceMappingURL=style.css.map*/
