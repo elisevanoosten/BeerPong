@@ -29,7 +29,7 @@ class Drinks extends React.Component {
   }
 
   checkCollision() {
-    const {carX, carY} = this.props;
+    const {carX, carY, player} = this.props;
     const {drinks} = this.state;
 
     drinks.map((drink, i) => {
@@ -42,7 +42,9 @@ class Drinks extends React.Component {
         if (yPos <= carY + carDepth / 2 && yPos >= carY - carDepth / 2) {
 
           this .state.drinkCount ++;
-          this.setBlurry();
+          if (player === `me`) {
+            this.setBlurry();
+          }
           this.props.gameEnd();
         }
       }
@@ -53,7 +55,7 @@ class Drinks extends React.Component {
 
   setBlurry() {
     const count =  this.state.drinkCount * 2;
-    const view = document.querySelector(`.gamePlay`);
+    const view = document.querySelector(`.player-me`);
     view.style.filter = `blur(${ count }px)`;
   }
 
@@ -128,7 +130,8 @@ class Drinks extends React.Component {
 Drinks.propTypes = {
   carY: PropTypes.number,
   carX: PropTypes.number,
-  gameEnd: PropTypes.func
+  gameEnd: PropTypes.func,
+  player: PropTypes.string
 };
 
 

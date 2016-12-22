@@ -17,8 +17,8 @@ const Room = props => {
         <p className='intro'>Hoeveel invloed hebben jou slechte vrienden? <br />
         Speel het spel en ontdek!</p>
         <div className='links'>
-          <Link className='startbutton' to='/demo/computer'>TEGEN DE COMPUTER</Link>
-          <Link className='startbutton' to={`/demo/${mySocketId}`}>TEGEN EEN SLECHTE VRIEND</Link>
+          <Link className='startbutton' to='/start/computer'>TEGEN DE COMPUTER</Link>
+          <Link className='startbutton' to={`/start/${mySocketId}`}>TEGEN EEN SLECHTE VRIEND</Link>
         </div>
     </div>
   );

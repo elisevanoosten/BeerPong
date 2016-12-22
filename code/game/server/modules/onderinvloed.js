@@ -8,10 +8,10 @@ module.exports.register = (server, options, next) => {
 
     socket.emit(`init`, socketId);
 
-    // socket.on(`subscribe`, function(room) {
-    //   console.log(`joining room`, room);
-    //   socket.join(room);
-    // });
+    socket.on(`joinRoom`, function(room) {
+      console.log(`joining room`, room);
+      socket.join(room);
+    });
 
   });
 

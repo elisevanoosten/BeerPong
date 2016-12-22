@@ -4,12 +4,12 @@ import {Match, BrowserRouter as Router} from 'react-router';
 import {Home, Start, Choose, Game} from '../pages/';
 
 import io from 'socket.io-client';
-// import Peer from 'peerjs';
+import Peer from 'peerjs';
 
 class App extends Component {
 
   state = {
-    // rooms: []
+    rooms: []
   };
 
   componentDidMount() {
@@ -21,27 +21,26 @@ class App extends Component {
     this.socket = io(`/`);
     this.socket.on(`init`, this.handleWSInit);
 
-    // this.socket.on(`connect`, this.initPeer);
+    this.socket.on(`connect`, this.initPeer);
 
   }
 
-  // initPeer = () => {
-  //   const {id} = this.socket;
-  //   this.peer = new Peer(id, {
-  //     host: `cryptic-island-50117.herokuapp.com`,
-  //     port: ``,
-  //     path: `/api`,
-  //     secure: true
-  //   });
-  //
-  //   this.socket = io(`/`);
-  //   console.log(window.location.href);
-  //   this.socket.on(`init`, this.handleWSInit);
-  // }
+  initPeer = () => {
+    const {id} = this.socket;
+    this.peer = new Peer(id, {
+      host: `dry-harbor-31700.herokuapp.com`,
+      port: ``,
+      path: `/api`,
+      secure: true
+    });
+
+    this.socket = io(`/`);
+    console.log(window.location.href);
+    this.socket.on(`init`, this.handleWSInit);
+  }
 
   handleWSInit = socketId => {
     this.setState({mySocketId: socketId});
-    // this.socket.emit(`subscribe`, socketId);
   }
 
 
@@ -61,15 +60,15 @@ class App extends Component {
             />
 
             <Match
-              exactly pattern='/demo'
+              exactly pattern='/start'
               component={Home}
             />
             <Match
-              exactly pattern='/demo/:urlSocketId'
+              exactly pattern='/start/:urlSocketId'
               render={props => {
-                const {mySocketId} = this.state;
+                const {mySocketId, rooms} = this.state;
                 const {urlSocketId} = props.params;
-                return (<Start urlSocketId={urlSocketId} mySocketId={mySocketId} />);
+                return (<Start urlSocketId={urlSocketId} mySocketId={mySocketId} rooms={rooms} />);
               }}
             />
             <Match
