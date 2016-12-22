@@ -4,41 +4,30 @@ import React from 'react';
 import {Link} from 'react-router';
 
 const EndGame = props => {
-  console.log(props.location.pathname);
-  if (props.location.pathname === `/EndGame/barier`) {
+
+  const {end, urlSocketId} = props;
+  let text;
+
+  if (end === `barier`) {
     console.log(`door bariere`);
-    return (
-      <div>
-        <p className='intro'>TEGEN GEREDEN</p>
-        <div className='links'>
-          <Link className='startbutton' to='/choose'>TEGEN IEMAND ANDERS?</Link>
-          <Link className='startbutton' to='/game'>REMATCH</Link>
-        </div>
-      </div>
-    );
-  } else if (props.location.pathname ===  `/EndGame/drink`) {
+    text = `BARIERE`;
+  } else if (end ===  `drink`) {
     console.log(`door pintje`);
-    return (
-      <div>
-        <p className='intro'>TEVEEL GEDRONKEN</p>
-        <div className='links'>
-          <Link className='startbutton' to='/choose'>TEGEN IEMAND ANDERS?</Link>
-          <Link className='startbutton' to='/game'>REMATCH</Link>
-        </div>
-      </div>
-    );
-  } else if (props.location.pathname ===  `/EndGame`) {
+    text = `TEVEEL`;
+  } else if (end ===  `won`) {
     console.log(`gewonnen`);
-    return (
-      <div>
-        <p className='intro'>JOEPIE</p>
-        <div className='links'>
-          <Link className='startbutton' to='/choose'>TEGEN IEMAND ANDERS?</Link>
-          <Link className='startbutton' to='/game'>REMATCH</Link>
-        </div>
-      </div>
-    );
+    text = `JOEPIE`;
   }
+
+  return (
+    <div>
+      <p className='intro'>{text}</p>
+      <div className='links'>
+        <Link className='startbutton' to='/choose'>TEGEN IEMAND ANDERS?</Link>
+        <Link className='startbutton' to={`/game/${urlSocketId}`}>REMATCH</Link>
+      </div>
+    </div>
+  );
 };
 
 export default EndGame;

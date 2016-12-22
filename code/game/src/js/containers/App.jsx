@@ -102,8 +102,12 @@ class App extends Component {
               }
             />
             <Match
-              pattern='/endgame'
-              component={EndGame}
+              pattern='/endgame/:end/:urlSocketId'
+              render={props => {
+                const {end, urlSocketId} = props.params;
+
+                return <EndGame urlSocketId={urlSocketId} end={end} />;
+              }}
             />
           </main>
         </Router>

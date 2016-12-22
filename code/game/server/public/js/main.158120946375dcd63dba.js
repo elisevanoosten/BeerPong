@@ -68007,8 +68007,19 @@ var App = function (_Component) {
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
-            pattern: '/endgame',
-            component: __WEBPACK_IMPORTED_MODULE_2__pages___["e" /* EndGame */],
+            pattern: '/endgame/:end/:urlSocketId',
+            render: function render(props) {
+              var _props$params = props.params,
+                  end = _props$params.end,
+                  urlSocketId = _props$params.urlSocketId;
+
+
+              return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["e" /* EndGame */], { urlSocketId: urlSocketId, end: end, __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 109
+                }
+              });
+            },
             __source: {
               fileName: _jsxFileName,
               lineNumber: 104
@@ -68022,7 +68033,7 @@ var App = function (_Component) {
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 113
+            lineNumber: 117
           }
         },
         'hey'
@@ -68150,64 +68161,65 @@ var _jsxFileName = '/Users/SVD/Documents/school/Devine_2016-2017/ExpWeb/_OPDRACH
 
 
 var EndGame = function EndGame(props) {
-  console.log(props.location.pathname);
-  if (props.location.pathname === '/EndGame/barier') {
+  var end = props.end,
+      urlSocketId = props.urlSocketId;
+
+
+  if (end === 'barier') {
     console.log('door bariere');
-  } else if (props.location.pathname === '/EndGame/drink') {
+    text = 'BARIERE';
+  } else if (end === 'drink') {
     console.log('door pintje');
-  } else if (props.location.pathname === '/EndGame') {
+    text = 'TEVEEL';
+  } else if (end === 'won') {
     console.log('gewonnen');
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'div',
-      {
-        __source: {
+    text = 'JOEPIE';
+  }
+
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    'div',
+    {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 22
+      }
+    },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'p',
+      { className: 'intro', __source: {
           fileName: _jsxFileName,
-          lineNumber: 15
+          lineNumber: 23
+        }
+      },
+      text
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'links', __source: {
+          fileName: _jsxFileName,
+          lineNumber: 24
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'p',
-        { className: 'intro', __source: {
+        __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
+        { className: 'startbutton', to: '/choose', __source: {
             fileName: _jsxFileName,
-            lineNumber: 16
+            lineNumber: 25
           }
         },
-        'JOEPIE'
+        'TEGEN IEMAND ANDERS?'
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        { className: 'links', __source: {
+        __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
+        { className: 'startbutton', to: '/game/' + urlSocketId, __source: {
             fileName: _jsxFileName,
-            lineNumber: 17
+            lineNumber: 26
           }
         },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
-          { className: 'startbutton', to: '/choose', __source: {
-              fileName: _jsxFileName,
-              lineNumber: 18
-            }
-          },
-          'TEGEN IEMAND ANDERS?'
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
-          { className: 'startbutton', to: '/game', __source: {
-              fileName: _jsxFileName,
-              lineNumber: 19
-            }
-          },
-          'REMATCH'
-        )
+        'REMATCH'
       )
-    );
-  }
-  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 25
-    }
-  });
+    )
+  );
 };
 
 /* harmony default export */ exports["a"] = EndGame;
@@ -68339,12 +68351,15 @@ var Game = function (_React$Component) {
 
   Game.prototype.gameEnd = function gameEnd(drink, barier) {
     var end = void 0;
+    var urlSocketId = this.props.urlSocketId;
+
+    console.log(urlSocketId);
     if (drink) {
-      window.location.assign('/EndGame/drink');
+      window.location.assign('/EndGame/drink/' + urlSocketId);
     } else if (barier) {
-      window.location.assign('/EndGame/barier');
+      window.location.assign('/EndGame/barier/' + urlSocketId);
     } else {
-      window.location.assign('/EndGame');
+      window.location.assign('/EndGame/won/' + urlSocketId);
     }
     // this.props.gameEnd(this.state.kmTeller)
   };
@@ -68391,14 +68406,14 @@ var Game = function (_React$Component) {
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 141
+          lineNumber: 143
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'gamePlay player-' + player, __source: {
             fileName: _jsxFileName,
-            lineNumber: 142
+            lineNumber: 144
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68412,7 +68427,7 @@ var Game = function (_React$Component) {
             clearAlpha: 0.0,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 143
+              lineNumber: 145
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68420,7 +68435,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 151
+                lineNumber: 153
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('perspectiveCamera', {
@@ -68434,7 +68449,7 @@ var Game = function (_React$Component) {
               lookAt: cameraLookat,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 152
+                lineNumber: 154
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('directionalLight', {
@@ -68446,7 +68461,7 @@ var Game = function (_React$Component) {
               , visible: true,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 162
+                lineNumber: 164
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["a" /* Car */], {
@@ -68455,7 +68470,7 @@ var Game = function (_React$Component) {
               rotation: this.cameraRotation,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 170
+                lineNumber: 172
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["b" /* Drinks */], {
@@ -68468,13 +68483,13 @@ var Game = function (_React$Component) {
               // drinkPos={drinkPos}
               , __source: {
                 fileName: _jsxFileName,
-                lineNumber: 182
+                lineNumber: 184
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["c" /* Ground */], {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 189
+                lineNumber: 191
               }
             })
           )
@@ -68485,7 +68500,7 @@ var Game = function (_React$Component) {
         'div',
         { className: 'kmteller', __source: {
             fileName: _jsxFileName,
-            lineNumber: 193
+            lineNumber: 195
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68493,7 +68508,7 @@ var Game = function (_React$Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 194
+              lineNumber: 196
             }
           },
           kmTeller
@@ -113205,4 +113220,4 @@ module.exports = __webpack_require__(174);
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.a3af37b120809b2d0c6f.js.map
+//# sourceMappingURL=main.158120946375dcd63dba.js.map

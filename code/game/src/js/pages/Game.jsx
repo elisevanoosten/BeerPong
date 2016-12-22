@@ -96,12 +96,14 @@ class Game extends React.Component {
 
   gameEnd(drink, barier) {
     let end;
+    const {urlSocketId} = this.props;
+    console.log(urlSocketId);
     if (drink) {
-      window.location.assign(`/EndGame/drink`);
+      window.location.assign(`/EndGame/drink/${urlSocketId}`);
     } else if (barier) {
-      window.location.assign(`/EndGame/barier`);
+      window.location.assign(`/EndGame/barier/${urlSocketId}`);
     } else {
-      window.location.assign(`/EndGame`);
+      window.location.assign(`/EndGame/won/${urlSocketId}`);
     }
     // this.props.gameEnd(this.state.kmTeller)
   }
