@@ -67041,9 +67041,7 @@ var Bariers = function (_React$Component) {
       requestAnimationFrame(function () {
         _this2.updateY();
       });
-      requestAnimationFrame(function () {
-        _this2.checkCollision();
-      });
+      // requestAnimationFrame(() => {this.checkCollision();});
     }, 1500);
 
     // let {barierY} = this.state;
@@ -67082,31 +67080,21 @@ var Bariers = function (_React$Component) {
     return Math.floor(Math.random() * 400) - 420 / 2;
   };
 
-  Bariers.prototype.checkCollision = function checkCollision() {
-    var _this3 = this;
-
+  Bariers.prototype.checkCollision = function checkCollision(barierX, barierY) {
     var _props = this.props,
         carX = _props.carX,
         carY = _props.carY;
     var bariers = this.state.bariers;
 
 
-    bariers.map(function (barier, i) {
-      var xPos = bariers[i].barierX;
-      var yPos = bariers[i].barierY;
-      var carwidth = 1.7;
-      var carDepth = 2;
+    var carwidth = 1.7;
+    var carDepth = 2;
 
-      if (xPos <= carX + carwidth && xPos >= carX) {
-        if (yPos <= carY + carDepth / 2 && yPos >= carY - carDepth / 2) {
-          _this3.props.gameEnd(barier);
-        }
+    if (barierX <= carX + carwidth && barierX >= carX) {
+      if (barierY <= carY + carDepth / 2 && barierY >= carY - carDepth / 2) {
+        this.props.gameEnd('barier');
       }
-    });
-
-    requestAnimationFrame(function () {
-      _this3.checkCollision();
-    });
+    }
   };
 
   Bariers.prototype.componentWillUnmount = function componentWillUnmount() {
@@ -67123,7 +67111,7 @@ var Bariers = function (_React$Component) {
   };
 
   Bariers.prototype.updateY = function updateY() {
-    var _this4 = this;
+    var _this3 = this;
 
     var bariers = this.state.bariers;
 
@@ -67145,13 +67133,15 @@ var Bariers = function (_React$Component) {
           barierX: barierX,
           barierY: barierY
         });
+
+        this.checkCollision(barierX, barierY);
       }
     });
 
     this.setState({ bariers: bariers });
 
     requestAnimationFrame(function () {
-      _this4.updateY();
+      _this3.updateY();
     });
   };
 
@@ -67197,13 +67187,13 @@ var Bariers = function (_React$Component) {
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 154
+          lineNumber: 150
         }
       },
       bariers.map(function (barier, i) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__singleElements___["b" /* Barier */], { key: i, barierX: barier.barierX, barierY: barier.barierY, __source: {
             fileName: _jsxFileName,
-            lineNumber: 156
+            lineNumber: 152
           }
         });
       })
@@ -67855,21 +67845,28 @@ var App = function (_Component) {
       _this.socket.on('init', _this.handleWSInit);
 
       _this.socket.on('connect', _this.initPeer);
+      _this.socket.on('joinRoom', _this.handleWSJoin);
+
+      var alex = 'super cool';
+      _this.socket.emit('bullshit', alex);
     }, _this.initPeer = function () {
       var id = _this.socket.id;
 
       _this.peer = new __WEBPACK_IMPORTED_MODULE_4_peerjs___default.a(id, {
-        host: 'dry-harbor-31700.herokuapp.com',
-        port: '',
-        path: '/api',
-        secure: true
+        // host: `dry-harbor-31700.herokuapp.com`,
+        host: 'localhost',
+        port: '9000',
+        path: '/api'
       });
 
       _this.socket = __WEBPACK_IMPORTED_MODULE_3_socket_io_client___default()('/');
-      console.log(window.location.href);
       _this.socket.on('init', _this.handleWSInit);
     }, _this.handleWSInit = function (socketId) {
       _this.setState({ mySocketId: socketId });
+    }, _this.handleWSJoin = function (rooms) {
+      console.log(rooms);
+      console.log('jo');
+      _this.setState({ rooms: rooms });
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -67902,7 +67899,7 @@ var App = function (_Component) {
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 65
+            lineNumber: 74
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -67910,7 +67907,7 @@ var App = function (_Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 66
+              lineNumber: 75
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -67918,7 +67915,7 @@ var App = function (_Component) {
             component: __WEBPACK_IMPORTED_MODULE_2__pages___["a" /* Home */],
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 67
+              lineNumber: 76
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -67926,13 +67923,13 @@ var App = function (_Component) {
             render: function render() {
               return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["b" /* Choose */], { mySocketId: mySocketId, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 73
+                  lineNumber: 82
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 71
+              lineNumber: 80
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -67940,7 +67937,7 @@ var App = function (_Component) {
             component: __WEBPACK_IMPORTED_MODULE_2__pages___["a" /* Home */],
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 76
+              lineNumber: 85
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -67953,13 +67950,13 @@ var App = function (_Component) {
 
               return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["c" /* Start */], { urlSocketId: urlSocketId, mySocketId: mySocketId, player: _this2.checkplayer(mySocketId, urlSocketId), rooms: rooms, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 85
+                  lineNumber: 94
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 80
+              lineNumber: 89
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -67967,7 +67964,7 @@ var App = function (_Component) {
             component: __WEBPACK_IMPORTED_MODULE_2__pages___["a" /* Home */],
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 88
+              lineNumber: 97
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -67981,13 +67978,13 @@ var App = function (_Component) {
 
               return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["d" /* Game */], { mySocketId: mySocketId, urlSocketId: urlSocketId, player: _this2.checkplayer(mySocketId, urlSocketId), rooms: rooms, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 99
+                  lineNumber: 108
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 92
+              lineNumber: 101
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -68000,13 +67997,13 @@ var App = function (_Component) {
 
               return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["e" /* EndGame */], { urlSocketId: urlSocketId, end: end, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 109
+                  lineNumber: 118
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 104
+              lineNumber: 113
             }
           })
         )
@@ -68017,7 +68014,7 @@ var App = function (_Component) {
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 117
+            lineNumber: 126
           }
         },
         'hey'
@@ -68062,34 +68059,27 @@ var _jsxFileName = '/Users/SVD/Documents/school/Devine_2016-2017/ExpWeb/_OPDRACH
 
 
 var Room = function Room(props) {
-
-  // componentWillMount() {
-  //   const socketId = this.props.params.socketId;
-  //   this.setState({socketId});
-  // }
-
-  // render() {
   var mySocketId = props.mySocketId;
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
     { className: 'choose', __source: {
         fileName: _jsxFileName,
-        lineNumber: 16
+        lineNumber: 10
       }
     },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'p',
       { className: 'intro', __source: {
           fileName: _jsxFileName,
-          lineNumber: 17
+          lineNumber: 11
         }
       },
       'Hoeveel invloed hebben \x03jou slechte vrienden?\x03 ',
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 17
+          lineNumber: 11
         }
       }),
       'Speel het spel en ontdek!'
@@ -68098,14 +68088,14 @@ var Room = function Room(props) {
       'div',
       { className: 'links', __source: {
           fileName: _jsxFileName,
-          lineNumber: 19
+          lineNumber: 13
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
         { className: 'startbutton', to: '/start/computer', __source: {
             fileName: _jsxFileName,
-            lineNumber: 20
+            lineNumber: 14
           }
         },
         'TEGEN DE COMPUTER'
@@ -68114,7 +68104,7 @@ var Room = function Room(props) {
         __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
         { className: 'startbutton', to: '/start/' + mySocketId, __source: {
             fileName: _jsxFileName,
-            lineNumber: 21
+            lineNumber: 15
           }
         },
         'TEGEN EEN SLECHTE VRIEND'
@@ -68229,6 +68219,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// PLAY GAME WITH FRIEND IN ROOM / COMPUTER
 
 
 
@@ -68362,19 +68354,10 @@ var Game = function (_React$Component) {
   //   // console.log(this.state);
   // }
 
-  Game.prototype.gameEnd = function gameEnd(drinks, barier) {
-    var end = void 0;
+  Game.prototype.gameEnd = function gameEnd(end) {
     var urlSocketId = this.props.urlSocketId;
-    //console.log(urlSocketId);
 
-    if (drinks) {
-      window.location.assign('/EndGame/drink/' + urlSocketId);
-    } else if (barier) {
-      window.location.assign('/EndGame/barier/' + urlSocketId);
-    } else {
-      window.location.assign('/EndGame/won/' + urlSocketId);
-    }
-    // this.props.gameEnd(this.state.kmTeller)
+    window.location.assign('/EndGame/' + end + '/' + urlSocketId);
   };
 
   Game.prototype.componentWillUnmount = function componentWillUnmount() {
@@ -68421,14 +68404,14 @@ var Game = function (_React$Component) {
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 171
+          lineNumber: 164
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'gamePlay player-' + player, __source: {
             fileName: _jsxFileName,
-            lineNumber: 172
+            lineNumber: 165
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68442,7 +68425,7 @@ var Game = function (_React$Component) {
             clearAlpha: 0.0,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 173
+              lineNumber: 166
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68450,7 +68433,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 181
+                lineNumber: 174
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('perspectiveCamera', {
@@ -68464,7 +68447,7 @@ var Game = function (_React$Component) {
               lookAt: cameraLookat,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 182
+                lineNumber: 175
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('directionalLight', {
@@ -68476,7 +68459,7 @@ var Game = function (_React$Component) {
               , visible: true,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 192
+                lineNumber: 185
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["a" /* Car */], {
@@ -68485,7 +68468,7 @@ var Game = function (_React$Component) {
               rotation: this.cameraRotation,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 200
+                lineNumber: 193
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["b" /* Drinks */], {
@@ -68501,13 +68484,13 @@ var Game = function (_React$Component) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 212
+                lineNumber: 205
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["c" /* Ground */], {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 220
+                lineNumber: 213
               }
             })
           )
@@ -68518,7 +68501,7 @@ var Game = function (_React$Component) {
         'div',
         { className: 'kmteller', __source: {
             fileName: _jsxFileName,
-            lineNumber: 224
+            lineNumber: 217
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68526,7 +68509,7 @@ var Game = function (_React$Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 225
+              lineNumber: 218
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68534,7 +68517,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 226
+                lineNumber: 219
               }
             },
             kmTeller,
@@ -68545,7 +68528,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 227
+                lineNumber: 220
               }
             },
             drinkCount,
@@ -68640,6 +68623,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+// LINK MET VRIEND + DEMO
+
 
 
 
@@ -68666,12 +68651,10 @@ var Start = function (_Component) {
 
   Start.prototype.componentDidMount = function componentDidMount() {
     this.socket = __WEBPACK_IMPORTED_MODULE_2_socket_io_client___default()('/');
+    var urlSocketId = this.props.urlSocketId;
     var _props = this.props,
-        urlSocketId = _props.urlSocketId,
-        mySocketId = _props.mySocketId;
-    var _props2 = this.props,
-        player = _props2.player,
-        rooms = _props2.rooms;
+        player = _props.player,
+        rooms = _props.rooms;
 
 
     var socketids = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_lodash__["filter"])(rooms, function (i) {
@@ -68681,11 +68664,11 @@ var Start = function (_Component) {
 
     if (player === 'me') {
       // player me
-      this.socket.emit('joinroom', mySocketId);
-    } else if (player === 'friend') {
-      // player friend
-      this.socket.emit('joinRoom', urlSocketId);
-    }
+      // this.socket.emit(`joinroom`, mySocketId);
+    } else if (player === 'friend') {}
+    // player friend
+    // this.socket.emit(`joinRoom`, urlSocketId);
+
 
     // if (player === `me`) {
     //
@@ -68714,9 +68697,9 @@ var Start = function (_Component) {
   };
 
   Start.prototype.render = function render() {
-    var _props3 = this.props,
-        urlSocketId = _props3.urlSocketId,
-        player = _props3.player;
+    var _props2 = this.props,
+        urlSocketId = _props2.urlSocketId,
+        player = _props2.player;
     //
 
     console.log(player);
@@ -68726,14 +68709,14 @@ var Start = function (_Component) {
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 67
+            lineNumber: 69
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'h3',
           { className: 'intro', __source: {
               fileName: _jsxFileName,
-              lineNumber: 68
+              lineNumber: 70
             }
           },
           'DEMO TEGEN COMPUTER'
@@ -68742,7 +68725,7 @@ var Start = function (_Component) {
           __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
           { className: 'startBig', to: '/game', __source: {
               fileName: _jsxFileName,
-              lineNumber: 69
+              lineNumber: 71
             }
           },
           'SPEEL HET SPEL!'
@@ -68755,14 +68738,14 @@ var Start = function (_Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 75
+              lineNumber: 77
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'h3',
             { className: 'intro', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 76
+                lineNumber: 78
               }
             },
             'stuur dit naar vriend: localhost:3000/start/',
@@ -68772,7 +68755,7 @@ var Start = function (_Component) {
             __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
             { className: 'startBig', to: '/game/' + urlSocketId, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 81
+                lineNumber: 83
               }
             },
             'SPEEL HET SPEL!'
@@ -68784,14 +68767,14 @@ var Start = function (_Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 86
+              lineNumber: 88
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'h3',
             { className: 'intro', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 87
+                lineNumber: 89
               }
             },
             'Plaats pintjes voor je vriend!'
@@ -68801,7 +68784,7 @@ var Start = function (_Component) {
             __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
             { className: 'startBig', to: '/game/' + urlSocketId, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 88
+                lineNumber: 90
               }
             },
             'SPEEL HET SPEL!'
@@ -68812,7 +68795,7 @@ var Start = function (_Component) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__pages__["a" /* Home */], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 92
+          lineNumber: 94
         }
       });
     }
@@ -113260,4 +113243,4 @@ module.exports = __webpack_require__(174);
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.06e4cd0df01ed2ea9e0b.js.map
+//# sourceMappingURL=main.51e7e16717c50de6bdf5.js.map

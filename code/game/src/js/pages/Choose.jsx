@@ -5,12 +5,6 @@ import {Link} from 'react-router';
 
 const Room = props => {
 
-  // componentWillMount() {
-  //   const socketId = this.props.params.socketId;
-  //   this.setState({socketId});
-  // }
-
-  // render() {
   const {mySocketId} = props;
   return (
       <div className='choose'>

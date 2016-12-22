@@ -1,3 +1,5 @@
+// PLAY GAME WITH FRIEND IN ROOM / COMPUTER
+
 import React, {PropTypes} from 'react';
 import React3 from 'react-three-renderer';
 import {EndGame} from '../pages/';
@@ -121,18 +123,9 @@ class Game extends React.Component {
   //   // console.log(this.state);
   // }
 
-  gameEnd(drinks, barier) {
-    let end;
+  gameEnd(end) {
     const {urlSocketId} = this.props;
-    //console.log(urlSocketId);
-    if (drinks) {
-      window.location.assign(`/EndGame/drink/${urlSocketId}`);
-    } else if (barier) {
-      window.location.assign(`/EndGame/barier/${urlSocketId}`);
-    } else {
-      window.location.assign(`/EndGame/won/${urlSocketId}`);
-    }
-    // this.props.gameEnd(this.state.kmTeller)
+    window.location.assign(`/EndGame/${end}/${urlSocketId}`);
   }
 
   componentWillUnmount () {

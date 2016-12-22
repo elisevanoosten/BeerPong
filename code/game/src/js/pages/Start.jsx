@@ -1,3 +1,5 @@
+// LINK MET VRIEND + DEMO
+
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import io from 'socket.io-client';
@@ -14,7 +16,7 @@ class Start extends Component {
 
   componentDidMount() {
     this.socket = io(`/`);
-    const {urlSocketId, mySocketId} = this.props;
+    const {urlSocketId} = this.props;
 
     const {player, rooms} = this.props;
 
@@ -23,10 +25,10 @@ class Start extends Component {
 
     if (player === `me`) {
       // player me
-      this.socket.emit(`joinroom`, mySocketId);
+      // this.socket.emit(`joinroom`, mySocketId);
     } else if (player === `friend`) {
       // player friend
-      this.socket.emit(`joinRoom`, urlSocketId);
+      // this.socket.emit(`joinRoom`, urlSocketId);
     }
 
 
