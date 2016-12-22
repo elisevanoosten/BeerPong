@@ -9,18 +9,15 @@ const EndGame = props => {
   let text;
 
   if (end === `barier`) {
-    console.log(`door bariere`);
-    text = `BARIERE`;
-  } else if (end ===  `drinks`) {
-    console.log(`door pintje`);
-    text = `TEVEEL`;
+    text = `Helaas, Je bent niet thuis geraakt. Jouw rustplaast bevind zich ... km van jouw huis.`;
+  } else if (end ===  `drink`) {
+    text = `Helaas, Je bent niet thuis geraakt. Misschien toch iets minder drinken? je bent ... km van jouw huis gestrand.`;
   } else if (end ===  `won`) {
-    console.log(`gewonnen`);
-    text = `JOEPIE`;
+    text = `Proficiat, je bent heelhuids thuis geraakt. Zeer verantwoordlijk van jou.`;
   }
 
   return (
-    <div>
+    <div className='endpage'>
       <p className='intro'>{text}</p>
       <div className='links'>
         <Link className='startbutton' to='/choose'>TEGEN IEMAND ANDERS?</Link>

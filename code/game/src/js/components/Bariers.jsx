@@ -16,7 +16,7 @@ class Bariers extends React.Component {
     setTimeout(() => {
       this.loopBariers();
       requestAnimationFrame(() => {this.updateY();});
-      // requestAnimationFrame(() => {this.checkCollision();});
+      requestAnimationFrame(() => {this.checkCollision();});
     }, 1500);
 
     // let {barierY} = this.state;
@@ -101,8 +101,6 @@ class Bariers extends React.Component {
           barierX: barierX,
           barierY: barierY,
         });
-
-        this.checkCollision(barierX, barierY);
       }
     });
 

@@ -53,7 +53,7 @@ class Game extends React.Component {
       km -= 0.1;
       this.round(km, 3);
       if (km <= 0) {
-        this.gameEnd();
+        this.gameEnd(kmTeller);
       }
     }, 500);
   }
@@ -74,9 +74,8 @@ class Game extends React.Component {
       this.setBlurry();
     }
 
-    if (drinks === 2) {
-      console.log(`EINDE`);
-      this.gameEnd(drinks);
+    if (drinks === 1) {
+      this.gameEnd(`drink`);
     }
   }
 
@@ -111,17 +110,7 @@ class Game extends React.Component {
         }
       }
     }
-
   }
-
-  // getBarierY(barierY) {
-  //   this.setState({barierY: barierY});
-  //   // console.log(this.state);
-  // }
-  // getBarierY(barierX) {
-  //   this.setState({barierX});
-  //   // console.log(this.state);
-  // }
 
   gameEnd(end) {
     const {urlSocketId} = this.props;
@@ -195,17 +184,17 @@ class Game extends React.Component {
               carY={carY}
               rotation={this.cameraRotation}
             />
-            {/* <Bariers
+            <Bariers
               carX={carX}
               carY={carY}
-              gameEnd={drink => this.gameEnd(drink)}
+              gameEnd={drink => this.gameEnd(drink, kmTeller)}
               kmTeller={kmTeller}
               // barierPos={barierPos}
-            /> */}
+            />
             <Drinks
               carX={carX}
               carY={carY}
-              gameEnd={barier => this.gameEnd(barier)}
+              gameEnd={barier => this.gameEnd(barier, kmTeller)}
               player={player}
               // drinkPos={drinkPos}
               drinkCounter={() => this.drinkCounter()}

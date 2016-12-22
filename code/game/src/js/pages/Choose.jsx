@@ -9,7 +9,10 @@ const Room = props => {
   return (
       <div className='choose'>
         <p className='intro'>Hoeveel invloed hebben jou slechte vrienden? <br />
-        Speel het spel en ontdek!</p>
+        Speel het spel en ontdek!<br />
+      Heb je enkel goede vrienden?<br />
+      Dan kan je het altijd opnemen tegen de computer!
+        </p>
         <div className='links'>
           <Link className='startbutton' to='/start/computer'>TEGEN DE COMPUTER</Link>
           <Link className='startbutton' to={`/start/${mySocketId}`}>TEGEN EEN SLECHTE VRIEND</Link>
