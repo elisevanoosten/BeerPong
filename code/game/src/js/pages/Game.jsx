@@ -18,7 +18,7 @@ class Game extends React.Component {
       carY: 0,
       barierY: 10,
       barierInterval: 1500,
-      // kmTeller: 5,
+      kmTeller: 2
     };
 
     // this.loadCan = this.loadCan.bind(this);
@@ -45,16 +45,16 @@ class Game extends React.Component {
   }
 
   kmTeller() {
-  //   let km = this.state.kmTeller;
-  //
-  //   this.loadInterval = setInterval(() => {
-  //     km -= 0.1;
-  //     this.setState({kmTeller: km});
-  //
-  //     if (km <= 0) {
-  //       this.gameEnd();
-  //     }
-  //   }, 500);
+    let km = this.state.kmTeller;
+
+    this.loadInterval = setInterval(() => {
+      km -= 0.1;
+      //const kmTeller = Math.round(km).toFixed(2);
+      this.setState({kmTeller: km});
+      if (km <= 0) {
+        this.gameEnd();
+      }
+    }, 500);
   }
 
   carMove(e) {
@@ -94,10 +94,16 @@ class Game extends React.Component {
   //   // console.log(this.state);
   // }
 
-  gameEnd() {
-    console.log(`DOOOODDDD`);
-    //this.props.gameEnd(this.state.kmTeller);
-    window.location.assign(`/EndGame`);
+  gameEnd(drink, barier) {
+    let end;
+    if (drink) {
+      window.location.assign(`/EndGame/drink`);
+    } else if (barier) {
+      window.location.assign(`/EndGame/barier`);
+    } else {
+      window.location.assign(`/EndGame`);
+    }
+    // this.props.gameEnd(this.state.kmTeller)
   }
 
   componentWillUnmount () {
@@ -111,9 +117,8 @@ class Game extends React.Component {
     //const {carX, carY, canGeometry, canMaterials, barierGeometry, barierMaterials} = this.state;
     // const {carX, carY, barierPos} = this.state;
     const {player} = this.props;
-    const {carX, carY} = this.state;
+    const {carX, carY, kmTeller} = this.state;
     // const km =  Math.round(this.state.kmTeller * 100) / 100;
-
     let lightLookat;
     let cameraLookat;
 
@@ -167,16 +172,17 @@ class Game extends React.Component {
               carY={carY}
               rotation={this.cameraRotation}
             />
-            <Bariers
+            {/* <Bariers
               carX={carX}
               carY={carY}
-              gameEnd={() => this.gameEnd()}
+              gameEnd={drink => this.gameEnd(drink)}
+              kmTeller={kmTeller}
               // barierPos={barierPos}
-            />
+            /> */}
             <Drinks
               carX={carX}
               carY={carY}
-              gameEnd={() => this.gameEnd()}
+              gameEnd={barier => this.gameEnd(barier)}
               player={player}
               // drinkPos={drinkPos}
             />
@@ -185,7 +191,7 @@ class Game extends React.Component {
         </React3>);
       </div>
       <div className='kmteller'>
-        {/* {km} */}
+        <p>{kmTeller}</p>
       </div>
     </div>
     );

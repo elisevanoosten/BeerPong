@@ -13,9 +13,11 @@ class Bariers extends React.Component {
   }
 
   componentDidMount() {
-    this.loopBariers();
-    requestAnimationFrame(() => {this.updateY();});
-    requestAnimationFrame(() => {this.checkCollision();});
+    setTimeout(() => {
+      this.loopBariers();
+      requestAnimationFrame(() => {this.updateY();});
+      requestAnimationFrame(() => {this.checkCollision();});
+    }, 1000);
 
     // let {barierY} = this.state;
 
@@ -51,7 +53,7 @@ class Bariers extends React.Component {
   }
 
   getRandomYpos() {
-    return Math.floor(Math.random() * 200) - 220 / 2;
+    return Math.floor(Math.random() * 400) - 420 / 2;
   }
 
   checkCollision() {
@@ -66,7 +68,7 @@ class Bariers extends React.Component {
 
       if (xPos <= carX + carwidth && xPos >= carX) {
         if (yPos <= carY + carDepth / 2 && yPos >= carY - carDepth / 2) {
-          this.props.gameEnd();
+          this.props.gameEnd(barier);
         }
       }
     });
@@ -128,7 +130,7 @@ class Bariers extends React.Component {
   // }
 
   loopBariers(bariers) {
-    for (let i = 0;i <= 8;i ++) {
+    for (let i = 0;i <= 6;i ++) {
       this.pushBarier();
     }
     return bariers;

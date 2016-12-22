@@ -14,9 +14,11 @@ class Drinks extends React.Component {
   }
 
   componentDidMount() {
-    this.loopDrinks();
-    requestAnimationFrame(() => {this.updateY();});
-    requestAnimationFrame(() => {this.checkCollision();});
+    setTimeout(() => {
+      this.loopDrinks();
+      requestAnimationFrame(() => {this.updateY();});
+      requestAnimationFrame(() => {this.checkCollision();});
+    }, 1000);
   }
 
   getRandomXpos() {
@@ -25,7 +27,7 @@ class Drinks extends React.Component {
   }
 
   getRandomYpos() {
-    return Math.floor(Math.random() * 200) - 220 / 2;
+    return Math.floor(Math.random() * 400) - 420 / 2;
   }
 
   checkCollision() {
@@ -40,7 +42,6 @@ class Drinks extends React.Component {
 
       if (xPos <= carX + carwidth && xPos >= carX) {
         if (yPos <= carY + carDepth / 2 && yPos >= carY - carDepth / 2) {
-
           this .state.drinkCount ++;
           if (player === `me`) {
             this.setBlurry();
@@ -49,10 +50,11 @@ class Drinks extends React.Component {
             //TO DOO:PINTJES WEG
             ////////////
 
-            // const remove = true;
-            // this.updateY(remove);
+            const remove = true;
+            this.updateY(remove);
           }
-          this.props.gameEnd();
+          console.log(this.state.drinkCount);
+          this.props.gameEnd(drink);
         }
       }
     });
@@ -85,6 +87,11 @@ class Drinks extends React.Component {
     drinks.map(function(drink, i) {
       drink.drinkY += 0.5;
 
+      if (remove) {
+        //bariers = bariers.filter(b => b !== bariers[i]);
+        console.log(`remove`);
+      }
+
       if (drink.drinkY > 100) {
 
         drinks = drinks.filter(b => b !== drinks[i]);
@@ -106,7 +113,7 @@ class Drinks extends React.Component {
   }
 
   loopDrinks(drinks) {
-    for (let i = 0;i <= 8;i ++) {
+    for (let i = 0;i <= 5;i ++) {
       this.pushDrink();
     }
     return drinks;
