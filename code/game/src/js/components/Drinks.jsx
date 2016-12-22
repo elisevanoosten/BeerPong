@@ -44,6 +44,13 @@ class Drinks extends React.Component {
           this .state.drinkCount ++;
           if (player === `me`) {
             this.setBlurry();
+
+            ////////////
+            //TO DOO:PINTJES WEG
+            ////////////
+
+            // const remove = true;
+            // this.updateY(remove);
           }
           this.props.gameEnd();
         }
@@ -70,8 +77,10 @@ class Drinks extends React.Component {
     return drinks;
   }
 
-  updateY() {
+  updateY(remove) {
     let {drinks} = this.state;
+
+    //console.log(remove);
 
     drinks.map(function(drink, i) {
       drink.drinkY += 0.5;

@@ -8,8 +8,8 @@ export default class Drink extends Component {
   }
 
   componentDidMount() {
-    const barierLoader = new THREE.JSONLoader();
-    barierLoader.load(`../assets/json/bottle.json`, this.loadDrink);
+    const drinkLoader = new THREE.JSONLoader();
+    drinkLoader.load(`../assets/json/bottle.json`, this.loadDrink);
   }
 
   loadDrink = drinkGeometry => {
