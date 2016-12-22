@@ -16,7 +16,7 @@ class Bariers extends React.Component {
     setTimeout(() => {
       this.loopBariers();
       requestAnimationFrame(() => {this.updateY();});
-      requestAnimationFrame(() => {this.checkCollision();});
+      // requestAnimationFrame(() => {this.checkCollision();});
     }, 1500);
 
     // let {barierY} = this.state;
@@ -56,24 +56,18 @@ class Bariers extends React.Component {
     return Math.floor(Math.random() * 400) - 420 / 2;
   }
 
-  checkCollision() {
+  checkCollision(barierX, barierY) {
     const {carX, carY} = this.props;
     const {bariers} = this.state;
 
-    bariers.map((barier, i) => {
-      const xPos = bariers[i].barierX;
-      const yPos = bariers[i].barierY;
-      const carwidth = 1.7;
-      const carDepth = 2;
+    const carwidth = 1.7;
+    const carDepth = 2;
 
-      if (xPos <= carX + carwidth && xPos >= carX) {
-        if (yPos <= carY + carDepth / 2 && yPos >= carY - carDepth / 2) {
-          this.props.gameEnd(barier);
-        }
+    if (barierX <= carX + carwidth && barierX >= carX) {
+      if (barierY <= carY + carDepth / 2 && barierY >= carY - carDepth / 2) {
+        this.props.gameEnd(`barier`);
       }
-    });
-
-    requestAnimationFrame(() => {this.checkCollision();});
+    }
   }
 
   componentWillUnmount () {
@@ -107,6 +101,8 @@ class Bariers extends React.Component {
           barierX: barierX,
           barierY: barierY,
         });
+
+        this.checkCollision(barierX, barierY);
       }
     });
 

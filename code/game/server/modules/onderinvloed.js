@@ -15,6 +15,13 @@ module.exports.register = (server, options, next) => {
       console.log(rooms);
       return rooms;
     });
+
+    socket.on(`bullshit`, data => {
+      console.log(data);
+
+      // socket.emit(`recheck`, newdata);
+    });
+
     // socket.on(`joinRoom`, function(room) {
     //   rooms.push({username, socketId});
     //   socket.emit(`login`, rooms);

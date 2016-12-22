@@ -101,18 +101,9 @@ class Game extends React.Component {
   //   // console.log(this.state);
   // }
 
-  gameEnd(drink, barier) {
-    let end;
+  gameEnd(end) {
     const {urlSocketId} = this.props;
-    console.log(urlSocketId);
-    if (drink) {
-      window.location.assign(`/EndGame/drink/${urlSocketId}`);
-    } else if (barier) {
-      window.location.assign(`/EndGame/barier/${urlSocketId}`);
-    } else {
-      window.location.assign(`/EndGame/won/${urlSocketId}`);
-    }
-    // this.props.gameEnd(this.state.kmTeller)
+    window.location.assign(`/EndGame/${end}/${urlSocketId}`);
   }
 
   componentWillUnmount () {

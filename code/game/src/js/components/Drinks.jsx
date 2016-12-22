@@ -52,7 +52,7 @@ class Drinks extends React.Component {
             //this.updateY(remove);
           }
           if (this.state.drinkCount > 5) {
-            this.props.gameEnd(drink);
+            this.props.gameEnd(`drink`);
           }
         }
       }
