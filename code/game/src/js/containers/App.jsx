@@ -43,18 +43,32 @@ class App extends Component {
     this.setState({mySocketId: socketId});
   }
 
+  checkplayer(mySocketId, urlSocketId) {
+    if (urlSocketId === `computer`) {
+      const player = `computer`;
+      return player;
+    } else if (urlSocketId === mySocketId) {
+      const player = `me`;
+      return player;
+    } else if (urlSocketId !== mySocketId) {
+      const player = `friend`;
+      return player;
+    }
+  }
+
 
   render() {
     const {mySocketId} = this.state;
+
     if (mySocketId) {
       return (
         <Router>
-          <main>
-            <Match
+           <main>
+             <Match
               exactly pattern='/'
               component={Home}
             />
-            <Match
+             <Match
               pattern='/choose'
               render={() => <Choose mySocketId={mySocketId} />}
             />
@@ -68,7 +82,7 @@ class App extends Component {
               render={props => {
                 const {mySocketId, rooms} = this.state;
                 const {urlSocketId} = props.params;
-                return (<Start urlSocketId={urlSocketId} mySocketId={mySocketId} rooms={rooms} />);
+                return (<Start urlSocketId={urlSocketId} mySocketId={mySocketId} player={this.checkplayer(mySocketId, urlSocketId)} rooms={rooms} />);
               }}
             />
             <Match
@@ -81,24 +95,18 @@ class App extends Component {
                 const {mySocketId, rooms} = this.state;
                 const {urlSocketId} = props.params;
 
-                if (urlSocketId === `computer`) {
-                  return (<Game player={`computer`} />);
-                } else {
-                  // console.log(includes(rooms, mySocketId));
-                  if (urlSocketId === mySocketId) {
-                    return (<Game player={`me`} mySocketId={mySocketId} urlSocketId={urlSocketId} rooms={rooms} />);
-                  } else {
-                    return (<Game player={`friend`} mySocketId={mySocketId} urlSocketId={urlSocketId} rooms={rooms} />);
-                  }
-                }
-              }}
+                return (
+                  <Game mySocketId={mySocketId} urlSocketId={urlSocketId} player={this.checkplayer(mySocketId, urlSocketId)} rooms={rooms} />
+                );
+              }
+              }
             />
           </main>
         </Router>
       );
     } else {
       return (
-        <main></main>
+        <main>hey</main>
       );
     }
   }
@@ -106,7 +114,8 @@ class App extends Component {
 
 App.propTypes = {
   urlSocketId: PropTypes.string,
-  mySocketId: PropTypes.string
+  mySocketId: PropTypes.string,
+  params: PropTypes.object
 };
 
 export default App;

@@ -60,7 +60,7 @@ class Game extends React.Component {
     const RIGHT = 39;
 
     let {carX} = this.state;
-
+    const {player} = this.props;
     // const rotation = carX / 10;
     // const position = carX * 1.1;
     //

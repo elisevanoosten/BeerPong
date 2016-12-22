@@ -11,6 +11,9 @@ module.exports.register = (server, options, next) => {
     socket.on(`joinRoom`, function(room) {
       console.log(`joining room`, room);
       socket.join(room);
+      socket.broadcast.emit(`i'm joining, xoxo`, socketId);
+      // socket.broadcast.to(room).emit('count', "Connected:" + " " + count);
+
     });
 
   });

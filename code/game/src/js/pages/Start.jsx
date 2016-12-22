@@ -2,24 +2,24 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import io from 'socket.io-client';
 
+import {Home} from '../pages';
+
 // import {includes} from 'lodash';
 import {filter} from 'lodash';
 
 class Start extends Component {
 
   state = {
-    rooms: []
   }
 
   componentDidMount() {
     this.socket = io(`/`);
     const {urlSocketId, mySocketId} = this.props;
 
-    // const {rooms} = this.state;
-    const {player} = this.props;
+    const {player, rooms} = this.props;
 
-    // const socketids = filter(rooms, function(r) { return r = urlSocketId; });
-    // console.log(socketids);
+    const socketids = filter(rooms, function(i) { return rooms[i] = urlSocketId; });
+    console.log(socketids);
 
     if (player === `me`) {
       // player me
@@ -89,7 +89,7 @@ class Start extends Component {
           </div>
         );
       }
-      return <div></div>;
+      return <Home />;
     }
   }
 }
@@ -98,7 +98,8 @@ Start.propTypes = {
   params: PropTypes.object,
   mySocketId: PropTypes.string,
   urlSocketId: PropTypes.string,
-  player: PropTypes.string
+  player: PropTypes.string,
+  rooms: PropTypes.array
 };
 
 export default Start;
