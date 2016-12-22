@@ -9,7 +9,6 @@ class Drinks extends React.Component {
 
     this.state = {
       drinks: [],
-      drinkCount: 0
     };
   }
 
@@ -45,26 +44,12 @@ class Drinks extends React.Component {
 
       if (xPos <= carX + carwidth && xPos >= carX) {
         if (yPos <= carY + carDepth / 2 && yPos >= carY - carDepth / 2) {
-          this .state.drinkCount ++;
-          //console.log(this.state.drinkCount);
-          if (player === `me`) {
-            this.setBlurry();
-            //this.updateY(remove);
-          }
-          if (this.state.drinkCount > 5) {
-            this.props.gameEnd(`drink`);
-          }
+          this.props.drinkCounter();
         }
       }
     });
 
     requestAnimationFrame(() => {this.checkCollision();});
-  }
-
-  setBlurry() {
-    const count =  this.state.drinkCount * 2;
-    const view = document.querySelector(`.player-me`);
-    view.style.filter = `blur(${ count }px)`;
   }
 
   componentWillUnmount () {
@@ -80,9 +65,6 @@ class Drinks extends React.Component {
 
   updateY(remove) {
     let {drinks} = this.state;
-    //console.log(remove);
-
-    //console.log(remove);
 
     drinks.map(function(drink, i) {
       drink.drinkY += 0.5;
@@ -147,7 +129,8 @@ Drinks.propTypes = {
   carY: PropTypes.number,
   carX: PropTypes.number,
   gameEnd: PropTypes.func,
-  player: PropTypes.string
+  player: PropTypes.string,
+  drinkCounter: PropTypes.func
 };
 
 

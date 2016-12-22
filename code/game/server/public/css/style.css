@@ -73,6 +73,18 @@ body {
           animation-timing-function: step-start;
 }
 
+.startbutton {
+  position: absolute;
+  bottom: 0;
+  background-color: #8e288f;
+  padding: 10px;
+  border-radius: 10px 10px 0 0;
+  font-size: 32px;
+  font-size: 2rem;
+  color: white;
+  text-decoration: none;
+}
+
 @-webkit-keyframes backgroundsize {
 
   0%, 100% {
@@ -213,29 +225,28 @@ body {
   margin: auto;
 }
 
-.home .startbutton {
+/* .home .startbutton {
   position: absolute;
   bottom: 0;
-  margin-left: -144px;
   margin-left: -9rem;
+} */
+
+.page {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  vertical-align: center;
+  text-align: center;
+  padding-top: 320px;
+  padding-top: 20rem;
 }
 
-.startbutton {
-  background-color: #8e288f;
-  color: white;
-  border: none;
-  padding: 30px;
-  font-weight: bold;
-  font-size: 24px;
-  font-size: 1.5rem;
-  border-radius: 15px 15px 0 0;
-  text-decoration: none;
-  height: 128px;
-  height: 8rem;
-  margin-left: 20px;
-}
-
-.links {
+ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -243,9 +254,39 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+li {
+  font-size: 32px;
+  font-size: 2rem;
+  color: white;
+  padding: 8px;
+  padding: .5rem;
+  width: 640px;
+  width: 40rem;
+  text-align: center;
+  line-height: 64px;
+  line-height: 4rem;
+}
+
+.link-vriend {
+  color: white;
+  font-size: 32px;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 32px;
+  padding: 2rem;
+  background-color: #8e288f;
+}
+
+/* .links {
+  display: flex;
+  flex-direction: row;
   position: absolute;
   bottom: 0;
-}
+} */
 
 .startBig {
   border-radius: 300px;
@@ -261,11 +302,12 @@ body {
 .startBig .enabled {
   background-color: #8e288f;
 }
+
 .startBig .disabled {
   background-color: #77787a;
 }
 
-.choose {
+.choose, .endpage {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -331,6 +373,27 @@ input[type=radio] {
   top: 10px;
   left: 20px;
   font-size: 40px;
+  width: 100%;
+  padding: 80px;
+  padding: 5rem;
+}
+
+.kmteller ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.endpage p {
+  width: 1440px;
+  width: 90rem;
 }
 
 /*# sourceMappingURL=style.css.map*/

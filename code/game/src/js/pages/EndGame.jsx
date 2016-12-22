@@ -1,6 +1,6 @@
 // CLICK START TO START
 
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 
 const EndGame = props => {
@@ -9,18 +9,15 @@ const EndGame = props => {
   let text;
 
   if (end === `barier`) {
-    console.log(`door bariere`);
-    text = `BARIERE`;
+    text = `Helaas, Je bent niet thuis geraakt. Jouw rustplaast bevind zich op de weg naar jouw huis.`;
   } else if (end ===  `drink`) {
-    console.log(`door pintje`);
-    text = `TEVEEL`;
+    text = `Helaas, Je bent niet thuis geraakt. Misschien toch iets minder drinken? je onderweg naar jouw huis gestrand.`;
   } else if (end ===  `won`) {
-    console.log(`gewonnen`);
-    text = `JOEPIE`;
+    text = `Proficiat, je bent heelhuids thuis geraakt. Zeer verantwoordlijk van jou.`;
   }
 
   return (
-    <div>
+    <div className='endpage'>
       <p className='intro'>{text}</p>
       <div className='links'>
         <Link className='startbutton' to='/choose'>TEGEN IEMAND ANDERS?</Link>
@@ -28,6 +25,11 @@ const EndGame = props => {
       </div>
     </div>
   );
+};
+
+EndGame.propTypes = {
+  end: PropTypes.string,
+  urlSocketId: PropTypes.string,
 };
 
 export default EndGame;
