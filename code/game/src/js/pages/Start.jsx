@@ -12,56 +12,43 @@ import {filter} from 'lodash';
 class Start extends Component {
 
   state = {
+    joinConfirmation: false
   }
 
   componentDidMount() {
     this.socket = io(`/`);
     const {urlSocketId} = this.props;
 
-    const {player, rooms} = this.props;
+    this.socket.emit(`joinRoom`, urlSocketId);
+    this.socket.on(`newRooms`, rooms => {
+      console.log(rooms, `rooms`);
+    });
 
-    const socketids = filter(rooms, function(i) { return rooms[i] = urlSocketId; });
-    console.log(socketids);
-
-    if (player === `me`) {
-      // player me
-      // this.socket.emit(`joinroom`, mySocketId);
-    } else if (player === `friend`) {
-      // player friend
-      // this.socket.emit(`joinRoom`, urlSocketId);
-    }
-
-
-    // if (player === `me`) {
-    //
-    //   if (!includes(rooms, mySocketId)) {
-    //     // New room
-    //     rooms.push(mySocketId);
-    //     this.setState({rooms});
-    //     console.log(`new room`);
-    //     this.socket.emit(`joinRoom`, mySocketId);
-    //
-    //   }
-    // } else if (player === `friend`) {
-    //   // join room
-    // }
+    this.socket.on(`roomJoined`, newJoinSocketId => {
+      if (newJoinSocketId === urlSocketId) {
+        console.log(newJoinSocketId, `joined you`);
+        this.setState({joinConfirmation: true});
+      }
+    });
 
   }
 
-  copyHandler(link) {
-    // window.prompt(`Copy to clipboard: Ctrl+C, Enter`, link);
-    try {
-        // copy text
-      document.execCommand(`copy`);
-      link.blur();
-    }
-    catch (err) {
-      alert(`please press Ctrl/Cmd+C to copy`);
-    }
-  }
+  // copyHandler(link) {
+  //   // window.prompt(`Copy to clipboard: Ctrl+C, Enter`, link);
+  //   try {
+  //       // copy text
+  //     document.execCommand(`copy`);
+  //     link.blur();
+  //   }
+  //   catch (err) {
+  //     alert(`please press Ctrl/Cmd+C to copy`);
+  //   }
+  // }
 
   render() {
     const {urlSocketId, player} = this.props;
+    const {joinConfirmation} = this.state;
+    console.log(joinConfirmation);
     //
     console.log(player);
     if (player === `computer`) {
@@ -73,16 +60,21 @@ class Start extends Component {
       );
     } else {
       if (player === `me`) {
-        return (
-          <div>
-            <h3 className='intro'>stuur dit naar vriend: localhost:3000/start/{urlSocketId}</h3>
-            {/* <a href='#' onClick={() => this.copyHandler(`localhost:3000/game/${urlSocketId}`)}>copy link</a> */}
-
-          {/* <game player='friend' /> */}
-            {/* <Link className='startbutton' to={`/game/\${socketId}`}>Speel tegen een vriend</Link> */}
-            <Link className='startBig' to={`/game/${urlSocketId}`}>SPEEL HET SPEL!</Link>
-          </div>
-        );
+        if (joinConfirmation === true) {
+          return (
+            <div>
+              <h3 className='intro'>stuur dit naar vriend: localhost:3000/start/{urlSocketId}</h3>
+              <Link className={`startBig ${joinConfirmation}`} to={`/game/${urlSocketId}`}>SPEEL HET SPEL!</Link>
+            </div>
+          );
+        } else {
+          return (
+            <div>
+              <h3 className='intro'>stuur dit naar vriend: localhost:3000/start/{urlSocketId}</h3>
+              <h2 className='intro'>Wachten op vriend...</h2>
+            </div>
+          );
+        }
       } else if (player === `friend`) {
         return (
           <div>

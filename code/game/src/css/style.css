@@ -118,6 +118,13 @@ body {
   text-decoration: none;
 }
 
+.startBig .enabled {
+  background-color: #8e288f;
+}
+.startBig .disabled {
+  background-color: #77787a;
+}
+
 .choose {
   display: flex;
   flex-direction: column;

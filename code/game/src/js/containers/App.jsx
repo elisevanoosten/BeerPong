@@ -22,10 +22,7 @@ class App extends Component {
     this.socket.on(`init`, this.handleWSInit);
 
     this.socket.on(`connect`, this.initPeer);
-    this.socket.on(`joinRoom`, this.handleWSJoin);
-
-    const alex = `super cool`;
-    this.socket.emit(`bullshit`, alex);
+    // this.socket.on(`joinRoom`, this.handleWSJoin);
   }
 
   initPeer = () => {
