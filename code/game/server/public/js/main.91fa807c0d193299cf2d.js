@@ -67350,8 +67350,7 @@ var Drinks = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, _React$Component.call(this, props, context));
 
     _this.state = {
-      drinks: [],
-      drinkCount: 0
+      drinks: []
     };
     return _this;
   }
@@ -67400,15 +67399,7 @@ var Drinks = function (_React$Component) {
 
       if (xPos <= carX + carwidth && xPos >= carX) {
         if (yPos <= carY + carDepth / 2 && yPos >= carY - carDepth / 2) {
-          _this3.state.drinkCount++;
-          //console.log(this.state.drinkCount);
-          if (player === 'me') {
-            _this3.setBlurry();
-            //this.updateY(remove);
-          }
-          if (_this3.state.drinkCount > 5) {
-            _this3.props.gameEnd(drink);
-          }
+          _this3.props.drinkCounter();
         }
       }
     });
@@ -67416,12 +67407,6 @@ var Drinks = function (_React$Component) {
     requestAnimationFrame(function () {
       _this3.checkCollision();
     });
-  };
-
-  Drinks.prototype.setBlurry = function setBlurry() {
-    var count = this.state.drinkCount * 2;
-    var view = document.querySelector('.player-me');
-    view.style.filter = 'blur(' + count + 'px)';
   };
 
   Drinks.prototype.componentWillUnmount = function componentWillUnmount() {
@@ -67439,9 +67424,7 @@ var Drinks = function (_React$Component) {
     var _this4 = this;
 
     var drinks = this.state.drinks;
-    //console.log(remove);
 
-    //console.log(remove);
 
     drinks.map(function (drink, i) {
       drink.drinkY += 0.5;
@@ -67503,13 +67486,13 @@ var Drinks = function (_React$Component) {
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 137
+          lineNumber: 119
         }
       },
       drinks.map(function (drink, i) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__singleElements___["a" /* Drink */], { key: i, drinkX: drink.drinkX, drinkY: drink.drinkY, __source: {
             fileName: _jsxFileName,
-            lineNumber: 139
+            lineNumber: 121
           }
         });
       })
@@ -67523,7 +67506,8 @@ Drinks.propTypes = {
   carY: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].number,
   carX: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].number,
   gameEnd: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].func,
-  player: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string
+  player: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string,
+  drinkCounter: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].func
 };
 
 /* harmony default export */ exports["a"] = Drinks;
@@ -68169,7 +68153,7 @@ var EndGame = function EndGame(props) {
   if (end === 'barier') {
     console.log('door bariere');
     text = 'BARIERE';
-  } else if (end === 'drink') {
+  } else if (end === 'drinks') {
     console.log('door pintje');
     text = 'TEVEEL';
   } else if (end === 'won') {
@@ -68264,11 +68248,14 @@ var Game = function (_React$Component) {
 
     _this.state = {
       cubeRotation: new __WEBPACK_IMPORTED_MODULE_3_three__["Euler"](),
+
       carX: -0.2,
       carY: 0,
       barierY: 10,
       barierInterval: 1500,
-      kmTeller: 15
+
+      kmTeller: 15,
+      drinkCount: 0
     };
 
     // this.loadCan = this.loadCan.bind(this);
@@ -68306,7 +68293,7 @@ var Game = function (_React$Component) {
 
     this.loadInterval = setInterval(function () {
       km -= 0.1;
-      _this3.round(km, 2);
+      _this3.round(km, 3);
       if (km <= 0) {
         _this3.gameEnd();
       }
@@ -68314,9 +68301,32 @@ var Game = function (_React$Component) {
   };
 
   Game.prototype.round = function round(value, decimals) {
-    console.log(value, decimals);
-    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
-    this.setState({ kmTeller: value });
+    var n = Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+    this.setState({ kmTeller: n });
+  };
+
+  Game.prototype.drinkCounter = function drinkCounter() {
+    var drinks = this.state.drinkCount;
+    var player = this.props.player;
+
+
+    drinks++;
+    this.setState({ drinkCount: drinks });
+
+    if (player === 'me') {
+      this.setBlurry();
+    }
+
+    if (drinks === 2) {
+      console.log('EINDE');
+      this.props.gameEnd(drinks);
+    }
+  };
+
+  Game.prototype.setBlurry = function setBlurry() {
+    var count = this.state.drinkCount * 2;
+    var view = document.querySelector('.player-me');
+    view.style.filter = 'blur(' + count + 'px)';
   };
 
   Game.prototype.carMove = function carMove(e) {
@@ -68355,12 +68365,12 @@ var Game = function (_React$Component) {
   //   // console.log(this.state);
   // }
 
-  Game.prototype.gameEnd = function gameEnd(drink, barier) {
+  Game.prototype.gameEnd = function gameEnd(drinks, barier) {
     var end = void 0;
     var urlSocketId = this.props.urlSocketId;
+    //console.log(urlSocketId);
 
-    console.log(urlSocketId);
-    if (drink) {
+    if (drinks) {
       window.location.assign('/EndGame/drink/' + urlSocketId);
     } else if (barier) {
       window.location.assign('/EndGame/barier/' + urlSocketId);
@@ -68386,7 +68396,8 @@ var Game = function (_React$Component) {
     var _state = this.state,
         carX = _state.carX,
         carY = _state.carY,
-        kmTeller = _state.kmTeller;
+        kmTeller = _state.kmTeller,
+        drinkCount = _state.drinkCount;
     // const km =  Math.round(this.state.kmTeller * 100) / 100;
 
     var lightLookat = void 0;
@@ -68407,19 +68418,20 @@ var Game = function (_React$Component) {
       cameraLookat = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](carX, carY, 8, 'XYZ'); //linksrechts, bovenonder, diepte
       lightLookat = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](0, -200, 8, 'XYZ'); //linksrechts, bovenonder, diepte
     }
+
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 148
+          lineNumber: 174
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'gamePlay player-' + player, __source: {
             fileName: _jsxFileName,
-            lineNumber: 149
+            lineNumber: 175
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68433,7 +68445,7 @@ var Game = function (_React$Component) {
             clearAlpha: 0.0,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 150
+              lineNumber: 176
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68441,7 +68453,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 158
+                lineNumber: 184
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('perspectiveCamera', {
@@ -68455,7 +68467,7 @@ var Game = function (_React$Component) {
               lookAt: cameraLookat,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 159
+                lineNumber: 185
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('directionalLight', {
@@ -68467,7 +68479,7 @@ var Game = function (_React$Component) {
               , visible: true,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 169
+                lineNumber: 195
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["a" /* Car */], {
@@ -68476,7 +68488,7 @@ var Game = function (_React$Component) {
               rotation: this.cameraRotation,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 177
+                lineNumber: 203
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["b" /* Drinks */], {
@@ -68487,15 +68499,18 @@ var Game = function (_React$Component) {
               },
               player: player
               // drinkPos={drinkPos}
-              , __source: {
+              , drinkCounter: function drinkCounter() {
+                return _this4.drinkCounter();
+              },
+              __source: {
                 fileName: _jsxFileName,
-                lineNumber: 189
+                lineNumber: 215
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["c" /* Ground */], {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 196
+                lineNumber: 223
               }
             })
           )
@@ -68506,19 +68521,39 @@ var Game = function (_React$Component) {
         'div',
         { className: 'kmteller', __source: {
             fileName: _jsxFileName,
-            lineNumber: 200
+            lineNumber: 227
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'p',
+          'ul',
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 201
+              lineNumber: 228
             }
           },
-          kmTeller,
-          ' km'
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'li',
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 229
+              }
+            },
+            kmTeller,
+            ' km'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'li',
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 230
+              }
+            },
+            drinkCount,
+            '/5'
+          )
         )
       )
     );
@@ -68531,7 +68566,8 @@ Game.propTypes = {
   gameEnd: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].func,
   player: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string,
   urlSocketId: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string,
-  mySocketId: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string
+  mySocketId: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string,
+  drinkCounter: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].func
 };
 
 /* harmony default export */ exports["a"] = Game;
@@ -113227,4 +113263,4 @@ module.exports = __webpack_require__(174);
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.a842e60f016af191c7a4.js.map
+//# sourceMappingURL=main.91fa807c0d193299cf2d.js.map

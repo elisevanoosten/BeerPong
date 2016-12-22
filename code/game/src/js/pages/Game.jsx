@@ -14,15 +14,15 @@ class Game extends React.Component {
 
     this.state = {
       cubeRotation: new THREE.Euler(),
+
       carX: - 0.2,
       carY: 0,
       barierY: 10,
       barierInterval: 1500,
-      kmTeller: 15
-    };
 
-    // this.loadCan = this.loadCan.bind(this);
-    // this.loadBarier = this.loadBarier.bind(this);
+      kmTeller: 15,
+      drinkCount: 0
+    };
 
   }
 
@@ -49,7 +49,7 @@ class Game extends React.Component {
 
     this.loadInterval = setInterval(() => {
       km -= 0.1;
-      this.round(km, 2);
+      this.round(km, 3);
       if (km <= 0) {
         this.gameEnd();
       }
@@ -58,8 +58,30 @@ class Game extends React.Component {
 
   round(value, decimals) {
     const n = Number(`${Math.round(`${value  }e${  decimals}`)  }e-${  decimals}`);
-    console.log(n);
     this.setState({kmTeller: n});
+  }
+
+  drinkCounter() {
+    let drinks = this.state.drinkCount;
+    const {player} = this.props;
+
+    drinks ++;
+    this.setState({drinkCount: drinks});
+
+    if (player === `me`) {
+      this.setBlurry();
+    }
+
+    if (drinks === 2) {
+      console.log(`EINDE`);
+      this.gameEnd(drinks);
+    }
+  }
+
+  setBlurry() {
+    const count =  this.state.drinkCount * 2;
+    const view = document.querySelector(`.player-me`);
+    view.style.filter = `blur(${ count }px)`;
   }
 
   carMove(e) {
@@ -99,11 +121,11 @@ class Game extends React.Component {
   //   // console.log(this.state);
   // }
 
-  gameEnd(drink, barier) {
+  gameEnd(drinks, barier) {
     let end;
     const {urlSocketId} = this.props;
-    console.log(urlSocketId);
-    if (drink) {
+    //console.log(urlSocketId);
+    if (drinks) {
       window.location.assign(`/EndGame/drink/${urlSocketId}`);
     } else if (barier) {
       window.location.assign(`/EndGame/barier/${urlSocketId}`);
@@ -124,7 +146,7 @@ class Game extends React.Component {
     //const {carX, carY, canGeometry, canMaterials, barierGeometry, barierMaterials} = this.state;
     // const {carX, carY, barierPos} = this.state;
     const {player} = this.props;
-    const {carX, carY, kmTeller} = this.state;
+    const {carX, carY, kmTeller, drinkCount} = this.state;
     // const km =  Math.round(this.state.kmTeller * 100) / 100;
     let lightLookat;
     let cameraLookat;
@@ -144,6 +166,7 @@ class Game extends React.Component {
       cameraLookat = new THREE.Vector3(carX, carY, 8, `XYZ`); //linksrechts, bovenonder, diepte
       lightLookat = new THREE.Vector3(0, - 200, 8, `XYZ`); //linksrechts, bovenonder, diepte
     }
+
     return (
       <div>
         <div className={`gamePlay player-${player}`}>
@@ -192,13 +215,17 @@ class Game extends React.Component {
               gameEnd={barier => this.gameEnd(barier)}
               player={player}
               // drinkPos={drinkPos}
+              drinkCounter={() => this.drinkCounter()}
             />
             <Ground />
           </scene>
         </React3>);
       </div>
       <div className='kmteller'>
-        <p>{kmTeller} km</p>
+        <ul>
+        <li>{kmTeller} km</li>
+        <li>{drinkCount}/5</li>
+        </ul>
       </div>
     </div>
     );
@@ -209,7 +236,8 @@ Game.propTypes = {
   gameEnd: PropTypes.func,
   player: PropTypes.string,
   urlSocketId: PropTypes.string,
-  mySocketId: PropTypes.string
+  mySocketId: PropTypes.string,
+  drinkCounter: PropTypes.func
 };
 
 export default Game;

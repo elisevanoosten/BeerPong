@@ -11,7 +11,7 @@ const EndGame = props => {
   if (end === `barier`) {
     console.log(`door bariere`);
     text = `BARIERE`;
-  } else if (end ===  `drink`) {
+  } else if (end ===  `drinks`) {
     console.log(`door pintje`);
     text = `TEVEEL`;
   } else if (end ===  `won`) {
