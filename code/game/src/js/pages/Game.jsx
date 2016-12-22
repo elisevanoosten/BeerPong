@@ -1,5 +1,7 @@
 import React, {PropTypes} from 'react';
 import React3 from 'react-three-renderer';
+import {EndGame} from '../pages/';
+
 import * as THREE from 'three';
 
 import {Car, Ground, Bariers, Drinks} from '../components';
@@ -95,6 +97,7 @@ class Game extends React.Component {
   gameEnd() {
     console.log(`DOOOODDDD`);
     //this.props.gameEnd(this.state.kmTeller);
+    window.location.assign(`/EndGame`);
   }
 
   componentWillUnmount () {

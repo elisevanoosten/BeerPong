@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Match, BrowserRouter as Router} from 'react-router';
 
-import {Home, Start, Choose, Game} from '../pages/';
+import {Home, Start, Choose, Game, EndGame} from '../pages/';
 
 import io from 'socket.io-client';
 import Peer from 'peerjs';
@@ -92,7 +92,11 @@ class App extends Component {
                   }
                 }
               }}
-            />
+              />
+              <Match
+                pattern='/endgame'
+                component={EndGame}
+              />
           </main>
         </Router>
       );
