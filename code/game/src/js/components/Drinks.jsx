@@ -14,9 +14,11 @@ class Drinks extends React.Component {
   }
 
   componentDidMount() {
-    this.loopDrinks();
-    requestAnimationFrame(() => {this.updateY();});
-    requestAnimationFrame(() => {this.checkCollision();});
+    setTimeout(() => {
+      this.loopDrinks();
+      requestAnimationFrame(() => {this.updateY();});
+      requestAnimationFrame(() => {this.checkCollision();});
+    }, 1500);
   }
 
   getRandomXpos() {
@@ -25,34 +27,33 @@ class Drinks extends React.Component {
   }
 
   getRandomYpos() {
-    return Math.floor(Math.random() * 200) - 220 / 2;
+    return Math.floor(Math.random() * 400) - 420 / 2;
   }
 
   checkCollision() {
     const {carX, carY, player} = this.props;
     const {drinks} = this.state;
+    let remove;
 
     drinks.map((drink, i) => {
       const xPos = drinks[i].drinkX;
       const yPos = drinks[i].drinkY;
-      const carwidth = 1.7;
-      const carDepth = 1;
+      const carwidth = 4;
+      const carDepth = 0.5;
+
+      //console.log(xPos, yPos);
 
       if (xPos <= carX + carwidth && xPos >= carX) {
         if (yPos <= carY + carDepth / 2 && yPos >= carY - carDepth / 2) {
-
           this .state.drinkCount ++;
+          //console.log(this.state.drinkCount);
           if (player === `me`) {
             this.setBlurry();
-
-            ////////////
-            //TO DOO:PINTJES WEG
-            ////////////
-
-            // const remove = true;
-            // this.updateY(remove);
+            //this.updateY(remove);
           }
-          this.props.gameEnd();
+          if (this.state.drinkCount > 5) {
+            this.props.gameEnd(drink);
+          }
         }
       }
     });
@@ -79,11 +80,17 @@ class Drinks extends React.Component {
 
   updateY(remove) {
     let {drinks} = this.state;
+    //console.log(remove);
 
     //console.log(remove);
 
     drinks.map(function(drink, i) {
       drink.drinkY += 0.5;
+
+      if (remove) {
+        //bariers = bariers.filter(b => b !== bariers[i]);
+        console.log(`remove`);
+      }
 
       if (drink.drinkY > 100) {
 
@@ -106,7 +113,7 @@ class Drinks extends React.Component {
   }
 
   loopDrinks(drinks) {
-    for (let i = 0;i <= 8;i ++) {
+    for (let i = 0;i <= 5;i ++) {
       this.pushDrink();
     }
     return drinks;
