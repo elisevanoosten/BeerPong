@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-
 import {Drink} from './singleElements/';
 
 class Drinks extends React.Component {
@@ -9,62 +8,47 @@ class Drinks extends React.Component {
     super(props, context);
 
     this.state = {
-      drinkY: - 100,
-      drinkX: this.getRandomPos(),
+      drinks: [],
       drinkCount: 0
     };
   }
 
   componentDidMount() {
-    let {drinkY} = this.state;
-
-    this.loadInterval = setInterval(() => {
-
-      // Y POS ++
-      drinkY += 1;
-      this.setState({drinkY});
-      this.checkCollision();
-
-      if (drinkY > 10) {
-        drinkX = this.getRandomPos();
-        this.setState({drinkX});
-
-        drinkY = - 150;
-        this.setState({drinkY: - 150});
-      }
-
-      //EERSTE X POS
-      let drinkX = 0;
-    }, 40);
-
+    this.loopDrinks();
+    requestAnimationFrame(() => {this.updateY();});
+    requestAnimationFrame(() => {this.checkCollision();});
   }
 
-  getRandomPos() {
+  getRandomXpos() {
     const planeWidth = 8;
     return Math.floor(Math.random() * planeWidth) - planeWidth / 2;
   }
 
-  checkCollision() {
-    const {carX, carY} = this.props;
-    const {drinkY, drinkX} = this.state;
-
-    const carwidth = 0.8;
-    const carDepth = 0.8;
-
-    if (drinkX <= carX + carwidth && drinkX >= carX) {
-      if (drinkY <= carY + carDepth / 2 && drinkY >= carY - carDepth / 2) {
-        // drink botst
-        this .state.drinkCount ++;
-        this.setBlurry();
-      }
-    }
+  getRandomYpos() {
+    return Math.floor(Math.random() * 200) - 220 / 2;
   }
 
-  renderDrinks() {
-    const {drinkX, drinkY} = this.state;
-    const geometry = this.props.geometry;
+  checkCollision() {
+    const {carX, carY} = this.props;
+    const {drinks} = this.state;
 
-    return <Drink drinkX={drinkX} drinkY={drinkY} geometry={geometry} />;
+    drinks.map((drink, i) => {
+      const xPos = drinks[i].drinkX;
+      const yPos = drinks[i].drinkY;
+      const carwidth = 1.7;
+      const carDepth = 1;
+
+      if (xPos <= carX + carwidth && xPos >= carX) {
+        if (yPos <= carY + carDepth / 2 && yPos >= carY - carDepth / 2) {
+
+          this .state.drinkCount ++;
+          this.setBlurry();
+          this.props.gameEnd();
+        }
+      }
+    });
+
+    requestAnimationFrame(() => {this.checkCollision();});
   }
 
   setBlurry() {
@@ -78,9 +62,65 @@ class Drinks extends React.Component {
     this.loadInterval = false;
   }
 
+  renderDrinks() {
+    const drinks = [];
+    this.loopDrinks(drinks);
+    return drinks;
+  }
+
+  updateY() {
+    let {drinks} = this.state;
+
+    drinks.map(function(drink, i) {
+      drink.drinkY += 0.5;
+
+      if (drink.drinkY > 100) {
+
+        drinks = drinks.filter(b => b !== drinks[i]);
+        const planeWidth = 8;
+
+        const drinkX = Math.floor(Math.random() * planeWidth) - planeWidth / 2;
+        const drinkY = Math.floor(Math.random() * 170) - 200 / 2;
+
+        drinks.push({
+          drinkX: drinkX,
+          drinkY: drinkY,
+        });
+      }
+    });
+
+    this.setState({drinks});
+
+    requestAnimationFrame(() => {this.updateY();});
+  }
+
+  loopDrinks(drinks) {
+    for (let i = 0;i <= 8;i ++) {
+      this.pushDrink();
+    }
+    return drinks;
+  }
+
+  pushDrink() {
+    const {drinks} = this.state;
+    const drinkX = this.getRandomXpos();
+    const drinkY = this.getRandomYpos();
+
+    drinks.push({
+      drinkX: drinkX,
+      drinkY: drinkY
+    });
+    this.setState({drinks});
+  }
+
   render() {
+    const {drinks} = this.state;
     return (
-      this.renderDrinks()
+      <group>
+        {drinks.map(function(drink, i) {
+          return <Drink key={i} drinkX={drink.drinkX} drinkY={drink.drinkY} />;
+        })}
+      </group>
     );
   }
 }
@@ -88,10 +128,8 @@ class Drinks extends React.Component {
 Drinks.propTypes = {
   carY: PropTypes.number,
   carX: PropTypes.number,
-  drinkCount: PropTypes.number,
-  geometry: PropTypes.object
-  // getBarierY: PropTypes.func,
-  // getBarierY: PropTypes.func
+  gameEnd: PropTypes.func
 };
+
 
 export default Drinks;

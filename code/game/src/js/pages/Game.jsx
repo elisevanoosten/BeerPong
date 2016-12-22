@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 
-import {Car, Ground, Bariers} from '../components';
+import {Car, Ground, Bariers, Drinks} from '../components';
 import {includes} from 'lodash';
 
 class Game extends React.Component {
@@ -119,7 +119,7 @@ class Game extends React.Component {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
     //const {carX, carY, canGeometry, canMaterials, barierGeometry, barierMaterials} = this.state;
-    const {carX, carY, barierPos} = this.state;
+    const {carX, carY} = this.state;
     // const km =  Math.round(this.state.kmTeller * 100) / 100;
 
     // //SPELER 1
@@ -166,7 +166,6 @@ class Game extends React.Component {
               // shadowDarkness={8}
               visible={true}
             />
-            <Ground />
             <Car
               carX={carX}
               carY={carY}
@@ -176,15 +175,15 @@ class Game extends React.Component {
               carX={carX}
               carY={carY}
               gameEnd={() => this.gameEnd()}
-              barierPos={barierPos}
+              // barierPos={barierPos}
             />
-          {/* <Drink /> */}
-            {/* <Drinks
+            <Drinks
               carX={carX}
               carY={carY}
-              geometry={canGeometry}
-              materials={canMaterials}
-            /> */}
+              gameEnd={() => this.gameEnd()}
+              // drinkPos={drinkPos}
+            />
+            <Ground />
           </scene>
         </React3>);
       </div>
