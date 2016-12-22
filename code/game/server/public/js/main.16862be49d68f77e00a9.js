@@ -68153,7 +68153,7 @@ var EndGame = function EndGame(props) {
   if (end === 'barier') {
     console.log('door bariere');
     text = 'BARIERE';
-  } else if (end === 'drink') {
+  } else if (end === 'drinks') {
     console.log('door pintje');
     text = 'TEVEEL';
   } else if (end === 'won') {
@@ -68258,9 +68258,6 @@ var Game = function (_React$Component) {
       drinkCount: 0
     };
 
-    // this.loadCan = this.loadCan.bind(this);
-    // this.loadBarier = this.loadBarier.bind(this);
-
     return _this;
   }
 
@@ -68318,7 +68315,8 @@ var Game = function (_React$Component) {
     }
 
     if (drinks === 2) {
-      this.props.gameEnd(drinks);
+      console.log('EINDE');
+      this.gameEnd(drinks);
     }
   };
 
@@ -68423,14 +68421,14 @@ var Game = function (_React$Component) {
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 173
+          lineNumber: 171
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'gamePlay player-' + player, __source: {
             fileName: _jsxFileName,
-            lineNumber: 174
+            lineNumber: 172
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68444,7 +68442,7 @@ var Game = function (_React$Component) {
             clearAlpha: 0.0,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 175
+              lineNumber: 173
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68452,7 +68450,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 183
+                lineNumber: 181
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('perspectiveCamera', {
@@ -68466,7 +68464,7 @@ var Game = function (_React$Component) {
               lookAt: cameraLookat,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 184
+                lineNumber: 182
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('directionalLight', {
@@ -68478,7 +68476,7 @@ var Game = function (_React$Component) {
               , visible: true,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 194
+                lineNumber: 192
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["a" /* Car */], {
@@ -68487,7 +68485,7 @@ var Game = function (_React$Component) {
               rotation: this.cameraRotation,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 202
+                lineNumber: 200
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["b" /* Drinks */], {
@@ -68503,13 +68501,13 @@ var Game = function (_React$Component) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 214
+                lineNumber: 212
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["c" /* Ground */], {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 222
+                lineNumber: 220
               }
             })
           )
@@ -68520,7 +68518,7 @@ var Game = function (_React$Component) {
         'div',
         { className: 'kmteller', __source: {
             fileName: _jsxFileName,
-            lineNumber: 226
+            lineNumber: 224
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68528,7 +68526,7 @@ var Game = function (_React$Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 227
+              lineNumber: 225
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68536,7 +68534,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 228
+                lineNumber: 226
               }
             },
             kmTeller,
@@ -68547,7 +68545,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 229
+                lineNumber: 227
               }
             },
             drinkCount,
@@ -113262,4 +113260,4 @@ module.exports = __webpack_require__(174);
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.f91d569b95b675473974.js.map
+//# sourceMappingURL=main.16862be49d68f77e00a9.js.map

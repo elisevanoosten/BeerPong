@@ -166,4 +166,12 @@ input[type=radio] {
   top: 10px;
   left: 20px;
   font-size: 40px;
+  width: 100%;
+  padding:5rem;
+}
+
+.kmteller ul{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

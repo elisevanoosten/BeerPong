@@ -66929,7 +66929,7 @@ init();
 /* 175 */
 /***/ function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed: ModuleBuildError: Module build failed: Unknown word (174:30)\n\n \u001b[90m 172 | \u001b[39m  display\u001b[33m:\u001b[39mflex\u001b[33m;\u001b[39m\n \u001b[90m 173 | \u001b[39m  flex-direction\u001b[33m:\u001b[39m row\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 174 | \u001b[39m  justify-content\u001b[33m:\u001b[39m -content\u001b[33m;\u001b[39m space-between\u001b[33m;\u001b[39m\n \u001b[90m     | \u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 175 | \u001b[39m\u001b[33m}\u001b[39m\n \u001b[90m 176 | \u001b[39m\n\n    at /Users/SVD/Documents/school/Devine_2016-2017/ExpWeb/_OPDRACHT/Project/OnderInvloed/code/game/node_modules/webpack/lib/NormalModule.js:143:35\n    at /Users/SVD/Documents/school/Devine_2016-2017/ExpWeb/_OPDRACHT/Project/OnderInvloed/code/game/node_modules/loader-runner/lib/LoaderRunner.js:359:11\n    at /Users/SVD/Documents/school/Devine_2016-2017/ExpWeb/_OPDRACHT/Project/OnderInvloed/code/game/node_modules/loader-runner/lib/LoaderRunner.js:225:18\n    at context.callback (/Users/SVD/Documents/school/Devine_2016-2017/ExpWeb/_OPDRACHT/Project/OnderInvloed/code/game/node_modules/loader-runner/lib/LoaderRunner.js:106:13)\n    at /Users/SVD/Documents/school/Devine_2016-2017/ExpWeb/_OPDRACHT/Project/OnderInvloed/code/game/node_modules/postcss-loader/index.js:135:13");
 
 /***/ },
 /* 176 */
@@ -68258,9 +68258,6 @@ var Game = function (_React$Component) {
       drinkCount: 0
     };
 
-    // this.loadCan = this.loadCan.bind(this);
-    // this.loadBarier = this.loadBarier.bind(this);
-
     return _this;
   }
 
@@ -68319,7 +68316,7 @@ var Game = function (_React$Component) {
 
     if (drinks === 2) {
       console.log('EINDE');
-      this.props.gameEnd(drinks);
+      this.gameEnd(drinks);
     }
   };
 
@@ -68424,14 +68421,14 @@ var Game = function (_React$Component) {
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 174
+          lineNumber: 171
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'gamePlay player-' + player, __source: {
             fileName: _jsxFileName,
-            lineNumber: 175
+            lineNumber: 172
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68445,7 +68442,7 @@ var Game = function (_React$Component) {
             clearAlpha: 0.0,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 176
+              lineNumber: 173
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68453,7 +68450,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 184
+                lineNumber: 181
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('perspectiveCamera', {
@@ -68467,7 +68464,7 @@ var Game = function (_React$Component) {
               lookAt: cameraLookat,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 185
+                lineNumber: 182
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('directionalLight', {
@@ -68479,7 +68476,7 @@ var Game = function (_React$Component) {
               , visible: true,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 195
+                lineNumber: 192
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["a" /* Car */], {
@@ -68488,7 +68485,7 @@ var Game = function (_React$Component) {
               rotation: this.cameraRotation,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 203
+                lineNumber: 200
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["b" /* Drinks */], {
@@ -68504,13 +68501,13 @@ var Game = function (_React$Component) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 215
+                lineNumber: 212
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["c" /* Ground */], {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 223
+                lineNumber: 220
               }
             })
           )
@@ -68521,7 +68518,7 @@ var Game = function (_React$Component) {
         'div',
         { className: 'kmteller', __source: {
             fileName: _jsxFileName,
-            lineNumber: 227
+            lineNumber: 224
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68529,7 +68526,7 @@ var Game = function (_React$Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 228
+              lineNumber: 225
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68537,7 +68534,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 229
+                lineNumber: 226
               }
             },
             kmTeller,
@@ -68548,7 +68545,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 230
+                lineNumber: 227
               }
             },
             drinkCount,
@@ -113263,4 +113260,4 @@ module.exports = __webpack_require__(174);
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.91fa807c0d193299cf2d.js.map
+//# sourceMappingURL=main.b7b6ff059410c34654de.js.map
