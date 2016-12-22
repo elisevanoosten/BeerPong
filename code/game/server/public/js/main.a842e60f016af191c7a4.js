@@ -67044,7 +67044,7 @@ var Bariers = function (_React$Component) {
       requestAnimationFrame(function () {
         _this2.checkCollision();
       });
-    }, 1000);
+    }, 1500);
 
     // let {barierY} = this.state;
 
@@ -67095,7 +67095,7 @@ var Bariers = function (_React$Component) {
       var xPos = bariers[i].barierX;
       var yPos = bariers[i].barierY;
       var carwidth = 1.7;
-      var carDepth = 1;
+      var carDepth = 2;
 
       if (xPos <= carX + carwidth && xPos >= carX) {
         if (yPos <= carY + carDepth / 2 && yPos >= carY - carDepth / 2) {
@@ -67367,7 +67367,7 @@ var Drinks = function (_React$Component) {
       requestAnimationFrame(function () {
         _this2.checkCollision();
       });
-    }, 1000);
+    }, 1500);
   };
 
   Drinks.prototype.getRandomXpos = function getRandomXpos() {
@@ -67388,28 +67388,27 @@ var Drinks = function (_React$Component) {
         player = _props.player;
     var drinks = this.state.drinks;
 
+    var remove = void 0;
 
     drinks.map(function (drink, i) {
       var xPos = drinks[i].drinkX;
       var yPos = drinks[i].drinkY;
-      var carwidth = 1.7;
-      var carDepth = 1;
+      var carwidth = 4;
+      var carDepth = 0.5;
+
+      //console.log(xPos, yPos);
 
       if (xPos <= carX + carwidth && xPos >= carX) {
         if (yPos <= carY + carDepth / 2 && yPos >= carY - carDepth / 2) {
           _this3.state.drinkCount++;
+          //console.log(this.state.drinkCount);
           if (player === 'me') {
             _this3.setBlurry();
-
-            ////////////
-            //TO DOO:PINTJES WEG
-            ////////////
-
-            var remove = true;
-            _this3.updateY(remove);
+            //this.updateY(remove);
           }
-          console.log(_this3.state.drinkCount);
-          _this3.props.gameEnd(drink);
+          if (_this3.state.drinkCount > 5) {
+            _this3.props.gameEnd(drink);
+          }
         }
       }
     });
@@ -67440,6 +67439,7 @@ var Drinks = function (_React$Component) {
     var _this4 = this;
 
     var drinks = this.state.drinks;
+    //console.log(remove);
 
     //console.log(remove);
 
@@ -68164,6 +68164,7 @@ var EndGame = function EndGame(props) {
   var end = props.end,
       urlSocketId = props.urlSocketId;
 
+  var text = void 0;
 
   if (end === 'barier') {
     console.log('door bariere');
@@ -68181,14 +68182,14 @@ var EndGame = function EndGame(props) {
     {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 22
+        lineNumber: 23
       }
     },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'p',
       { className: 'intro', __source: {
           fileName: _jsxFileName,
-          lineNumber: 23
+          lineNumber: 24
         }
       },
       text
@@ -68197,14 +68198,14 @@ var EndGame = function EndGame(props) {
       'div',
       { className: 'links', __source: {
           fileName: _jsxFileName,
-          lineNumber: 24
+          lineNumber: 25
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
         { className: 'startbutton', to: '/choose', __source: {
             fileName: _jsxFileName,
-            lineNumber: 25
+            lineNumber: 26
           }
         },
         'TEGEN IEMAND ANDERS?'
@@ -68213,7 +68214,7 @@ var EndGame = function EndGame(props) {
         __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
         { className: 'startbutton', to: '/game/' + urlSocketId, __source: {
             fileName: _jsxFileName,
-            lineNumber: 26
+            lineNumber: 27
           }
         },
         'REMATCH'
@@ -68267,7 +68268,7 @@ var Game = function (_React$Component) {
       carY: 0,
       barierY: 10,
       barierInterval: 1500,
-      kmTeller: 2
+      kmTeller: 15
     };
 
     // this.loadCan = this.loadCan.bind(this);
@@ -68305,12 +68306,17 @@ var Game = function (_React$Component) {
 
     this.loadInterval = setInterval(function () {
       km -= 0.1;
-      //const kmTeller = Math.round(km).toFixed(2);
-      _this3.setState({ kmTeller: km });
+      _this3.round(km, 2);
       if (km <= 0) {
         _this3.gameEnd();
       }
     }, 500);
+  };
+
+  Game.prototype.round = function round(value, decimals) {
+    console.log(value, decimals);
+    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+    this.setState({ kmTeller: value });
   };
 
   Game.prototype.carMove = function carMove(e) {
@@ -68406,14 +68412,14 @@ var Game = function (_React$Component) {
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 143
+          lineNumber: 148
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'gamePlay player-' + player, __source: {
             fileName: _jsxFileName,
-            lineNumber: 144
+            lineNumber: 149
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68427,7 +68433,7 @@ var Game = function (_React$Component) {
             clearAlpha: 0.0,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 145
+              lineNumber: 150
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68435,7 +68441,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 153
+                lineNumber: 158
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('perspectiveCamera', {
@@ -68449,7 +68455,7 @@ var Game = function (_React$Component) {
               lookAt: cameraLookat,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 154
+                lineNumber: 159
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('directionalLight', {
@@ -68461,7 +68467,7 @@ var Game = function (_React$Component) {
               , visible: true,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 164
+                lineNumber: 169
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["a" /* Car */], {
@@ -68470,7 +68476,7 @@ var Game = function (_React$Component) {
               rotation: this.cameraRotation,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 172
+                lineNumber: 177
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["b" /* Drinks */], {
@@ -68483,13 +68489,13 @@ var Game = function (_React$Component) {
               // drinkPos={drinkPos}
               , __source: {
                 fileName: _jsxFileName,
-                lineNumber: 184
+                lineNumber: 189
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["c" /* Ground */], {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 191
+                lineNumber: 196
               }
             })
           )
@@ -68500,7 +68506,7 @@ var Game = function (_React$Component) {
         'div',
         { className: 'kmteller', __source: {
             fileName: _jsxFileName,
-            lineNumber: 195
+            lineNumber: 200
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68508,10 +68514,11 @@ var Game = function (_React$Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 196
+              lineNumber: 201
             }
           },
-          kmTeller
+          kmTeller,
+          ' km'
         )
       )
     );
@@ -113220,4 +113227,4 @@ module.exports = __webpack_require__(174);
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.158120946375dcd63dba.js.map
+//# sourceMappingURL=main.a842e60f016af191c7a4.js.map

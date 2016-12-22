@@ -18,7 +18,7 @@ class Game extends React.Component {
       carY: 0,
       barierY: 10,
       barierInterval: 1500,
-      kmTeller: 2
+      kmTeller: 15
     };
 
     // this.loadCan = this.loadCan.bind(this);
@@ -49,12 +49,17 @@ class Game extends React.Component {
 
     this.loadInterval = setInterval(() => {
       km -= 0.1;
-      //const kmTeller = Math.round(km).toFixed(2);
-      this.setState({kmTeller: km});
+      this.round(km, 2);
       if (km <= 0) {
         this.gameEnd();
       }
     }, 500);
+  }
+
+  round(value, decimals) {
+    const n = Number(`${Math.round(`${value  }e${  decimals}`)  }e-${  decimals}`);
+    console.log(n);
+    this.setState({kmTeller: n});
   }
 
   carMove(e) {
@@ -193,7 +198,7 @@ class Game extends React.Component {
         </React3>);
       </div>
       <div className='kmteller'>
-        <p>{kmTeller}</p>
+        <p>{kmTeller} km</p>
       </div>
     </div>
     );

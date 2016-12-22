@@ -67044,7 +67044,7 @@ var Bariers = function (_React$Component) {
       requestAnimationFrame(function () {
         _this2.checkCollision();
       });
-    }, 1000);
+    }, 1500);
 
     // let {barierY} = this.state;
 
@@ -67095,7 +67095,7 @@ var Bariers = function (_React$Component) {
       var xPos = bariers[i].barierX;
       var yPos = bariers[i].barierY;
       var carwidth = 1.7;
-      var carDepth = 1;
+      var carDepth = 2;
 
       if (xPos <= carX + carwidth && xPos >= carX) {
         if (yPos <= carY + carDepth / 2 && yPos >= carY - carDepth / 2) {
@@ -67367,7 +67367,7 @@ var Drinks = function (_React$Component) {
       requestAnimationFrame(function () {
         _this2.checkCollision();
       });
-    }, 1000);
+    }, 1500);
   };
 
   Drinks.prototype.getRandomXpos = function getRandomXpos() {
@@ -67388,28 +67388,27 @@ var Drinks = function (_React$Component) {
         player = _props.player;
     var drinks = this.state.drinks;
 
+    var remove = void 0;
 
     drinks.map(function (drink, i) {
       var xPos = drinks[i].drinkX;
       var yPos = drinks[i].drinkY;
-      var carwidth = 1.7;
-      var carDepth = 1;
+      var carwidth = 4;
+      var carDepth = 0.5;
+
+      console.log(xPos, yPos);
 
       if (xPos <= carX + carwidth && xPos >= carX) {
         if (yPos <= carY + carDepth / 2 && yPos >= carY - carDepth / 2) {
           _this3.state.drinkCount++;
+          console.log(_this3.state.drinkCount);
           if (player === 'me') {
             _this3.setBlurry();
-
-            ////////////
-            //TO DOO:PINTJES WEG
-            ////////////
-
-            var remove = true;
-            _this3.updateY(remove);
+            //this.updateY(remove);
           }
-          console.log(_this3.state.drinkCount);
-          _this3.props.gameEnd(drink);
+          if (_this3.state.drinkCount > 5) {
+            _this3.props.gameEnd(drink);
+          }
         }
       }
     });
@@ -67440,6 +67439,8 @@ var Drinks = function (_React$Component) {
     var _this4 = this;
 
     var drinks = this.state.drinks;
+
+    console.log(remove);
 
     //console.log(remove);
 
@@ -68268,7 +68269,7 @@ var Game = function (_React$Component) {
       carY: 0,
       barierY: 10,
       barierInterval: 1500,
-      kmTeller: 2
+      kmTeller: 15
     };
 
     // this.loadCan = this.loadCan.bind(this);
@@ -68306,12 +68307,16 @@ var Game = function (_React$Component) {
 
     this.loadInterval = setInterval(function () {
       km -= 0.1;
-      //const kmTeller = Math.round(km).toFixed(2);
-      _this3.setState({ kmTeller: km });
+      _this3.round(km, 2);
       if (km <= 0) {
         _this3.gameEnd();
       }
     }, 500);
+  };
+
+  Game.prototype.round = function round(value, decimals) {
+    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+    this.setState({ kmTeller: value });
   };
 
   Game.prototype.carMove = function carMove(e) {
@@ -68407,14 +68412,14 @@ var Game = function (_React$Component) {
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 143
+          lineNumber: 147
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'gamePlay player-' + player, __source: {
             fileName: _jsxFileName,
-            lineNumber: 144
+            lineNumber: 148
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68428,7 +68433,7 @@ var Game = function (_React$Component) {
             clearAlpha: 0.0,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 145
+              lineNumber: 149
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68436,7 +68441,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 153
+                lineNumber: 157
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('perspectiveCamera', {
@@ -68450,7 +68455,7 @@ var Game = function (_React$Component) {
               lookAt: cameraLookat,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 154
+                lineNumber: 158
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('directionalLight', {
@@ -68462,7 +68467,7 @@ var Game = function (_React$Component) {
               , visible: true,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 164
+                lineNumber: 168
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["a" /* Car */], {
@@ -68471,7 +68476,7 @@ var Game = function (_React$Component) {
               rotation: this.cameraRotation,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 172
+                lineNumber: 176
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["b" /* Drinks */], {
@@ -68484,13 +68489,13 @@ var Game = function (_React$Component) {
               // drinkPos={drinkPos}
               , __source: {
                 fileName: _jsxFileName,
-                lineNumber: 184
+                lineNumber: 188
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["c" /* Ground */], {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 191
+                lineNumber: 195
               }
             })
           )
@@ -68501,7 +68506,7 @@ var Game = function (_React$Component) {
         'div',
         { className: 'kmteller', __source: {
             fileName: _jsxFileName,
-            lineNumber: 195
+            lineNumber: 199
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68509,10 +68514,11 @@ var Game = function (_React$Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 196
+              lineNumber: 200
             }
           },
-          kmTeller
+          kmTeller,
+          ' km'
         )
       )
     );
@@ -113221,4 +113227,4 @@ module.exports = __webpack_require__(174);
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.0b638e3ad1bdbf0a4aef.js.map
+//# sourceMappingURL=main.a5af1353a2e5de07e4db.js.map

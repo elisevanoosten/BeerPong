@@ -17,7 +17,7 @@ class Bariers extends React.Component {
       this.loopBariers();
       requestAnimationFrame(() => {this.updateY();});
       requestAnimationFrame(() => {this.checkCollision();});
-    }, 1000);
+    }, 1500);
 
     // let {barierY} = this.state;
 
@@ -64,7 +64,7 @@ class Bariers extends React.Component {
       const xPos = bariers[i].barierX;
       const yPos = bariers[i].barierY;
       const carwidth = 1.7;
-      const carDepth = 1;
+      const carDepth = 2;
 
       if (xPos <= carX + carwidth && xPos >= carX) {
         if (yPos <= carY + carDepth / 2 && yPos >= carY - carDepth / 2) {
