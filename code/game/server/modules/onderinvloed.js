@@ -9,12 +9,20 @@ module.exports.register = (server, options, next) => {
     socket.emit(`init`, socketId);
 
     socket.on(`joinRoom`, function(room) {
-      console.log(`joining room`, room);
+      users.push({username, socketId});
+      socket.emit(`login`, users);
+
       socket.join(room);
       socket.broadcast.emit(`i'm joining, xoxo`, socketId);
       // socket.broadcast.to(room).emit('count', "Connected:" + " " + count);
 
     });
+
+    // socket.on(`disconnect`, () => {
+    //   const user = users.find(u => u.socketId === socketId);
+    //   if(user) socket.broadcast.emit(`leave`, user.username);
+    //   users = users.filter(u => u.socketId !== socketId);
+    // });
 
   });
 
