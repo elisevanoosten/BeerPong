@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 
-import {Car, Ground, Bariers} from '../components';
+import {Car, Ground, Bariers, Drinks} from '../components';
 import {includes} from 'lodash';
 
 class Game extends React.Component {
@@ -119,8 +119,9 @@ class Game extends React.Component {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
     //const {carX, carY, canGeometry, canMaterials, barierGeometry, barierMaterials} = this.state;
-    const {carX, carY, barierPos} = this.state;
+    // const {carX, carY, barierPos} = this.state;
     const {player} = this.props;
+    const {carX, carY} = this.state;
     // const km =  Math.round(this.state.kmTeller * 100) / 100;
 
     let lightLookat;
@@ -139,11 +140,11 @@ class Game extends React.Component {
       this.cameraRotation = new THREE.Euler(0, 0, 0, `XYZ`);
 
       cameraLookat = new THREE.Vector3(carX, carY, 8, `XYZ`); //linksrechts, bovenonder, diepte
-      lightLookat = new THREE.Vector3(carX, carY - 10, 8, `XYZ`); //linksrechts, bovenonder, diepte
+      lightLookat = new THREE.Vector3(0, - 200, 8, `XYZ`); //linksrechts, bovenonder, diepte
     }
     return (
       <div>
-        <div className='gamePlay'>
+        <div className={`gamePlay player-${player}`}>
           <React3
             mainCamera='camera'
             width={width}
@@ -171,7 +172,6 @@ class Game extends React.Component {
               // shadowDarkness={8}
               visible={true}
             />
-            <Ground />
             <Car
               carX={carX}
               carY={carY}
@@ -181,15 +181,16 @@ class Game extends React.Component {
               carX={carX}
               carY={carY}
               gameEnd={() => this.gameEnd()}
-              barierPos={barierPos}
+              // barierPos={barierPos}
             />
-          {/* <Drink /> */}
-            {/* <Drinks
+            <Drinks
               carX={carX}
               carY={carY}
-              geometry={canGeometry}
-              materials={canMaterials}
-            /> */}
+              gameEnd={() => this.gameEnd()}
+              player={player}
+              // drinkPos={drinkPos}
+            />
+            <Ground />
           </scene>
         </React3>);
       </div>

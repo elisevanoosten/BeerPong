@@ -65,17 +65,17 @@ body {
   font-size: 62.5%;
   background-color: #010419;
   background-image: url(/assets/img/bg_2.png);
+  background-size: 400px 400px;
   background-repeat: repeat;
   -webkit-animation: backgroundsize 1s infinite;
           animation: backgroundsize 1s infinite;
   -webkit-animation-timing-function: step-start;
           animation-timing-function: step-start;
-
 }
 
 @-webkit-keyframes backgroundsize {
 
-  0%,100% {
+  0%, 100% {
     background-size: 30%;
   }
 
@@ -94,7 +94,7 @@ body {
 
 @keyframes backgroundsize {
 
-  0%,100% {
+  0%, 100% {
     background-size: 30%;
   }
 

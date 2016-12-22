@@ -64,6 +64,4 @@ export default class Barier extends Component {
 Barier.propTypes = {
   barierY: PropTypes.number,
   barierX: PropTypes.number,
-  sendYpos: PropTypes.func,
-  index: PropTypes.number
 };

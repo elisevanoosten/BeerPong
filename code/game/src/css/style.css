@@ -5,15 +5,15 @@ body {
   font-size: 62.5%;
   background-color: #010419;
   background-image: url(../../src/assets/img/bg_2.png);
+  background-size: 400px 400px;
   background-repeat: repeat;
   animation: backgroundsize 1s infinite;
   animation-timing-function: step-start;
-
 }
 
 @keyframes backgroundsize {
 
-  0%,100% {
+  0%, 100% {
     background-size: 30%;
   }
 

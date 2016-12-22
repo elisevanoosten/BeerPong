@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Match, BrowserRouter as Router} from 'react-router';
 
 import {Home, Start, Choose, Game} from '../pages/';
@@ -14,7 +14,6 @@ class App extends Component {
 
   componentDidMount() {
     this.initSocket();
-    console.log(`rerender`);
   }
 
   initSocket = () => {
@@ -29,7 +28,7 @@ class App extends Component {
   // initPeer = () => {
   //   const {id} = this.socket;
   //   this.peer = new Peer(id, {
-  //     host: `cryptic-island-50117.herokuapp.com`,
+  //     host: `dry-harbor-31700.herokuapp.com`,
   //     port: ``,
   //     path: `/api`,
   //     secure: true
@@ -106,8 +105,9 @@ class App extends Component {
   }
 }
 
-// App.propTypes = {
-//   urlSocketId: PropTypes.string
-// };
+App.propTypes = {
+  urlSocketId: PropTypes.string,
+  mySocketId: PropTypes.string
+};
 
 export default App;

@@ -17,14 +17,14 @@ export default class Drink extends Component {
   }
 
   render() {
-    const {drinkGeometry, Ypos} = this.state;
-    const {distance} = this.props;
-    //const Ypos = this.props.drinkY;
-    //const Xpos = this.props.drinkX;
+    const {drinkGeometry} = this.state;
+    const Ypos = this.props.drinkY;
+    const Xpos = this.props.drinkX;
+
     if (drinkGeometry) {
       return (
         <mesh
-          position={new THREE.Vector3(2, 0, 0)}
+          position={new THREE.Vector3(Xpos, 0, Ypos)}
           scale={new THREE.Vector3(1, 1, 1)}
         >
           <geometry
@@ -46,6 +46,6 @@ export default class Drink extends Component {
 }
 
 Drink.propTypes = {
-  barierY: PropTypes.number,
-  barierX: PropTypes.number
+  drinkY: PropTypes.number,
+  drinkX: PropTypes.number
 };
