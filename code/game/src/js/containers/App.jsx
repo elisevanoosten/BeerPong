@@ -9,7 +9,7 @@ import Peer from 'peerjs';
 class App extends Component {
 
   state = {
-    // rooms: []
+    rooms: []
   };
 
   componentDidMount() {
@@ -41,7 +41,6 @@ class App extends Component {
 
   handleWSInit = socketId => {
     this.setState({mySocketId: socketId});
-    // this.socket.emit(`subscribe`, socketId);
   }
 
 
@@ -61,15 +60,15 @@ class App extends Component {
             />
 
             <Match
-              exactly pattern='/demo'
+              exactly pattern='/start'
               component={Home}
             />
             <Match
-              exactly pattern='/demo/:urlSocketId'
+              exactly pattern='/start/:urlSocketId'
               render={props => {
-                const {mySocketId} = this.state;
+                const {mySocketId, rooms} = this.state;
                 const {urlSocketId} = props.params;
-                return (<Start urlSocketId={urlSocketId} mySocketId={mySocketId} />);
+                return (<Start urlSocketId={urlSocketId} mySocketId={mySocketId} rooms={rooms} />);
               }}
             />
             <Match

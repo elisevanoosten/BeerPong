@@ -3,7 +3,6 @@ import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 
 import {Car, Ground, Bariers, Drinks} from '../components';
-import {includes} from 'lodash';
 
 class Game extends React.Component {
 
@@ -17,7 +16,6 @@ class Game extends React.Component {
       carY: 0,
       barierY: 10,
       barierInterval: 1500,
-      rooms: []
       // kmTeller: 5,
     };
 
@@ -27,20 +25,8 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
-    const {rooms} = this.state;
-    const {player, mySocketId} = this.props;
     this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
     this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);
-
-    if (player === `me`) {
-      if (!includes(rooms, mySocketId)) {
-        rooms.push(mySocketId);
-        this.setState({rooms});
-        console.log(`new room`);
-      }
-    } else if (player === `friend`) {
-      console.log(`join room`);
-    }
   }
 
   componentWillMount() {
@@ -80,17 +66,18 @@ class Game extends React.Component {
     //
     // this.cameraPosition = new THREE.Vector3(position, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
     // this.cameraRotation = new THREE.Euler(- 0.3, rotation, 0, `XYZ`);
-
-    if (e.keyCode === LEFT) {
-      if (carX > - 4.2) {
-        carX -= 0.5;
-        this.setState({carX});
+    if (player === `me`) {
+      if (e.keyCode === LEFT) {
+        if (carX > - 4.2) {
+          carX -= 0.5;
+          this.setState({carX});
+        }
       }
-    }
-    else if (e.keyCode === RIGHT) {
-      if (carX < 3.8) {
-        carX += 0.5;
-        this.setState({carX});
+      else if (e.keyCode === RIGHT) {
+        if (carX < 3.8) {
+          carX += 0.5;
+          this.setState({carX});
+        }
       }
     }
 
