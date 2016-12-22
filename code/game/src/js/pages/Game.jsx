@@ -1,3 +1,5 @@
+// PLAY GAME WITH FRIEND IN ROOM / COMPUTER
+
 import React, {PropTypes} from 'react';
 import React3 from 'react-three-renderer';
 import {EndGame} from '../pages/';

@@ -67943,21 +67943,25 @@ var App = function (_Component) {
       _this.socket.on('init', _this.handleWSInit);
 
       _this.socket.on('connect', _this.initPeer);
+      _this.socket.on('joinRoom', _this.handleWSJoin);
     }, _this.initPeer = function () {
       var id = _this.socket.id;
 
       _this.peer = new __WEBPACK_IMPORTED_MODULE_4_peerjs___default.a(id, {
-        host: 'dry-harbor-31700.herokuapp.com',
-        port: '',
-        path: '/api',
-        secure: true
+        // host: `dry-harbor-31700.herokuapp.com`,
+        host: 'localhost',
+        port: '9000',
+        path: '/api'
       });
 
       _this.socket = __WEBPACK_IMPORTED_MODULE_3_socket_io_client___default()('/');
-      console.log(window.location.href);
       _this.socket.on('init', _this.handleWSInit);
     }, _this.handleWSInit = function (socketId) {
       _this.setState({ mySocketId: socketId });
+    }, _this.handleWSJoin = function (rooms) {
+      console.log(rooms);
+      console.log('jo');
+      _this.setState({ rooms: rooms });
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -67990,7 +67994,7 @@ var App = function (_Component) {
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 65
+            lineNumber: 72
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -67998,7 +68002,7 @@ var App = function (_Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 66
+              lineNumber: 73
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -68006,7 +68010,7 @@ var App = function (_Component) {
             component: __WEBPACK_IMPORTED_MODULE_2__pages___["a" /* Home */],
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 67
+              lineNumber: 74
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -68014,13 +68018,13 @@ var App = function (_Component) {
             render: function render() {
               return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["b" /* Choose */], { mySocketId: mySocketId, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 73
+                  lineNumber: 80
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 71
+              lineNumber: 78
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -68028,7 +68032,7 @@ var App = function (_Component) {
             component: __WEBPACK_IMPORTED_MODULE_2__pages___["a" /* Home */],
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 76
+              lineNumber: 83
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -68041,13 +68045,13 @@ var App = function (_Component) {
 
               return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["c" /* Start */], { urlSocketId: urlSocketId, mySocketId: mySocketId, player: _this2.checkplayer(mySocketId, urlSocketId), rooms: rooms, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 85
+                  lineNumber: 92
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 80
+              lineNumber: 87
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -68055,7 +68059,7 @@ var App = function (_Component) {
             component: __WEBPACK_IMPORTED_MODULE_2__pages___["a" /* Home */],
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 88
+              lineNumber: 95
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -68069,13 +68073,13 @@ var App = function (_Component) {
 
               return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["d" /* Game */], { mySocketId: mySocketId, urlSocketId: urlSocketId, player: _this2.checkplayer(mySocketId, urlSocketId), rooms: rooms, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 99
+                  lineNumber: 106
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 92
+              lineNumber: 99
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -68083,7 +68087,7 @@ var App = function (_Component) {
             component: __WEBPACK_IMPORTED_MODULE_2__pages___["e" /* EndGame */],
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 104
+              lineNumber: 111
             }
           })
         )
@@ -68094,7 +68098,7 @@ var App = function (_Component) {
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 113
+            lineNumber: 120
           }
         },
         'hey'
@@ -68139,34 +68143,27 @@ var _jsxFileName = '/Users/Elise/Dropbox/_DEVINE/_DEVINE4/EXPERIMENTAL_WEB/Opdra
 
 
 var Room = function Room(props) {
-
-  // componentWillMount() {
-  //   const socketId = this.props.params.socketId;
-  //   this.setState({socketId});
-  // }
-
-  // render() {
   var mySocketId = props.mySocketId;
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
     { className: 'choose', __source: {
         fileName: _jsxFileName,
-        lineNumber: 16
+        lineNumber: 10
       }
     },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'p',
       { className: 'intro', __source: {
           fileName: _jsxFileName,
-          lineNumber: 17
+          lineNumber: 11
         }
       },
       'Hoeveel invloed hebben \x03jou slechte vrienden?\x03 ',
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 17
+          lineNumber: 11
         }
       }),
       'Speel het spel en ontdek!'
@@ -68175,14 +68172,14 @@ var Room = function Room(props) {
       'div',
       { className: 'links', __source: {
           fileName: _jsxFileName,
-          lineNumber: 19
+          lineNumber: 13
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
         { className: 'startbutton', to: '/start/computer', __source: {
             fileName: _jsxFileName,
-            lineNumber: 20
+            lineNumber: 14
           }
         },
         'TEGEN DE COMPUTER'
@@ -68191,7 +68188,7 @@ var Room = function Room(props) {
         __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
         { className: 'startbutton', to: '/start/' + mySocketId, __source: {
             fileName: _jsxFileName,
-            lineNumber: 21
+            lineNumber: 15
           }
         },
         'TEGEN EEN SLECHTE VRIEND'
@@ -68298,6 +68295,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// PLAY GAME WITH FRIEND IN ROOM / COMPUTER
 
 
 
@@ -68447,14 +68446,14 @@ var Game = function (_React$Component) {
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 136
+          lineNumber: 138
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'gamePlay player-' + player, __source: {
             fileName: _jsxFileName,
-            lineNumber: 137
+            lineNumber: 139
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68468,7 +68467,7 @@ var Game = function (_React$Component) {
             clearAlpha: 0.0,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 138
+              lineNumber: 140
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68476,7 +68475,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 146
+                lineNumber: 148
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('perspectiveCamera', {
@@ -68490,7 +68489,7 @@ var Game = function (_React$Component) {
               lookAt: cameraLookat,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 147
+                lineNumber: 149
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('directionalLight', {
@@ -68502,7 +68501,7 @@ var Game = function (_React$Component) {
               , visible: true,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 157
+                lineNumber: 159
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["a" /* Car */], {
@@ -68511,7 +68510,7 @@ var Game = function (_React$Component) {
               rotation: this.cameraRotation,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 165
+                lineNumber: 167
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["b" /* Bariers */], {
@@ -68523,7 +68522,7 @@ var Game = function (_React$Component) {
               // barierPos={barierPos}
               , __source: {
                 fileName: _jsxFileName,
-                lineNumber: 170
+                lineNumber: 172
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["c" /* Drinks */], {
@@ -68536,13 +68535,13 @@ var Game = function (_React$Component) {
               // drinkPos={drinkPos}
               , __source: {
                 fileName: _jsxFileName,
-                lineNumber: 176
+                lineNumber: 178
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["d" /* Ground */], {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 183
+                lineNumber: 185
               }
             })
           )
@@ -68551,7 +68550,7 @@ var Game = function (_React$Component) {
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'kmteller', __source: {
           fileName: _jsxFileName,
-          lineNumber: 187
+          lineNumber: 189
         }
       })
     );
@@ -68640,6 +68639,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+// LINK MET VRIEND + DEMO
+
 
 
 
@@ -68666,12 +68667,10 @@ var Start = function (_Component) {
 
   Start.prototype.componentDidMount = function componentDidMount() {
     this.socket = __WEBPACK_IMPORTED_MODULE_2_socket_io_client___default()('/');
+    var urlSocketId = this.props.urlSocketId;
     var _props = this.props,
-        urlSocketId = _props.urlSocketId,
-        mySocketId = _props.mySocketId;
-    var _props2 = this.props,
-        player = _props2.player,
-        rooms = _props2.rooms;
+        player = _props.player,
+        rooms = _props.rooms;
 
 
     var socketids = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_lodash__["filter"])(rooms, function (i) {
@@ -68681,11 +68680,11 @@ var Start = function (_Component) {
 
     if (player === 'me') {
       // player me
-      this.socket.emit('joinroom', mySocketId);
-    } else if (player === 'friend') {
-      // player friend
-      this.socket.emit('joinRoom', urlSocketId);
-    }
+      // this.socket.emit(`joinroom`, mySocketId);
+    } else if (player === 'friend') {}
+    // player friend
+    // this.socket.emit(`joinRoom`, urlSocketId);
+
 
     // if (player === `me`) {
     //
@@ -68714,9 +68713,9 @@ var Start = function (_Component) {
   };
 
   Start.prototype.render = function render() {
-    var _props3 = this.props,
-        urlSocketId = _props3.urlSocketId,
-        player = _props3.player;
+    var _props2 = this.props,
+        urlSocketId = _props2.urlSocketId,
+        player = _props2.player;
     //
 
     console.log(player);
@@ -68726,14 +68725,14 @@ var Start = function (_Component) {
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 67
+            lineNumber: 69
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'h3',
           { className: 'intro', __source: {
               fileName: _jsxFileName,
-              lineNumber: 68
+              lineNumber: 70
             }
           },
           'DEMO TEGEN COMPUTER'
@@ -68742,7 +68741,7 @@ var Start = function (_Component) {
           __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
           { className: 'startBig', to: '/game', __source: {
               fileName: _jsxFileName,
-              lineNumber: 69
+              lineNumber: 71
             }
           },
           'SPEEL HET SPEL!'
@@ -68755,14 +68754,14 @@ var Start = function (_Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 75
+              lineNumber: 77
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'h3',
             { className: 'intro', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 76
+                lineNumber: 78
               }
             },
             'stuur dit naar vriend: localhost:3000/start/',
@@ -68772,7 +68771,7 @@ var Start = function (_Component) {
             __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
             { className: 'startBig', to: '/game/' + urlSocketId, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 81
+                lineNumber: 83
               }
             },
             'SPEEL HET SPEL!'
@@ -68784,14 +68783,14 @@ var Start = function (_Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 86
+              lineNumber: 88
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'h3',
             { className: 'intro', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 87
+                lineNumber: 89
               }
             },
             'Plaats pintjes voor je vriend!'
@@ -68801,7 +68800,7 @@ var Start = function (_Component) {
             __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
             { className: 'startBig', to: '/game/' + urlSocketId, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 88
+                lineNumber: 90
               }
             },
             'SPEEL HET SPEL!'
@@ -68812,7 +68811,7 @@ var Start = function (_Component) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__pages__["a" /* Home */], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 92
+          lineNumber: 94
         }
       });
     }
@@ -113377,4 +113376,4 @@ module.exports = __webpack_require__(174);
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.859994d47958035340b4.js.map
+//# sourceMappingURL=main.386c4cb6535bb393798c.js.map

@@ -22,25 +22,32 @@ class App extends Component {
     this.socket.on(`init`, this.handleWSInit);
 
     this.socket.on(`connect`, this.initPeer);
+    this.socket.on(`joinRoom`, this.handleWSJoin);
 
   }
 
   initPeer = () => {
     const {id} = this.socket;
     this.peer = new Peer(id, {
-      host: `dry-harbor-31700.herokuapp.com`,
-      port: ``,
+      // host: `dry-harbor-31700.herokuapp.com`,
+      host: `localhost`,
+      port: `9000`,
       path: `/api`,
-      secure: true
+      // secure: true
     });
 
     this.socket = io(`/`);
-    console.log(window.location.href);
     this.socket.on(`init`, this.handleWSInit);
   }
 
   handleWSInit = socketId => {
     this.setState({mySocketId: socketId});
+  }
+
+  handleWSJoin = rooms => {
+    console.log(rooms);
+    console.log(`jo`);
+    this.setState({rooms});
   }
 
   checkplayer(mySocketId, urlSocketId) {
