@@ -53,7 +53,7 @@ class Start extends Component {
       return (
         <div className='page'>
           <h1 className='intro'>SPEEL TEGEN DE COMPUTER</h1>
-          <ul>
+          <ul className='demo-list'>
             <li>Bestuur je auto van links naar rechts met de pijltjestoetsen om thuis te geraken.</li>
             <li>Ontwijk de biertjes om niet te dronken te worden. Wanneer je 5 pintjes op hebt gepikt ben je knock-out.</li>
             <li>Pas op voor eventuele obstakels, wie weet geraak je wel nooit meer thuis</li>
@@ -67,16 +67,12 @@ class Start extends Component {
           return (
             <div>
               <h1 className='intro'>Kan jij de invloed van je slechte vrienden aan? Doe nu de test.</h1>
-              <h1 className='link-vriend'>
-                Stuur deze link naar je vriend!
-                <a className='friendlink' href={`localhost:3000/start/${urlSocketId}`}>localhost:3000/start/{urlSocketId}</a>
-              </h1>
-              <ul>
+              <a className={`startbutton ${joinConfirmation}`} href='#' onClick={e => this.clickStartHandler(e)}>SPEEL HET SPEL!</a>
+              <ul className='demo-list'>
                 <li>Bestuur je auto van links naar rechts met de pijltjestoetsen om thuis te geraken.</li>
                 <li>Ontwijk de biertjes om niet te dronken te worden. Wanneer je 5 pintjes op hebt gepikt ben je knock-out. Je slechte vriend zal proberen jou zat te voeren.</li>
                 <li>Pas op voor eventuele obstakels, wie weet geraak je wel nooit meer thuis</li>
               </ul>
-              <a className={`startbutton ${joinConfirmation}`} href='#' onClick={e => this.clickStartHandler(e)}>SPEEL HET SPEL!</a>
             </div>
           );
         } else {
@@ -88,7 +84,7 @@ class Start extends Component {
                 <a className='friendlink' href={`localhost:3000/start/${urlSocketId}`}>localhost:3000/start/{urlSocketId}</a>
               </h1>
               <h2 className='intro'>Wachten tot je vriend de link opent...</h2>
-              <ul>
+              <ul className='demo-list'>
                 <li>Bestuur je auto van links naar rechts met de pijltjestoetsen om thuis te geraken.</li>
                 <li>Ontwijk de biertjes om niet te dronken te worden. Wanneer je 5 pintjes op hebt gepikt ben je knock-out. Je slechte vriend zal proberen jou zat te voeren.</li>
                 <li>Pas op voor eventuele obstakels, wie weet geraak je wel nooit meer thuis</li>
@@ -100,7 +96,7 @@ class Start extends Component {
         return (
           <div>
             <h1 className='intro'>Plaats biertjes voor je vriend!</h1>
-              <ul>
+              <ul className='demo-list'>
                 <li>Plaats de pintjes op de juiste plaats met de pijltjestoetsen.</li>
                 <li>Met je spatiebalk kan je de biertjes neerzetten.</li>
                 <li>Je wint het spel als jou vriend niet meer thuis geraakt.</li>
