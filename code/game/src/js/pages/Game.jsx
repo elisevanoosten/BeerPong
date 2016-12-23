@@ -59,7 +59,7 @@ class Game extends React.Component {
     this.loadInterval = setInterval(() => {
       km -= 0.1;
       this.round(km, 3);
-      if (km <= 0.01) {
+      if (km <= 0.2) {
         this.gameEnd(km);
       }
     }, 500);
@@ -104,7 +104,7 @@ class Game extends React.Component {
     //
     // this.cameraPosition = new THREE.Vector3(position, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
     // this.cameraRotation = new THREE.Euler(- 0.3, rotation, 0, `XYZ`);
-    if (player === `me`) {
+    if (player === `me` || player === `computer`) {
       if (e.keyCode === LEFT) {
         if (carX > - 4.2) {
           carX -= 0.5;
