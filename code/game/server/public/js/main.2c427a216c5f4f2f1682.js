@@ -68065,7 +68065,7 @@ var App = function (_Component) {
     } else if (urlSocketId === mySocketId) {
       var _player = 'me';
       return _player;
-    } else if (urlSocketId !== mySocketId) {
+    } else {
       var _player2 = 'friend';
       return _player2;
     }
@@ -68099,7 +68099,7 @@ var App = function (_Component) {
             component: __WEBPACK_IMPORTED_MODULE_2__pages___["a" /* Home */],
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 73
+              lineNumber: 74
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -68107,13 +68107,13 @@ var App = function (_Component) {
             render: function render() {
               return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["b" /* Choose */], { mySocketId: mySocketId, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 79
+                  lineNumber: 80
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 77
+              lineNumber: 78
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -68121,7 +68121,7 @@ var App = function (_Component) {
             component: __WEBPACK_IMPORTED_MODULE_2__pages___["a" /* Home */],
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 82
+              lineNumber: 83
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -68134,13 +68134,13 @@ var App = function (_Component) {
 
               return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["c" /* Start */], { urlSocketId: urlSocketId, mySocketId: mySocketId, player: _this2.checkplayer(mySocketId, urlSocketId), rooms: rooms, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 91
+                  lineNumber: 92
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 86
+              lineNumber: 87
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -68148,7 +68148,7 @@ var App = function (_Component) {
             component: __WEBPACK_IMPORTED_MODULE_2__pages___["a" /* Home */],
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 94
+              lineNumber: 95
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -68158,17 +68158,32 @@ var App = function (_Component) {
                   mySocketId = _state2.mySocketId,
                   rooms = _state2.rooms;
               var urlSocketId = props.params.urlSocketId;
+              // const player = this.checkplayer(mySocketId, urlSocketId);
 
-
-              return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["d" /* Game */], { mySocketId: mySocketId, urlSocketId: urlSocketId, player: _this2.checkplayer(mySocketId, urlSocketId), rooms: rooms, __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 105
-                }
-              });
+              console.log(urlSocketId, mySocketId);
+              if (urlSocketId === mySocketId) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["d" /* Game */], { mySocketId: mySocketId, urlSocketId: urlSocketId, player: 'me', rooms: rooms, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 108
+                  }
+                });
+              } else if (urlSocketId !== mySocketId) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["d" /* Game */], { mySocketId: mySocketId, urlSocketId: urlSocketId, player: 'friend', rooms: rooms, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 112
+                  }
+                });
+              } else if (urlSocketId === 'computer') {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["d" /* Game */], { mySocketId: mySocketId, urlSocketId: urlSocketId, player: 'computer', rooms: rooms, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 116
+                  }
+                });
+              }
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 98
+              lineNumber: 99
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -68181,13 +68196,18 @@ var App = function (_Component) {
 
               return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["e" /* EndGame */], { urlSocketId: urlSocketId, end: end, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 115
+                  lineNumber: 126
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 110
+              lineNumber: 121
+            }
+          }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Miss"], { component: __WEBPACK_IMPORTED_MODULE_2__pages___["a" /* Home */], __source: {
+              fileName: _jsxFileName,
+              lineNumber: 129
             }
           })
         )
@@ -68198,7 +68218,7 @@ var App = function (_Component) {
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 123
+            lineNumber: 135
           }
         },
         'hey'
@@ -68458,7 +68478,7 @@ var Game = function (_React$Component) {
       bigDrinkY: -18,
       frienddrinks: [],
 
-      kmTeller: 1,
+      kmTeller: 10,
       drinkCount: 0
     };
     return _this;
@@ -68467,11 +68487,6 @@ var Game = function (_React$Component) {
   Game.prototype.componentDidMount = function componentDidMount() {
     this.cameraPosition = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](0, 3, 4, 'XYZ'); //linksrechts, bovenonder, diepte
     this.cameraRotation = new __WEBPACK_IMPORTED_MODULE_3_three__["Euler"](-0.3, 0, 0, 'XYZ');
-
-    var urlSocketId = this.props.urlSocketId;
-
-
-    __WEBPACK_IMPORTED_MODULE_2_socket_io_client___default.a.broadcast.to(urlSocketId).emit('roomJoined', urlSocketId);
   };
 
   Game.prototype.componentWillMount = function componentWillMount() {
@@ -68481,7 +68496,8 @@ var Game = function (_React$Component) {
     window.addEventListener('keydown', function (e) {
       return _this2.Move(e);
     });
-
+    // const {urlSocketId} = this.props;
+    // io.broadcast.to(urlSocketId).emit(`roomJoined`, urlSocketId);
     //KM TOT THUIS
     this.kmTeller();
   };
@@ -68518,7 +68534,7 @@ var Game = function (_React$Component) {
     drinks++;
     this.setState({ drinkCount: drinks });
 
-    if (player === 'me') {
+    if (player === 'me' || player === 'computer') {
       this.setBlurry();
     }
 
@@ -68549,16 +68565,18 @@ var Game = function (_React$Component) {
     // this.cameraPosition = new THREE.Vector3(position, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
     // this.cameraRotation = new THREE.Euler(- 0.3, rotation, 0, `XYZ`);
 
-    if (player === 'me') {
+    if (player === 'me' || player === 'computer') {
       if (e.keyCode === LEFT) {
         if (carX > -4.2) {
           carX -= 0.5;
           this.setState({ carX: carX });
+          __WEBPACK_IMPORTED_MODULE_2_socket_io_client___default.a.emit('newCarPosition', carX);
         }
       } else if (e.keyCode === RIGHT) {
         if (carX < 3.8) {
           carX += 0.5;
           this.setState({ carX: carX });
+          // io.emit(`newCarPosition`, carX);
         }
       }
     } else if (player === 'friend') {
@@ -68607,7 +68625,7 @@ var Game = function (_React$Component) {
         rotation: this.cameraRotation,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 158
+          lineNumber: 157
         }
       });
     }
@@ -68629,7 +68647,7 @@ var Game = function (_React$Component) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 170
+          lineNumber: 169
         }
       });
     }
@@ -68641,7 +68659,7 @@ var Game = function (_React$Component) {
       drinks.frienddrinks.map(function (drink, i) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["Drink"], { key: i, drinkX: drink.drinkX, drinkY: drink.drinkY, __source: {
             fileName: _jsxFileName,
-            lineNumber: 185
+            lineNumber: 184
           }
         });
       });
@@ -68672,7 +68690,6 @@ var Game = function (_React$Component) {
 
     var lightLookat = void 0;
     var cameraLookat = void 0;
-
     if (player === 'me' || player === 'computer') {
       // I PLAY
       this.cameraPosition = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](0, 3, 4, 'XYZ'); //linksrechts, bovenonder, diepte
@@ -68695,14 +68712,14 @@ var Game = function (_React$Component) {
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 223
+          lineNumber: 221
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'gamePlay player-' + player, __source: {
             fileName: _jsxFileName,
-            lineNumber: 224
+            lineNumber: 222
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68716,7 +68733,7 @@ var Game = function (_React$Component) {
             clearAlpha: 0.0,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 225
+              lineNumber: 223
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68724,7 +68741,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 233
+                lineNumber: 231
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('perspectiveCamera', {
@@ -68738,7 +68755,7 @@ var Game = function (_React$Component) {
               lookAt: cameraLookat,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 234
+                lineNumber: 232
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('directionalLight', {
@@ -68750,7 +68767,7 @@ var Game = function (_React$Component) {
               , visible: true,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 244
+                lineNumber: 242
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["d" /* Car */], {
@@ -68759,7 +68776,7 @@ var Game = function (_React$Component) {
               rotation: this.cameraRotation,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 252
+                lineNumber: 250
               }
             }),
             this.renderBigDrink({ player: player }),
@@ -68772,7 +68789,7 @@ var Game = function (_React$Component) {
               kmTeller: kmTeller,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 258
+                lineNumber: 256
               }
             }),
             this.renderDrinks({ player: player, carX: carX, carY: carY }),
@@ -68780,7 +68797,7 @@ var Game = function (_React$Component) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["f" /* Ground */], {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 266
+                lineNumber: 264
               }
             })
           )
@@ -68791,7 +68808,7 @@ var Game = function (_React$Component) {
         'div',
         { className: 'kmteller', __source: {
             fileName: _jsxFileName,
-            lineNumber: 270
+            lineNumber: 268
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68799,7 +68816,7 @@ var Game = function (_React$Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 271
+              lineNumber: 269
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68807,7 +68824,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 272
+                lineNumber: 270
               }
             },
             kmTeller,
@@ -68818,7 +68835,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 273
+                lineNumber: 271
               }
             },
             drinkCount,
@@ -68920,7 +68937,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-
 // import {includes} from 'lodash';
 // import {filter} from 'lodash';
 
@@ -68961,7 +68977,9 @@ var Start = function (_Component) {
     });
 
     this.socket.on('startGameResponse', function (urlSocketId) {
-      window.location.assign('/game/' + urlSocketId);
+      console.log(urlSocketId);
+      // <HashRouter basename='/' />;
+      // window.location.assign(`/game/${urlSocketId}`);
     });
   };
 
@@ -68981,22 +68999,20 @@ var Start = function (_Component) {
         player = _props.player;
     var joinConfirmation = this.state.joinConfirmation;
 
-    console.log(joinConfirmation);
-    //
-    console.log(player);
+
     if (player === 'computer') {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'page', __source: {
             fileName: _jsxFileName,
-            lineNumber: 54
+            lineNumber: 53
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'h1',
           { className: 'intro', __source: {
               fileName: _jsxFileName,
-              lineNumber: 55
+              lineNumber: 54
             }
           },
           'SPEEL TEGEN DE COMPUTER'
@@ -69005,7 +69021,7 @@ var Start = function (_Component) {
           'ul',
           { className: 'demo-list', __source: {
               fileName: _jsxFileName,
-              lineNumber: 56
+              lineNumber: 55
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -69013,7 +69029,7 @@ var Start = function (_Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 57
+                lineNumber: 56
               }
             },
             'Bestuur je auto van links naar rechts met de pijltjestoetsen om thuis te geraken.'
@@ -69023,7 +69039,7 @@ var Start = function (_Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 58
+                lineNumber: 57
               }
             },
             'Ontwijk de biertjes om niet te dronken te worden. Wanneer je 5 pintjes op hebt gepikt ben je knock-out.'
@@ -69033,7 +69049,7 @@ var Start = function (_Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 59
+                lineNumber: 58
               }
             },
             'Pas op voor eventuele obstakels, wie weet geraak je wel nooit meer thuis'
@@ -69043,7 +69059,7 @@ var Start = function (_Component) {
           __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
           { className: 'startbutton', to: '/game/computer', __source: {
               fileName: _jsxFileName,
-              lineNumber: 61
+              lineNumber: 60
             }
           },
           'SPEEL HET SPEL!'
@@ -69057,34 +69073,37 @@ var Start = function (_Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 68
+                lineNumber: 67
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'h1',
               { className: 'intro', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 69
+                  lineNumber: 68
                 }
               },
               'Kan jij de invloed van je slechte vrienden aan? Doe nu de test.'
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'a',
-              { className: 'startbutton ' + joinConfirmation, href: '#', onClick: function onClick(e) {
-                  return _this3.clickStartHandler(e);
+              __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
+              {
+                className: 'startbutton ' + joinConfirmation,
+                to: '/game/' + urlSocketId,
+                onClick: function onClick() {
+                  return _this3.clickStartHandler();
                 }, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 70
+                  lineNumber: 69
                 }
               },
-              'SPEEL HET SPEL!'
+              ' SPEEL HET SPEL!'
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'ul',
               { className: 'demo-list', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 71
+                  lineNumber: 73
                 }
               },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -69092,7 +69111,7 @@ var Start = function (_Component) {
                 {
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 72
+                    lineNumber: 74
                   }
                 },
                 'Bestuur je auto van links naar rechts met de pijltjestoetsen om thuis te geraken.'
@@ -69102,7 +69121,7 @@ var Start = function (_Component) {
                 {
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 73
+                    lineNumber: 75
                   }
                 },
                 'Ontwijk de biertjes om niet te dronken te worden. Wanneer je 5 pintjes op hebt gepikt ben je knock-out. Je slechte vriend zal proberen jou zat te voeren.'
@@ -69112,7 +69131,7 @@ var Start = function (_Component) {
                 {
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 74
+                    lineNumber: 76
                   }
                 },
                 'Pas op voor eventuele obstakels, wie weet geraak je wel nooit meer thuis'
@@ -69125,14 +69144,14 @@ var Start = function (_Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 80
+                lineNumber: 82
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'h1',
               { className: 'intro', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 81
+                  lineNumber: 83
                 }
               },
               'Kan jij de invloed vna je slechte vrienden aan? Doe nu de test.'
@@ -69141,7 +69160,7 @@ var Start = function (_Component) {
               'h1',
               { className: 'link-vriend', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 82
+                  lineNumber: 84
                 }
               },
               'Stuur deze link naar je vriend!',
@@ -69149,7 +69168,7 @@ var Start = function (_Component) {
                 'a',
                 { className: 'friendlink', href: 'localhost:3000/start/' + urlSocketId, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 84
+                    lineNumber: 86
                   }
                 },
                 'localhost:3000/start/',
@@ -69160,7 +69179,7 @@ var Start = function (_Component) {
               'h2',
               { className: 'intro', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 86
+                  lineNumber: 88
                 }
               },
               'Wachten tot je vriend de link opent...'
@@ -69169,7 +69188,7 @@ var Start = function (_Component) {
               'ul',
               { className: 'demo-list', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 87
+                  lineNumber: 89
                 }
               },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -69177,7 +69196,7 @@ var Start = function (_Component) {
                 {
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 88
+                    lineNumber: 90
                   }
                 },
                 'Bestuur je auto van links naar rechts met de pijltjestoetsen om thuis te geraken.'
@@ -69187,7 +69206,7 @@ var Start = function (_Component) {
                 {
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 89
+                    lineNumber: 91
                   }
                 },
                 'Ontwijk de biertjes om niet te dronken te worden. Wanneer je 5 pintjes op hebt gepikt ben je knock-out. Je slechte vriend zal proberen jou zat te voeren.'
@@ -69197,7 +69216,7 @@ var Start = function (_Component) {
                 {
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 90
+                    lineNumber: 92
                   }
                 },
                 'Pas op voor eventuele obstakels, wie weet geraak je wel nooit meer thuis'
@@ -69211,14 +69230,14 @@ var Start = function (_Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 97
+              lineNumber: 99
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'h1',
             { className: 'intro', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 98
+                lineNumber: 100
               }
             },
             'Plaats biertjes voor je vriend!'
@@ -69227,7 +69246,7 @@ var Start = function (_Component) {
             'ul',
             { className: 'demo-list', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 99
+                lineNumber: 101
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -69235,7 +69254,7 @@ var Start = function (_Component) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 100
+                  lineNumber: 102
                 }
               },
               'Plaats de pintjes op de juiste plaats met de pijltjestoetsen.'
@@ -69245,7 +69264,7 @@ var Start = function (_Component) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 101
+                  lineNumber: 103
                 }
               },
               'Met je spatiebalk kan je de biertjes neerzetten.'
@@ -69255,30 +69274,32 @@ var Start = function (_Component) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 102
+                  lineNumber: 104
                 }
               },
               'Je wint het spel als jou vriend niet meer thuis geraakt.'
             )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'a',
-            { className: 'startbutton friendbutton', href: '#', onClick: function onClick(e) {
-                return _this3.clickStartHandler(e);
+            __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
+            {
+              className: 'startbutton ' + joinConfirmation,
+              to: '/game/' + urlSocketId,
+              onClick: function onClick() {
+                return _this3.clickStartHandler();
               }, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 104
+                lineNumber: 106
               }
             },
-            'SPEEL HET SPEL!'
-          ),
-          ';'
+            ' SPEEL HET SPEL!'
+          )
         );
       }
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__pages__["a" /* Home */], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 108
+          lineNumber: 113
         }
       });
     }
@@ -96771,4 +96792,4 @@ module.exports = __webpack_require__(174);
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.5918df764746fb97bad6.js.map
+//# sourceMappingURL=main.2c427a216c5f4f2f1682.js.map

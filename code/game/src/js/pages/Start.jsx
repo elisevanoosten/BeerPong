@@ -1,7 +1,6 @@
 // LINK MET VRIEND + DEMO
-
 import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
+import {Link, HashRouter} from 'react-router';
 import io from 'socket.io-client';
 
 import {Home} from '../pages';
@@ -32,7 +31,9 @@ class Start extends Component {
     });
 
     this.socket.on(`startGameResponse`, urlSocketId => {
-      window.location.assign(`/game/${urlSocketId}`);
+      console.log(urlSocketId);
+      // <HashRouter basename='/' />;
+      // window.location.assign(`/game/${urlSocketId}`);
     });
   }
 
@@ -46,9 +47,7 @@ class Start extends Component {
   render() {
     const {urlSocketId, player} = this.props;
     const {joinConfirmation} = this.state;
-    console.log(joinConfirmation);
-    //
-    console.log(player);
+
     if (player === `computer`) {
       return (
         <div className='page'>
@@ -67,7 +66,11 @@ class Start extends Component {
           return (
             <div>
               <h1 className='intro'>Kan jij de invloed van je slechte vrienden aan? Doe nu de test.</h1>
-              <a className={`startbutton ${joinConfirmation}`} href='#' onClick={e => this.clickStartHandler(e)}>SPEEL HET SPEL!</a>
+              <Link
+                className={`startbutton ${joinConfirmation}`}
+                to={`/game/${urlSocketId}`}
+                // onClick={() => this.clickStartHandler()}
+                > SPEEL HET SPEL!</Link>
               <ul className='demo-list'>
                 <li>Bestuur je auto van links naar rechts met de pijltjestoetsen om thuis te geraken.</li>
                 <li>Ontwijk de biertjes om niet te dronken te worden. Wanneer je 5 pintjes op hebt gepikt ben je knock-out. Je slechte vriend zal proberen jou zat te voeren.</li>
@@ -101,7 +104,11 @@ class Start extends Component {
                 <li>Met je spatiebalk kan je de biertjes neerzetten.</li>
                 <li>Je wint het spel als jou vriend niet meer thuis geraakt.</li>
               </ul>
-            <a className='startbutton friendbutton' href='#' onClick={e => this.clickStartHandler(e)}>SPEEL HET SPEL!</a>;
+              <Link
+                className={`startbutton ${joinConfirmation}`}
+                to={`/game/${urlSocketId}`}
+                // onClick={() => this.clickStartHandler()}
+                > SPEEL HET SPEL!</Link>
           </div>
         );
       }

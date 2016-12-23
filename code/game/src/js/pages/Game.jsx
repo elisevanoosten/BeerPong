@@ -26,7 +26,7 @@ class Game extends React.Component {
       bigDrinkY: - 18,
       frienddrinks: [],
 
-      kmTeller: 1,
+      kmTeller: 10,
       drinkCount: 0
     };
   }
@@ -34,16 +34,13 @@ class Game extends React.Component {
   componentDidMount() {
     this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
     this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);
-
-    const {urlSocketId} = this.props;
-
-    io.broadcast.to(urlSocketId).emit(`roomJoined`, urlSocketId);
   }
 
   componentWillMount() {
     //CAR MOVEMENT
     window.addEventListener(`keydown`, e => this.Move(e));
-
+    // const {urlSocketId} = this.props;
+    // io.broadcast.to(urlSocketId).emit(`roomJoined`, urlSocketId);
     //KM TOT THUIS
     this.kmTeller();
   }
@@ -77,7 +74,7 @@ class Game extends React.Component {
     drinks ++;
     this.setState({drinkCount: drinks});
 
-    if (player === `me`) {
+    if (player === `me` || player === `computer`) {
       this.setBlurry();
     }
 
@@ -104,17 +101,19 @@ class Game extends React.Component {
     //
     // this.cameraPosition = new THREE.Vector3(position, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
     // this.cameraRotation = new THREE.Euler(- 0.3, rotation, 0, `XYZ`);
-    if (player === `me`) {
+    if (player === `me` || player === `computer`) {
       if (e.keyCode === LEFT) {
         if (carX > - 4.2) {
           carX -= 0.5;
           this.setState({carX});
+          io.emit(`newCarPosition`, carX);
         }
       }
       else if (e.keyCode === RIGHT) {
         if (carX < 3.8) {
           carX += 0.5;
           this.setState({carX});
+          // io.emit(`newCarPosition`, carX);
         }
       }
     } else if (player === `friend`) {
@@ -201,7 +200,6 @@ class Game extends React.Component {
 
     let lightLookat;
     let cameraLookat;
-
     if (player === `me` || player === `computer`) {
       // I PLAY
       this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte

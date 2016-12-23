@@ -23,14 +23,19 @@ module.exports.register = (server, options, next) => {
       socket.emit(`newRooms`, rooms);
     });
 
-    socket.on(`startGame`, urlSocketId => {
-      socket.broadcast.to(urlSocketId).emit(`startGameResponse`, urlSocketId);
+    // socket.on(`startGame`, urlSocketId => {
+    //   socket.broadcast.to(urlSocketId).emit(`startGameResponse`, urlSocketId);
+    // });
+
+    socket.on(`newCarPosition`, carX => {
+      // socket.broadcast.to(urlSocketId).emit(`startGameResponse`, urlSocketId);
+      console.log(`new car pos`, carX);
     });
 
 
     socket.on(`disconnect`, () => {
       const room = rooms.find(r => r === r);
-      if (room) socket.broadcast.emit(`leave`, room.roomname);
+      if (room) socket.broadcast.emit(`leave`, room);
       rooms = rooms.filter(r => r !== r);
       console.log(room, `left`);
     });

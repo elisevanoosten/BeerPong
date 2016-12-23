@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {Match, BrowserRouter as Router} from 'react-router';
+import {Match, Miss, BrowserRouter as Router} from 'react-router';
 
 import {Home, Start, Choose, Game, EndGame} from '../pages/';
 
@@ -56,7 +56,7 @@ class App extends Component {
     } else if (urlSocketId === mySocketId) {
       const player = `me`;
       return player;
-    } else if (urlSocketId !== mySocketId) {
+    } else {
       const player = `friend`;
       return player;
     }
@@ -70,6 +70,7 @@ class App extends Component {
       return (
         <Router>
            <main>
+
              <Match
               exactly pattern='/'
               component={Home}
@@ -100,12 +101,22 @@ class App extends Component {
               render={props => {
                 const {mySocketId, rooms} = this.state;
                 const {urlSocketId} = props.params;
-
-                return (
-                  <Game mySocketId={mySocketId} urlSocketId={urlSocketId} player={this.checkplayer(mySocketId, urlSocketId)} rooms={rooms} />
-                );
-              }
-              }
+                // const player = this.checkplayer(mySocketId, urlSocketId);
+                console.log(urlSocketId, mySocketId);
+                if (urlSocketId === mySocketId) {
+                  return (
+                    <Game mySocketId={mySocketId} urlSocketId={urlSocketId} player='me' rooms={rooms} />
+                  );
+                } else if (urlSocketId !== mySocketId) {
+                  return (
+                    <Game mySocketId={mySocketId} urlSocketId={urlSocketId} player='friend' rooms={rooms} />
+                  );
+                } else if (urlSocketId === `computer`) {
+                  return (
+                    <Game mySocketId={mySocketId} urlSocketId={urlSocketId} player='computer' rooms={rooms} />
+                  );
+                }
+              }}
             />
             <Match
               pattern='/endgame/:end/:urlSocketId'
@@ -115,6 +126,7 @@ class App extends Component {
                 return <EndGame urlSocketId={urlSocketId} end={end} />;
               }}
             />
+            <Miss component={Home} />
           </main>
         </Router>
       );
