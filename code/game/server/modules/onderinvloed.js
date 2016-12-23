@@ -23,6 +23,10 @@ module.exports.register = (server, options, next) => {
       socket.emit(`newRooms`, rooms);
     });
 
+    socket.on(`startGame`, urlSocketId => {
+      socket.broadcast.to(urlSocketId).emit(`startGameResponse`, urlSocketId);
+    });
+
 
     socket.on(`disconnect`, () => {
       const room = rooms.find(r => r === r);

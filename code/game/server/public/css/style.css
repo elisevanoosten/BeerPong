@@ -74,15 +74,36 @@ body {
 }
 
 .startbutton {
-  position: absolute;
   bottom: 0;
   background-color: #8e288f;
-  padding: 10px;
-  border-radius: 10px 10px 0 0;
+  padding: 21px 25px;
+  border-radius: 19px;
+  font-size: 32px;
   font-size: 32px;
   font-size: 2rem;
   color: white;
   text-decoration: none;
+  text-align: center;
+  width: 22vw;
+  margin: 8vw auto 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.friendlink {
+  display: block;
+  color: white;
+  width: 83%;
+  margin: 5px auto 0;
+}
+
+.links .startbutton {
+  width: auto;
+  margin: 0 20px;
 }
 
 @-webkit-keyframes backgroundsize {
@@ -144,10 +165,9 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  vertical-align: center;
   text-align: center;
-  padding-top: 320px;
-  padding-top: 20rem;
+  padding-top: 240px;
+  padding-top: 15rem;
 }
 
 .startbord {
@@ -157,6 +177,73 @@ body {
           animation: shake 2s infinite cubic-bezier(.36, .07, .19, .97);
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
+  margin: auto;
+}
+
+.startboard-container {
+  -webkit-animation: rot 3s infinite linear;
+          animation: rot 3s infinite linear;
+}
+
+a {
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+}
+
+a:hover {
+  cursor: pointer;
+  background-color: white;
+  color: #8e288f;
+}
+
+@-webkit-keyframes rot {
+
+  from {
+    -webkit-transform:
+      rotate(0deg)
+      translate(-10px)
+      rotate(0deg);
+            transform:
+      rotate(0deg)
+      translate(-10px)
+      rotate(0deg);
+  }
+
+  to {
+    -webkit-transform:
+      rotate(360deg)
+      translate(-10px)
+      rotate(-360deg);
+            transform:
+      rotate(360deg)
+      translate(-10px)
+      rotate(-360deg);
+  }
+}
+
+@keyframes rot {
+
+  from {
+    -webkit-transform:
+      rotate(0deg)
+      translate(-10px)
+      rotate(0deg);
+            transform:
+      rotate(0deg)
+      translate(-10px)
+      rotate(0deg);
+  }
+
+  to {
+    -webkit-transform:
+      rotate(360deg)
+      translate(-10px)
+      rotate(-360deg);
+            transform:
+      rotate(360deg)
+      translate(-10px)
+      rotate(-360deg);
+  }
 }
 
 @-webkit-keyframes shake {
@@ -221,10 +308,6 @@ body {
   }
 }
 
-.startbord, .startbutton {
-  margin: auto;
-}
-
 /* .home .startbutton {
   position: absolute;
   bottom: 0;
@@ -274,19 +357,38 @@ li {
 .link-vriend {
   color: white;
   font-size: 32px;
+  font-size: 32px;
   font-size: 2rem;
   font-weight: bold;
-  padding: 32px;
-  padding: 2rem;
   background-color: #8e288f;
+  width: 50vw;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 30px;
+  line-height: 1.5;
+  padding: 10px;
 }
 
-/* .links {
+.friendbutton {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  position: absolute;
-  bottom: 0;
-} */
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 85px;
+  max-width: 450px;
+}
+
+.links {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
 
 .startBig {
   border-radius: 300px;

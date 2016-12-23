@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 import {Home} from '../pages';
 
 // import {includes} from 'lodash';
-import {filter} from 'lodash';
+// import {filter} from 'lodash';
 
 class Start extends Component {
 
@@ -31,19 +31,17 @@ class Start extends Component {
       }
     });
 
+    this.socket.on(`startGameResponse`, urlSocketId => {
+      window.location.assign(`/game/${urlSocketId}`);
+    });
   }
 
-  // copyHandler(link) {
-  //   // window.prompt(`Copy to clipboard: Ctrl+C, Enter`, link);
-  //   try {
-  //       // copy text
-  //     document.execCommand(`copy`);
-  //     link.blur();
-  //   }
-  //   catch (err) {
-  //     alert(`please press Ctrl/Cmd+C to copy`);
-  //   }
-  // }
+  clickStartHandler(e) {
+    this.socket = io(`/`);
+    e.preventDefault();
+    const {urlSocketId} = this.props;
+    this.socket.emit(`startGame`, urlSocketId);
+  }
 
   render() {
     const {urlSocketId, player} = this.props;
@@ -54,7 +52,7 @@ class Start extends Component {
     if (player === `computer`) {
       return (
         <div className='page'>
-          <h3 className='intro'>SPEEL TEGEN DE COMPUTER</h3>
+          <h1 className='intro'>SPEEL TEGEN DE COMPUTER</h1>
           <ul>
             <li>Bestuur je auto van links naar rechts met de pijltjestoetsen om thuis te geraken.</li>
             <li>Ontwijk de biertjes om niet te dronken te worden. Wanneer je 5 pintjes op hebt gepikt ben je knock-out.</li>
@@ -68,21 +66,27 @@ class Start extends Component {
         if (joinConfirmation === true) {
           return (
             <div>
-              <h3 className='intro'>Kan jij de invloed vna je slechte vrienden aan? Doe nu de test.</h3>
-              <h3 className='link-vriend'>stuur dit naar vriend: localhost:3000/start/{urlSocketId}</h3>
+              <h1 className='intro'>Kan jij de invloed van je slechte vrienden aan? Doe nu de test.</h1>
+              <h1 className='link-vriend'>
+                Stuur deze link naar je vriend!
+                <a className='friendlink' href={`localhost:3000/start/${urlSocketId}`}>localhost:3000/start/{urlSocketId}</a>
+              </h1>
               <ul>
                 <li>Bestuur je auto van links naar rechts met de pijltjestoetsen om thuis te geraken.</li>
                 <li>Ontwijk de biertjes om niet te dronken te worden. Wanneer je 5 pintjes op hebt gepikt ben je knock-out. Je slechte vriend zal proberen jou zat te voeren.</li>
                 <li>Pas op voor eventuele obstakels, wie weet geraak je wel nooit meer thuis</li>
               </ul>
-              <Link className={`startBig ${joinConfirmation}`} to={`/game/${urlSocketId}`}>SPEEL HET SPEL!</Link>
+              <a className={`startbutton ${joinConfirmation}`} href='#' onClick={e => this.clickStartHandler(e)}>SPEEL HET SPEL!</a>
             </div>
           );
         } else {
           return (
             <div>
-              <h3 className='intro'>Kan jij de invloed vna je slechte vrienden aan? Doe nu de test.</h3>
-              <h3 className='link-vriend'>stuur dit naar vriend: localhost:3000/start/{urlSocketId}</h3>
+              <h1 className='intro'>Kan jij de invloed vna je slechte vrienden aan? Doe nu de test.</h1>
+              <h1 className='link-vriend'>
+                Stuur deze link naar je vriend!
+                <a className='friendlink' href={`localhost:3000/start/${urlSocketId}`}>localhost:3000/start/{urlSocketId}</a>
+              </h1>
               <h2 className='intro'>Wachten tot je vriend de link opent...</h2>
               <ul>
                 <li>Bestuur je auto van links naar rechts met de pijltjestoetsen om thuis te geraken.</li>
@@ -95,13 +99,13 @@ class Start extends Component {
       } else if (player === `friend`) {
         return (
           <div>
-            <h3 className='intro'>Plaats biertjes voor je vriend!</h3>
+            <h1 className='intro'>Plaats biertjes voor je vriend!</h1>
               <ul>
                 <li>Plaats de pintjes op de juiste plaats met de pijltjestoetsen.</li>
                 <li>Met je spatiebalk kan je de biertjes neerzetten.</li>
                 <li>Je wint het spel als jou vriend niet meer thuis geraakt.</li>
               </ul>
-            <Link className='startbutton' to={`/game/${urlSocketId}`}>SPEEL HET SPEL!</Link>;
+            <a className='startbutton friendbutton' href='#' onClick={e => this.clickStartHandler(e)}>SPEEL HET SPEL!</a>;
           </div>
         );
       }

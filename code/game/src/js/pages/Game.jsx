@@ -2,7 +2,9 @@
 
 import React, {PropTypes} from 'react';
 import React3 from 'react-three-renderer';
-import {EndGame} from '../pages/';
+// import {EndGame} from '../pages/';
+
+import io from 'socket.io-client';
 
 import * as THREE from 'three';
 
@@ -25,12 +27,15 @@ class Game extends React.Component {
       kmTeller: 15,
       drinkCount: 0
     };
-
   }
 
   componentDidMount() {
     this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
     this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);
+
+    const {urlSocketId} = this.props;
+
+    io.broadcast.to(urlSocketId).emit(`roomJoined`, urlSocketId);
   }
 
   componentWillMount() {
