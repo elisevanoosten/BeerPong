@@ -35,23 +35,23 @@ class Drinks extends React.Component {
   }
 
   checkCollision() {
-    const {carX, carY, player} = this.props;
+    const {carX, carY} = this.props; //player
     const {drinks} = this.state;
-    let remove;
+
+    const carwidth = 2;
+    const carDepth = 0.5;
 
     drinks.map((drink, i) => {
       const xPos = drinks[i].drinkX;
       const yPos = drinks[i].drinkY;
-      const carwidth = 4;
-      const carDepth = 0.5;
-
-      //console.log(xPos, yPos);
 
       if (xPos <= carX + carwidth && xPos >= carX) {
         if (yPos <= carY + carDepth / 2 && yPos >= carY - carDepth / 2) {
           this.props.drinkCounter();
+          //drinks.filter(b => b !== drinks[i]);
         }
       }
+
     });
 
     requestAnimationFrame(() => {this.checkCollision();});
@@ -87,16 +87,11 @@ class Drinks extends React.Component {
     this.setState({drinks});
   }
 
-  updateY(remove) {
+  updateY() {
     let {drinks} = this.state;
 
     drinks.map(function(drink, i) {
       drink.drinkY += 0.5;
-
-      if (remove) {
-        //bariers = bariers.filter(b => b !== bariers[i]);
-        console.log(`remove`);
-      }
 
       if (drink.drinkY > 100) {
 

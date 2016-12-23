@@ -5,23 +5,28 @@ import {Link} from 'react-router';
 
 const EndGame = props => {
 
-  const {end, urlSocketId} = props;
+  const {end} = props;
   let text;
 
   if (end === `barier`) {
-    text = `Helaas, Je bent niet thuis geraakt. Jouw rustplaast bevind zich op de weg naar jouw huis.`;
+    text = `AIAIAI! Je bent niet thuis geraakt. De volgende keer toch wat beter opletten!`;
   } else if (end ===  `drink`) {
-    text = `Helaas, Je bent niet thuis geraakt. Misschien toch iets minder drinken? je onderweg naar jouw huis gestrand.`;
+    text = `Oh nee! Je bent niet thuis geraakt. Misschien toch iets minder drinken?`;
   } else if (end ===  `won`) {
-    text = `Proficiat, je bent heelhuids thuis geraakt. Zeer verantwoordlijk van jou.`;
+    text = `Hoera! Je bent heelhuids thuis geraakt. Zeer verantwoordlijk van jou.`;
+  } else if (end === `barierfriend`) {
+    text = `AIAIAI! Je vriend is tegen een wegobstakel gereden!`;
+  } else if (end ===  `drinkfriend`) {
+    text = `Mensen zat voeren is gevaarlijk! Je vriend raakte niet thuis`;
+  } else if (end ===  `wonfriend`) {
+    text = `Hoera, je vriend heeft veel geluk gehad en is ondanks alle alcohol dat je hem voerde toch nog thuis geraakt`;
   }
 
   return (
     <div className='endpage'>
       <p className='intro'>{text}</p>
       <div className='links'>
-        <Link className='startbutton' to='/choose'>TEGEN IEMAND ANDERS?</Link>
-        <Link className='startbutton' to={`/game/${urlSocketId}`}>REMATCH</Link>
+        <Link className='startbutton' to='/choose'>Nog een keer spelen?</Link>
       </div>
     </div>
   );

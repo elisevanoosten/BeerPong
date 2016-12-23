@@ -11,22 +11,6 @@ export default class Barier extends Component {
   componentDidMount() {
     const barierLoader = new THREE.JSONLoader();
     barierLoader.load(`../assets/json/RoadBarrier.json`, this.loadBarier);
-
-    // const {index} = this.props;
-    //
-    // let {Ypos} = this.state;
-    // this.loadInterval = setInterval(() => {
-    //   if (Ypos > 10) {
-    //     Ypos = - 100;
-    //     this.setState({Ypos});
-    //     Ypos ++;
-    //     this.props.sendYpos(index);
-    //   } else {
-    //     Ypos ++;
-    //     this.setState({Ypos});
-    //   }
-    // }, 35);
-
   }
 
   loadBarier = barierGeometry => {

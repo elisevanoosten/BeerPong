@@ -27,9 +27,8 @@ module.exports.register = (server, options, next) => {
     //   socket.broadcast.to(urlSocketId).emit(`startGameResponse`, urlSocketId);
     // });
 
-    socket.on(`newCarPosition`, carX => {
-      // socket.broadcast.to(urlSocketId).emit(`startGameResponse`, urlSocketId);
-      console.log(`new car pos`, carX);
+    socket.on(`carMoved`, props => {
+      socket.broadcast.to(props.urlSocketId).emit(`carMovedHow`, props.carX);
     });
 
 

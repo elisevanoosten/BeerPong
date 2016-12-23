@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 
 import * as THREE from 'three';
 
-import {Car, Ground, Bariers, Drinks, BigDrink, Drink} from '../components';
+import {Car, Ground, Bariers, Drinks, BigDrink} from '../components';
 
 class Game extends React.Component {
 
@@ -17,7 +17,6 @@ class Game extends React.Component {
 
     this.state = {
       cubeRotation: new THREE.Euler(),
-
       carX: - 0.2,
       carY: 0,
       barierY: 10,
@@ -25,7 +24,6 @@ class Game extends React.Component {
       bigDrinkX: 0,
       bigDrinkY: - 18,
       frienddrinks: [],
-
       kmTeller: 10,
       drinkCount: 0
     };
@@ -34,13 +32,19 @@ class Game extends React.Component {
   componentDidMount() {
     this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
     this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);
+
+    //const {urlSocketId} = this.props;
+    //io.broadcast.to(urlSocketId).emit(`roomJoined`, urlSocketId);
+    this.socket = io(`/`);
+    this.socket.on(`carMovedHow`, carX => {
+      console.log(carX, `car moved`);
+      this.setState({carX});
+    });
   }
 
   componentWillMount() {
     //CAR MOVEMENT
     window.addEventListener(`keydown`, e => this.Move(e));
-    // const {urlSocketId} = this.props;
-    // io.broadcast.to(urlSocketId).emit(`roomJoined`, urlSocketId);
     //KM TOT THUIS
     this.kmTeller();
   }
@@ -52,12 +56,16 @@ class Game extends React.Component {
 
   kmTeller() {
     let km = this.state.kmTeller;
-
+    const {player} = this.props;
     this.loadInterval = setInterval(() => {
       km -= 0.1;
       this.round(km, 3);
-      if (km <= 0.01) {
-        this.gameEnd(km);
+      if (km <= 0.2) {
+        if ((player === `me`) || (player === `computer`)) {
+          this.props.gameEnd(`won`);
+        } else if (player === `friend`) {
+          this.props.gameEnd(`wonfriend`);
+        }
       }
     }, 500);
   }
@@ -79,41 +87,59 @@ class Game extends React.Component {
     }
 
     if (drinks === 5) {
-      this.gameEnd(`drink`);
+      if ((player === `me`) || (player === `computer`)) {
+        this.props.gameEnd(`drink`);
+      } else if (player === `friend`) {
+        this.props.gameEnd(`drinkfriend`);
+      }
     }
   }
 
   setBlurry() {
     const count =  this.state.drinkCount * 2;
-    const view = document.querySelector(`.player-me`);
+    const player = this.props.player;
+    const view = document.querySelector(`.player-${player}`);
     view.style.filter = `blur(${ count }px)`;
   }
 
   Move(e) {
     const LEFT = 37;
     const RIGHT = 39;
+    this.socket = io(`/`);
 
     let {carX, bigDrinkX} = this.state;
     //const {bigDrinkY} = this.state;
-    const {player} = this.props;
+    const {player, urlSocketId} = this.props;
     // const rotation = carX / 10;
     // const position = carX * 1.1;
     //
     // this.cameraPosition = new THREE.Vector3(position, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
     // this.cameraRotation = new THREE.Euler(- 0.3, rotation, 0, `XYZ`);
-    if (player === `me` || player === `computer`) {
+    if (player === `me` || urlSocketId === `computer`) {
       if (e.keyCode === LEFT) {
         if (carX > - 4.2) {
           carX -= 0.5;
           this.setState({carX});
-          io.emit(`newCarPosition`, carX);
+          // io.emit(`newCarPosition`, carX);
+          const {urlSocketId} = this.props;
+          const props = {
+            urlSocketId: urlSocketId,
+            carX: carX
+          };
+          this.socket.emit(`carMoved`, props);
         }
       }
       else if (e.keyCode === RIGHT) {
         if (carX < 3.8) {
           carX += 0.5;
           this.setState({carX});
-          // io.emit(`newCarPosition`, carX);
+
+          const {urlSocketId} = this.props;
+          const props = {
+            urlSocketId: urlSocketId,
+            carX: carX
+          };
+          this.socket.emit(`carMoved`, props);
         }
       }
     } else if (player === `friend`) {
@@ -163,28 +189,28 @@ class Game extends React.Component {
     }
   }
 
-  renderDrinks(player, carX, carY, kmTeller) {
-    if (player.player === `computer`) {
-      return (
-        <Drinks
-          carX={carX}
-          carY={carY}
-          gameEnd={barier => this.gameEnd(barier, kmTeller)}
-          player={player}
-          drinkCounter={() => this.drinkCounter()}
-        />
-      );
-    }
-  }
+  // renderDrinks(player, carX, carY, kmTeller) {
+  //   if (player.player === `computer`) {
+  //     return (
+  //       <Drinks
+  //         carX={carX}
+  //         carY={carY}
+  //         gameEnd={barier => this.gameEnd(barier, kmTeller)}
+  //         player={player}
+  //         drinkCounter={() => this.drinkCounter()}
+  //       />
+  //     );
+  //   }
+  // }
 
-  renderFriendDrinks(drinks) {
-    if (drinks) {
-      //console.log(drinks.frienddrinks);
-      drinks.frienddrinks.map(function(drink, i) {
-        return <Drink key={i} drinkX={drink.drinkX} drinkY={drink.drinkY} />;
-      });
-    }
-  }
+  // renderFriendDrinks(drinks) {
+  //   if (drinks) {
+  //     //console.log(drinks.frienddrinks);
+  //     drinks.frienddrinks.map(function(drink, i) {
+  //       return <Drink key={i} drinkX={drink.drinkX} drinkY={drink.drinkY} />;
+  //     });
+  //   }
+  // }
 
   componentWillUnmount () {
     this.loadInterval && clearInterval(this.loadInterval);
@@ -195,25 +221,26 @@ class Game extends React.Component {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
 
-    const {player} = this.props;
-    const {carX, carY, kmTeller, drinkCount, bigDrinkY, bigDrinkX, frienddrinks} = this.state;
+    const {player, urlSocketId} = this.props;
+    const {carX, carY, kmTeller, drinkCount, bigDrinkY, bigDrinkX} = this.state;
 
     let lightLookat;
     let cameraLookat;
-    if (player === `me` || player === `computer`) {
+
+    if ((player === `me`) || (urlSocketId === `computer`)) {
       // I PLAY
-      this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
+      this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`);
       this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);
 
-      cameraLookat = new THREE.Vector3(carX, carY, - 8, `XYZ`); //linksrechts, bovenonder, diepte
-      lightLookat = new THREE.Vector3(carX, carY - 10, - 8, `XYZ`); //linksrechts, bovenonder, diepte
+      cameraLookat = new THREE.Vector3(carX, carY, - 8, `XYZ`);
+      lightLookat = new THREE.Vector3(carX, carY - 10, - 8, `XYZ`);
     } else if (player === `friend`) {
       // FRIEND PLAYS
       this.cameraPosition = new THREE.Vector3(0, 2, - 20, `XYZ`);
       this.cameraRotation = new THREE.Euler(0, 0, 0, `XYZ`);
 
-      cameraLookat = new THREE.Vector3(carX, carY, 8, `XYZ`); //linksrechts, bovenonder, diepte
-      lightLookat = new THREE.Vector3(0, - 200, 8, `XYZ`); //linksrechts, bovenonder, diepte
+      cameraLookat = new THREE.Vector3(carX, carY, 8, `XYZ`);
+      lightLookat = new THREE.Vector3(0, - 200, 8, `XYZ`);
       lightLookat = new THREE.Vector3(bigDrinkX - 100, bigDrinkY - 50, 150, `XYZ`);
     }
 
@@ -258,9 +285,18 @@ class Game extends React.Component {
               carY={carY}
               gameEnd={drink => this.gameEnd(drink, kmTeller)}
               kmTeller={kmTeller}
+              player={player}
+              urlSocketId={urlSocketId}
             />
-            {this.renderDrinks({player, carX, carY})}
-            {this.renderFriendDrinks({frienddrinks})}
+            <Drinks
+              carX={carX}
+              carY={carY}
+              gameEnd={barier => this.gameEnd(barier, kmTeller)}
+              player={player}
+              drinkCounter={() => this.drinkCounter()}
+            />
+            {/* {this.renderDrinks({player, carX, carY})} */}
+            {/* {this.renderFriendDrinks({frienddrinks})} */}
             <Ground />
           </scene>
         </React3>);

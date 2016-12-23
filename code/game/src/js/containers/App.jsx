@@ -28,11 +28,11 @@ class App extends Component {
   initPeer = () => {
     const {id} = this.socket;
     this.peer = new Peer(id, {
-      // host: `dry-harbor-31700.herokuapp.com`,
-      host: `localhost`,
+      host: `dry-harbor-31700.herokuapp.com`,
+      // host: `localhost`,
       port: `9000`,
       path: `/api`,
-      // secure: true
+      secure: true
     });
 
     this.socket = io(`/`);
@@ -89,7 +89,23 @@ class App extends Component {
               render={props => {
                 const {mySocketId, rooms} = this.state;
                 const {urlSocketId} = props.params;
-                return (<Start urlSocketId={urlSocketId} mySocketId={mySocketId} player={this.checkplayer(mySocketId, urlSocketId)} rooms={rooms} />);
+                console.log(urlSocketId === `computer`);
+
+                if (urlSocketId === mySocketId) {
+                  return (
+                    <Start mySocketId={mySocketId} urlSocketId={urlSocketId} player='me' rooms={rooms} />
+                  );
+                } else if (urlSocketId !== mySocketId) {
+                  return (
+                    <Start mySocketId={mySocketId} urlSocketId={urlSocketId} player='friend' rooms={rooms} />
+                  );
+                } else if (urlSocketId === `computer`) {
+                  return (
+                    <Start mySocketId={mySocketId} urlSocketId={urlSocketId} player='computer' rooms={rooms} />
+                  );
+                }
+
+
               }}
             />
             <Match

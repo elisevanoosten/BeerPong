@@ -67122,36 +67122,17 @@ var Bariers = function (_React$Component) {
       requestAnimationFrame(function () {
         _this2.updateY();
       });
+    }, 1500);
+
+    var _props = this.props,
+        player = _props.player,
+        urlSocketId = _props.urlSocketId;
+
+    if (player === 'me' || urlSocketId === 'computer') {
       requestAnimationFrame(function () {
         _this2.checkCollision();
       });
-    }, 1500);
-
-    // let {barierY} = this.state;
-
-    //const randomDistance = Math.random() * (500 - 1000) + 500;
-    //const delay = 1000; //1 second
-
-    // this.loadInterval = setInterval(() => {
-    // //   // barier later laten vertrekken
-    // //
-    //   barierY += 1;
-    //   this.setState({barierY});
-    // //
-    //   this.checkCollision();
-    // //
-    // //   if (barierY > 10) {
-    // //     //barierX = this.getRandomPos();
-    // //     //this.setState({barierX});
-    // //
-    // //     barierY = - 250;
-    // //     this.setState({barierY: - 150});
-    // //
-    // //   }
-    // //
-    // //   const barierX = 0;
-    // //
-    // }, 35);
+    }
   };
 
   Bariers.prototype.getRandomXpos = function getRandomXpos() {
@@ -67163,21 +67144,34 @@ var Bariers = function (_React$Component) {
     return Math.floor(Math.random() * 400) - 420 / 2;
   };
 
-  Bariers.prototype.checkCollision = function checkCollision(barierX, barierY) {
-    var _props = this.props,
-        carX = _props.carX,
-        carY = _props.carY;
+  Bariers.prototype.checkCollision = function checkCollision() {
+    var _this3 = this;
+
+    var _props2 = this.props,
+        carX = _props2.carX,
+        carY = _props2.carY,
+        player = _props2.player;
     var bariers = this.state.bariers;
 
 
-    var carwidth = 1.7;
+    var carwidth = 8;
     var carDepth = 2;
 
-    if (barierX <= carX + carwidth && barierX >= carX) {
-      if (barierY <= carY + carDepth / 2 && barierY >= carY - carDepth / 2) {
-        this.props.gameEnd('barier');
+    bariers.map(function (barier) {
+      if (barier.barierX <= carX + carwidth && barier.barierX >= carX) {
+        if (barier.barierY <= carY + carDepth / 2 && barier.barierY >= carY - carDepth / 2) {
+          if (player === 'me' || player === 'computer') {
+            _this3.props.gameEnd('barier');
+          } else if (player === 'friend') {
+            _this3.props.gameEnd('barierfriend');
+          }
+        }
       }
-    }
+    });
+
+    requestAnimationFrame(function () {
+      _this3.checkCollision();
+    });
   };
 
   Bariers.prototype.componentWillUnmount = function componentWillUnmount() {
@@ -67194,7 +67188,7 @@ var Bariers = function (_React$Component) {
   };
 
   Bariers.prototype.updateY = function updateY() {
-    var _this3 = this;
+    var _this4 = this;
 
     var bariers = this.state.bariers;
 
@@ -67222,23 +67216,9 @@ var Bariers = function (_React$Component) {
     this.setState({ bariers: bariers });
 
     requestAnimationFrame(function () {
-      _this3.updateY();
+      _this4.updateY();
     });
   };
-
-  // sendYposHandler(index) {
-  //   // console.log(`nieuwe ding in barierpos steken`);
-  //   const {barierPos} = this.state;
-  //   // console.log(index);
-  //   barierPos[index].xPos = this.getRandomPos();
-  //   this.setState({barierPos});
-  //   //
-  //   // loopBariers(barierpos)
-  //
-  //   // const {barierPos} = this.props;
-  //   // bariers[index].push(<Barier index={index} distance={barierPos[index].distance} barierX={barierPos[index].xPos} sendYpos={index => this.sendYposHandler(index)} />);
-  //
-  // }
 
   Bariers.prototype.loopBariers = function loopBariers(bariers) {
     for (var i = 0; i <= 6; i++) {
@@ -67268,13 +67248,13 @@ var Bariers = function (_React$Component) {
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 148
+          lineNumber: 119
         }
       },
       bariers.map(function (barier, i) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__singleElements___["b" /* Barier */], { key: i, barierX: barier.barierX, barierY: barier.barierY, __source: {
             fileName: _jsxFileName,
-            lineNumber: 150
+            lineNumber: 121
           }
         });
       })
@@ -67287,7 +67267,9 @@ var Bariers = function (_React$Component) {
 Bariers.propTypes = {
   carY: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].number,
   carX: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].number,
-  gameEnd: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].func
+  gameEnd: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].func,
+  player: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string,
+  urlSocketId: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string
 };
 
 /* harmony default export */ exports["a"] = Bariers;
@@ -67438,35 +67420,32 @@ var Car = function (_Component) {
 
     var Xpos = this.props.carX;
 
-    // const material = new THREE.MultiMaterial(carMaterials);
-
     if (carGeometry) {
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'mesh',
         {
-          position: new __WEBPACK_IMPORTED_MODULE_1_three__["Vector3"](Xpos, 0, 0),
+          position: new __WEBPACK_IMPORTED_MODULE_1_three__["Vector3"](Xpos + 0.4, 0, 0),
           rotation: new __WEBPACK_IMPORTED_MODULE_1_three__["Euler"](0, 3.16, 0),
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 28
+            lineNumber: 26
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('geometry', {
-          //geometry={carGeometry.geometry}
           vertices: carGeometry.vertices,
           faces: carGeometry.faces,
           colors: carGeometry.colors,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 32
+            lineNumber: 30
           }
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('meshLambertMaterial', {
           color: 0x901595,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 38
+            lineNumber: 35
           }
         })
       );
@@ -67474,7 +67453,7 @@ var Car = function (_Component) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('group', {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 70
+          lineNumber: 42
         }
       });
     }
@@ -67556,23 +67535,22 @@ var Drinks = function (_React$Component) {
 
     var _props = this.props,
         carX = _props.carX,
-        carY = _props.carY,
-        player = _props.player;
+        carY = _props.carY; //player
+
     var drinks = this.state.drinks;
 
-    var remove = void 0;
+
+    var carwidth = 2;
+    var carDepth = 0.5;
 
     drinks.map(function (drink, i) {
       var xPos = drinks[i].drinkX;
       var yPos = drinks[i].drinkY;
-      var carwidth = 4;
-      var carDepth = 0.5;
-
-      //console.log(xPos, yPos);
 
       if (xPos <= carX + carwidth && xPos >= carX) {
         if (yPos <= carY + carDepth / 2 && yPos >= carY - carDepth / 2) {
           _this3.props.drinkCounter();
+          //drinks.filter(b => b !== drinks[i]);
         }
       }
     });
@@ -67613,7 +67591,7 @@ var Drinks = function (_React$Component) {
     this.setState({ drinks: drinks });
   };
 
-  Drinks.prototype.updateY = function updateY(remove) {
+  Drinks.prototype.updateY = function updateY() {
     var _this4 = this;
 
     var drinks = this.state.drinks;
@@ -67621,11 +67599,6 @@ var Drinks = function (_React$Component) {
 
     drinks.map(function (drink, i) {
       drink.drinkY += 0.5;
-
-      if (remove) {
-        //bariers = bariers.filter(b => b !== bariers[i]);
-        console.log('remove');
-      }
 
       if (drink.drinkY > 100) {
 
@@ -67659,13 +67632,13 @@ var Drinks = function (_React$Component) {
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 124
+          lineNumber: 119
         }
       },
       drinks.map(function (drink, i) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__singleElements___["a" /* Drink */], { key: i, drinkX: drink.drinkX, drinkY: drink.drinkY, __source: {
             fileName: _jsxFileName,
-            lineNumber: 126
+            lineNumber: 121
           }
         });
       })
@@ -67749,13 +67722,13 @@ var Ground = function Ground() {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Bariers__ = __webpack_require__(178);
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "e", function() { return __WEBPACK_IMPORTED_MODULE_0__Bariers__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__Bariers__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Car__ = __webpack_require__(180);
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "d", function() { return __WEBPACK_IMPORTED_MODULE_1__Car__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__Car__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Ground__ = __webpack_require__(182);
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "f", function() { return __WEBPACK_IMPORTED_MODULE_2__Ground__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "e", function() { return __WEBPACK_IMPORTED_MODULE_2__Ground__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Drinks__ = __webpack_require__(181);
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_3__Drinks__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "d", function() { return __WEBPACK_IMPORTED_MODULE_3__Drinks__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__BigDrink__ = __webpack_require__(179);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_4__BigDrink__["a"]; });
 
@@ -67812,21 +67785,6 @@ var Barier = function (_Component) {
   Barier.prototype.componentDidMount = function componentDidMount() {
     var barierLoader = new __WEBPACK_IMPORTED_MODULE_1_three__["JSONLoader"]();
     barierLoader.load('../assets/json/RoadBarrier.json', this.loadBarier);
-
-    // const {index} = this.props;
-    //
-    // let {Ypos} = this.state;
-    // this.loadInterval = setInterval(() => {
-    //   if (Ypos > 10) {
-    //     Ypos = - 100;
-    //     this.setState({Ypos});
-    //     Ypos ++;
-    //     this.props.sendYpos(index);
-    //   } else {
-    //     Ypos ++;
-    //     this.setState({Ypos});
-    //   }
-    // }, 35);
   };
 
   Barier.prototype.render = function render() {
@@ -67842,7 +67800,7 @@ var Barier = function (_Component) {
           scale: new __WEBPACK_IMPORTED_MODULE_1_three__["Vector3"](1, 1, 1),
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 42
+            lineNumber: 26
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('geometry', {
@@ -67851,14 +67809,14 @@ var Barier = function (_Component) {
           //colors={barierGeometry.colors}
           , __source: {
             fileName: _jsxFileName,
-            lineNumber: 46
+            lineNumber: 30
           }
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('meshLambertMaterial', {
           color: 0x5965F4,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 51
+            lineNumber: 35
           }
         })
       );
@@ -67866,7 +67824,7 @@ var Barier = function (_Component) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('group', {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 58
+          lineNumber: 42
         }
       });
     }
@@ -68037,10 +67995,11 @@ var App = function (_Component) {
       var id = _this.socket.id;
 
       _this.peer = new __WEBPACK_IMPORTED_MODULE_4_peerjs___default.a(id, {
-        // host: `dry-harbor-31700.herokuapp.com`,
-        host: 'localhost',
+        host: 'dry-harbor-31700.herokuapp.com',
+        // host: `localhost`,
         port: '9000',
-        path: '/api'
+        path: '/api',
+        secure: true
       });
 
       _this.socket = __WEBPACK_IMPORTED_MODULE_3_socket_io_client___default()('/');
@@ -68132,11 +68091,27 @@ var App = function (_Component) {
                   rooms = _state.rooms;
               var urlSocketId = props.params.urlSocketId;
 
-              return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["c" /* Start */], { urlSocketId: urlSocketId, mySocketId: mySocketId, player: _this2.checkplayer(mySocketId, urlSocketId), rooms: rooms, __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 92
-                }
-              });
+              console.log(urlSocketId === 'computer');
+
+              if (urlSocketId === mySocketId) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["c" /* Start */], { mySocketId: mySocketId, urlSocketId: urlSocketId, player: 'me', rooms: rooms, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 96
+                  }
+                });
+              } else if (urlSocketId !== mySocketId) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["c" /* Start */], { mySocketId: mySocketId, urlSocketId: urlSocketId, player: 'friend', rooms: rooms, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 100
+                  }
+                });
+              } else if (urlSocketId === 'computer') {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["c" /* Start */], { mySocketId: mySocketId, urlSocketId: urlSocketId, player: 'computer', rooms: rooms, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 104
+                  }
+                });
+              }
             },
             __source: {
               fileName: _jsxFileName,
@@ -68148,7 +68123,7 @@ var App = function (_Component) {
             component: __WEBPACK_IMPORTED_MODULE_2__pages___["a" /* Home */],
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 95
+              lineNumber: 111
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -68164,26 +68139,26 @@ var App = function (_Component) {
               if (urlSocketId === mySocketId) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["d" /* Game */], { mySocketId: mySocketId, urlSocketId: urlSocketId, player: 'me', rooms: rooms, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 108
+                    lineNumber: 124
                   }
                 });
               } else if (urlSocketId !== mySocketId) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["d" /* Game */], { mySocketId: mySocketId, urlSocketId: urlSocketId, player: 'friend', rooms: rooms, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 112
+                    lineNumber: 128
                   }
                 });
               } else if (urlSocketId === 'computer') {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["d" /* Game */], { mySocketId: mySocketId, urlSocketId: urlSocketId, player: 'computer', rooms: rooms, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 116
+                    lineNumber: 132
                   }
                 });
               }
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 99
+              lineNumber: 115
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Match"], {
@@ -68196,18 +68171,18 @@ var App = function (_Component) {
 
               return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__pages___["e" /* EndGame */], { urlSocketId: urlSocketId, end: end, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 126
+                  lineNumber: 142
                 }
               });
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 121
+              lineNumber: 137
             }
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Miss"], { component: __WEBPACK_IMPORTED_MODULE_2__pages___["a" /* Home */], __source: {
               fileName: _jsxFileName,
-              lineNumber: 129
+              lineNumber: 145
             }
           })
         )
@@ -68218,7 +68193,7 @@ var App = function (_Component) {
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 135
+            lineNumber: 151
           }
         },
         'hey'
@@ -68361,31 +68336,36 @@ var _jsxFileName = '/Users/Elise/Dropbox/_DEVINE/_DEVINE4/EXPERIMENTAL_WEB/Opdra
 
 
 var EndGame = function EndGame(props) {
-  var end = props.end,
-      urlSocketId = props.urlSocketId;
+  var end = props.end;
 
   var text = void 0;
 
   if (end === 'barier') {
-    text = 'Helaas, Je bent niet thuis geraakt. Jouw rustplaast bevind zich op de weg naar jouw huis.';
+    text = 'AIAIAI! Je bent niet thuis geraakt. De volgende keer toch wat beter opletten!';
   } else if (end === 'drink') {
-    text = 'Helaas, Je bent niet thuis geraakt. Misschien toch iets minder drinken? je onderweg naar jouw huis gestrand.';
+    text = 'Oh nee! Je bent niet thuis geraakt. Misschien toch iets minder drinken?';
   } else if (end === 'won') {
-    text = 'Proficiat, je bent heelhuids thuis geraakt. Zeer verantwoordlijk van jou.';
+    text = 'Hoera! Je bent heelhuids thuis geraakt. Zeer verantwoordlijk van jou.';
+  } else if (end === 'barierfriend') {
+    text = 'AIAIAI! Je vriend is tegen een wegobstakel gereden!';
+  } else if (end === 'drinkfriend') {
+    text = 'Mensen zat voeren is gevaarlijk! Je vriend raakte niet thuis';
+  } else if (end === 'wonfriend') {
+    text = 'Hoera, je vriend heeft veel geluk gehad en is ondanks alle alcohol dat je hem voerde toch nog thuis geraakt';
   }
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
     { className: 'endpage', __source: {
         fileName: _jsxFileName,
-        lineNumber: 20
+        lineNumber: 26
       }
     },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'p',
       { className: 'intro', __source: {
           fileName: _jsxFileName,
-          lineNumber: 21
+          lineNumber: 27
         }
       },
       text
@@ -68394,26 +68374,17 @@ var EndGame = function EndGame(props) {
       'div',
       { className: 'links', __source: {
           fileName: _jsxFileName,
-          lineNumber: 22
+          lineNumber: 28
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
         { className: 'startbutton', to: '/choose', __source: {
             fileName: _jsxFileName,
-            lineNumber: 23
+            lineNumber: 29
           }
         },
-        'TEGEN IEMAND ANDERS?'
-      ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
-        { className: 'startbutton', to: '/game/' + urlSocketId, __source: {
-            fileName: _jsxFileName,
-            lineNumber: 24
-          }
-        },
-        'REMATCH'
+        'Nog een keer spelen?'
       )
     )
   );
@@ -68469,7 +68440,6 @@ var Game = function (_React$Component) {
 
     _this.state = {
       cubeRotation: new __WEBPACK_IMPORTED_MODULE_3_three__["Euler"](),
-
       carX: -0.2,
       carY: 0,
       barierY: 10,
@@ -68477,7 +68447,6 @@ var Game = function (_React$Component) {
       bigDrinkX: 0,
       bigDrinkY: -18,
       frienddrinks: [],
-
       kmTeller: 10,
       drinkCount: 0
     };
@@ -68485,19 +68454,27 @@ var Game = function (_React$Component) {
   }
 
   Game.prototype.componentDidMount = function componentDidMount() {
+    var _this2 = this;
+
     this.cameraPosition = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](0, 3, 4, 'XYZ'); //linksrechts, bovenonder, diepte
     this.cameraRotation = new __WEBPACK_IMPORTED_MODULE_3_three__["Euler"](-0.3, 0, 0, 'XYZ');
+
+    //const {urlSocketId} = this.props;
+    //io.broadcast.to(urlSocketId).emit(`roomJoined`, urlSocketId);
+    this.socket = __WEBPACK_IMPORTED_MODULE_2_socket_io_client___default()('/');
+    this.socket.on('carMovedHow', function (carX) {
+      console.log(carX, 'car moved');
+      _this2.setState({ carX: carX });
+    });
   };
 
   Game.prototype.componentWillMount = function componentWillMount() {
-    var _this2 = this;
+    var _this3 = this;
 
     //CAR MOVEMENT
     window.addEventListener('keydown', function (e) {
-      return _this2.Move(e);
+      return _this3.Move(e);
     });
-    // const {urlSocketId} = this.props;
-    // io.broadcast.to(urlSocketId).emit(`roomJoined`, urlSocketId);
     //KM TOT THUIS
     this.kmTeller();
   };
@@ -68508,15 +68485,20 @@ var Game = function (_React$Component) {
   };
 
   Game.prototype.kmTeller = function kmTeller() {
-    var _this3 = this;
+    var _this4 = this;
 
     var km = this.state.kmTeller;
+    var player = this.props.player;
 
     this.loadInterval = setInterval(function () {
       km -= 0.1;
-      _this3.round(km, 3);
-      if (km <= 0.01) {
-        _this3.gameEnd(km);
+      _this4.round(km, 3);
+      if (km <= 0.2) {
+        if (player === 'me' || player === 'computer') {
+          _this4.props.gameEnd('won');
+        } else if (player === 'friend') {
+          _this4.props.gameEnd('wonfriend');
+        }
       }
     }, 500);
   };
@@ -68539,44 +68521,66 @@ var Game = function (_React$Component) {
     }
 
     if (drinks === 5) {
-      this.gameEnd('drink');
+      if (player === 'me' || player === 'computer') {
+        this.props.gameEnd('drink');
+      } else if (player === 'friend') {
+        this.props.gameEnd('drinkfriend');
+      }
     }
   };
 
   Game.prototype.setBlurry = function setBlurry() {
     var count = this.state.drinkCount * 2;
-    var view = document.querySelector('.player-me');
+    var player = this.props.player;
+    var view = document.querySelector('.player-' + player);
     view.style.filter = 'blur(' + count + 'px)';
   };
 
   Game.prototype.Move = function Move(e) {
     var LEFT = 37;
     var RIGHT = 39;
+    this.socket = __WEBPACK_IMPORTED_MODULE_2_socket_io_client___default()('/');
 
     var _state = this.state,
         carX = _state.carX,
         bigDrinkX = _state.bigDrinkX;
     //const {bigDrinkY} = this.state;
 
-    var player = this.props.player;
+    var _props = this.props,
+        player = _props.player,
+        urlSocketId = _props.urlSocketId;
     // const rotation = carX / 10;
     // const position = carX * 1.1;
     //
     // this.cameraPosition = new THREE.Vector3(position, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
     // this.cameraRotation = new THREE.Euler(- 0.3, rotation, 0, `XYZ`);
 
-    if (player === 'me' || player === 'computer') {
+    if (player === 'me' || urlSocketId === 'computer') {
       if (e.keyCode === LEFT) {
         if (carX > -4.2) {
           carX -= 0.5;
           this.setState({ carX: carX });
-          __WEBPACK_IMPORTED_MODULE_2_socket_io_client___default.a.emit('newCarPosition', carX);
+          // io.emit(`newCarPosition`, carX);
+          var _urlSocketId = this.props.urlSocketId;
+
+          var props = {
+            urlSocketId: _urlSocketId,
+            carX: carX
+          };
+          this.socket.emit('carMoved', props);
         }
       } else if (e.keyCode === RIGHT) {
         if (carX < 3.8) {
           carX += 0.5;
           this.setState({ carX: carX });
-          // io.emit(`newCarPosition`, carX);
+
+          var _urlSocketId2 = this.props.urlSocketId;
+
+          var _props2 = {
+            urlSocketId: _urlSocketId2,
+            carX: carX
+          };
+          this.socket.emit('carMoved', _props2);
         }
       }
     } else if (player === 'friend') {
@@ -68625,46 +68629,34 @@ var Game = function (_React$Component) {
         rotation: this.cameraRotation,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 157
+          lineNumber: 183
         }
       });
     }
   };
 
-  Game.prototype.renderDrinks = function renderDrinks(player, carX, carY, kmTeller) {
-    var _this4 = this;
+  // renderDrinks(player, carX, carY, kmTeller) {
+  //   if (player.player === `computer`) {
+  //     return (
+  //       <Drinks
+  //         carX={carX}
+  //         carY={carY}
+  //         gameEnd={barier => this.gameEnd(barier, kmTeller)}
+  //         player={player}
+  //         drinkCounter={() => this.drinkCounter()}
+  //       />
+  //     );
+  //   }
+  // }
 
-    if (player.player === 'computer') {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["b" /* Drinks */], {
-        carX: carX,
-        carY: carY,
-        gameEnd: function gameEnd(barier) {
-          return _this4.gameEnd(barier, kmTeller);
-        },
-        player: player,
-        drinkCounter: function drinkCounter() {
-          return _this4.drinkCounter();
-        },
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 169
-        }
-      });
-    }
-  };
-
-  Game.prototype.renderFriendDrinks = function renderFriendDrinks(drinks) {
-    if (drinks) {
-      //console.log(drinks.frienddrinks);
-      drinks.frienddrinks.map(function (drink, i) {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["Drink"], { key: i, drinkX: drink.drinkX, drinkY: drink.drinkY, __source: {
-            fileName: _jsxFileName,
-            lineNumber: 184
-          }
-        });
-      });
-    }
-  };
+  // renderFriendDrinks(drinks) {
+  //   if (drinks) {
+  //     //console.log(drinks.frienddrinks);
+  //     drinks.frienddrinks.map(function(drink, i) {
+  //       return <Drink key={i} drinkX={drink.drinkX} drinkY={drink.drinkY} />;
+  //     });
+  //   }
+  // }
 
   Game.prototype.componentWillUnmount = function componentWillUnmount() {
     this.loadInterval && clearInterval(this.loadInterval);
@@ -68677,33 +68669,35 @@ var Game = function (_React$Component) {
     var width = window.innerWidth; // canvas width
     var height = window.innerHeight; // canvas height
 
-    var player = this.props.player;
+    var _props3 = this.props,
+        player = _props3.player,
+        urlSocketId = _props3.urlSocketId;
     var _state3 = this.state,
         carX = _state3.carX,
         carY = _state3.carY,
         kmTeller = _state3.kmTeller,
         drinkCount = _state3.drinkCount,
         bigDrinkY = _state3.bigDrinkY,
-        bigDrinkX = _state3.bigDrinkX,
-        frienddrinks = _state3.frienddrinks;
+        bigDrinkX = _state3.bigDrinkX;
 
 
     var lightLookat = void 0;
     var cameraLookat = void 0;
-    if (player === 'me' || player === 'computer') {
+
+    if (player === 'me' || urlSocketId === 'computer') {
       // I PLAY
-      this.cameraPosition = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](0, 3, 4, 'XYZ'); //linksrechts, bovenonder, diepte
+      this.cameraPosition = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](0, 3, 4, 'XYZ');
       this.cameraRotation = new __WEBPACK_IMPORTED_MODULE_3_three__["Euler"](-0.3, 0, 0, 'XYZ');
 
-      cameraLookat = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](carX, carY, -8, 'XYZ'); //linksrechts, bovenonder, diepte
-      lightLookat = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](carX, carY - 10, -8, 'XYZ'); //linksrechts, bovenonder, diepte
+      cameraLookat = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](carX, carY, -8, 'XYZ');
+      lightLookat = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](carX, carY - 10, -8, 'XYZ');
     } else if (player === 'friend') {
       // FRIEND PLAYS
       this.cameraPosition = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](0, 2, -20, 'XYZ');
       this.cameraRotation = new __WEBPACK_IMPORTED_MODULE_3_three__["Euler"](0, 0, 0, 'XYZ');
 
-      cameraLookat = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](carX, carY, 8, 'XYZ'); //linksrechts, bovenonder, diepte
-      lightLookat = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](0, -200, 8, 'XYZ'); //linksrechts, bovenonder, diepte
+      cameraLookat = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](carX, carY, 8, 'XYZ');
+      lightLookat = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](0, -200, 8, 'XYZ');
       lightLookat = new __WEBPACK_IMPORTED_MODULE_3_three__["Vector3"](bigDrinkX - 100, bigDrinkY - 50, 150, 'XYZ');
     }
 
@@ -68712,14 +68706,14 @@ var Game = function (_React$Component) {
       {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 221
+          lineNumber: 248
         }
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'gamePlay player-' + player, __source: {
             fileName: _jsxFileName,
-            lineNumber: 222
+            lineNumber: 249
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68733,7 +68727,7 @@ var Game = function (_React$Component) {
             clearAlpha: 0.0,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 223
+              lineNumber: 250
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68741,7 +68735,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 231
+                lineNumber: 258
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('perspectiveCamera', {
@@ -68755,7 +68749,7 @@ var Game = function (_React$Component) {
               lookAt: cameraLookat,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 232
+                lineNumber: 259
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('directionalLight', {
@@ -68767,37 +68761,52 @@ var Game = function (_React$Component) {
               , visible: true,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 242
+                lineNumber: 269
               }
             }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["d" /* Car */], {
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["b" /* Car */], {
               carX: carX,
               carY: carY,
               rotation: this.cameraRotation,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 250
+                lineNumber: 277
               }
             }),
             this.renderBigDrink({ player: player }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["e" /* Bariers */], {
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["c" /* Bariers */], {
               carX: carX,
               carY: carY,
               gameEnd: function gameEnd(drink) {
                 return _this5.gameEnd(drink, kmTeller);
               },
               kmTeller: kmTeller,
+              player: player,
+              urlSocketId: urlSocketId,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 256
+                lineNumber: 283
               }
             }),
-            this.renderDrinks({ player: player, carX: carX, carY: carY }),
-            this.renderFriendDrinks({ frienddrinks: frienddrinks }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["f" /* Ground */], {
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["d" /* Drinks */], {
+              carX: carX,
+              carY: carY,
+              gameEnd: function gameEnd(barier) {
+                return _this5.gameEnd(barier, kmTeller);
+              },
+              player: player,
+              drinkCounter: function drinkCounter() {
+                return _this5.drinkCounter();
+              },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 264
+                lineNumber: 291
+              }
+            }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components__["e" /* Ground */], {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 300
               }
             })
           )
@@ -68808,7 +68817,7 @@ var Game = function (_React$Component) {
         'div',
         { className: 'kmteller', __source: {
             fileName: _jsxFileName,
-            lineNumber: 268
+            lineNumber: 304
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68816,7 +68825,7 @@ var Game = function (_React$Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 269
+              lineNumber: 305
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -68824,7 +68833,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 270
+                lineNumber: 306
               }
             },
             kmTeller,
@@ -68835,7 +68844,7 @@ var Game = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 271
+                lineNumber: 307
               }
             },
             drinkCount,
@@ -68937,9 +68946,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-// import {includes} from 'lodash';
-// import {filter} from 'lodash';
-
 var Start = function (_Component) {
   _inherits(Start, _Component);
 
@@ -68960,6 +68966,7 @@ var Start = function (_Component) {
   Start.prototype.componentDidMount = function componentDidMount() {
     var _this2 = this;
 
+    console.log(this.props.player);
     this.socket = __WEBPACK_IMPORTED_MODULE_2_socket_io_client___default()('/');
     var urlSocketId = this.props.urlSocketId;
 
@@ -68976,43 +68983,39 @@ var Start = function (_Component) {
       }
     });
 
-    this.socket.on('startGameResponse', function (urlSocketId) {
-      console.log(urlSocketId);
-      // <HashRouter basename='/' />;
-      // window.location.assign(`/game/${urlSocketId}`);
-    });
+    // this.socket.on(`startGameResponse`, urlSocketId => {
+    // <HashRouter basename='/' />;
+    // window.location.assign(`/game/${urlSocketId}`);
+    // });
   };
 
-  Start.prototype.clickStartHandler = function clickStartHandler(e) {
-    this.socket = __WEBPACK_IMPORTED_MODULE_2_socket_io_client___default()('/');
-    e.preventDefault();
-    var urlSocketId = this.props.urlSocketId;
-
-    this.socket.emit('startGame', urlSocketId);
-  };
+  // clickStartHandler(e) {
+  //   this.socket = io(`/`);
+  //   e.preventDefault();
+  //   const {urlSocketId} = this.props;
+  //   this.socket.emit(`startGame`, urlSocketId);
+  // }
 
   Start.prototype.render = function render() {
-    var _this3 = this;
-
     var _props = this.props,
         urlSocketId = _props.urlSocketId,
         player = _props.player;
     var joinConfirmation = this.state.joinConfirmation;
 
 
-    if (player === 'computer') {
+    if (urlSocketId === 'computer') {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'page', __source: {
             fileName: _jsxFileName,
-            lineNumber: 53
+            lineNumber: 50
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'h1',
           { className: 'intro', __source: {
               fileName: _jsxFileName,
-              lineNumber: 54
+              lineNumber: 51
             }
           },
           'SPEEL TEGEN DE COMPUTER'
@@ -69021,7 +69024,7 @@ var Start = function (_Component) {
           'ul',
           { className: 'demo-list', __source: {
               fileName: _jsxFileName,
-              lineNumber: 55
+              lineNumber: 52
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -69029,7 +69032,7 @@ var Start = function (_Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 56
+                lineNumber: 53
               }
             },
             'Bestuur je auto van links naar rechts met de pijltjestoetsen om thuis te geraken.'
@@ -69039,7 +69042,7 @@ var Start = function (_Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 57
+                lineNumber: 54
               }
             },
             'Ontwijk de biertjes om niet te dronken te worden. Wanneer je 5 pintjes op hebt gepikt ben je knock-out.'
@@ -69049,7 +69052,7 @@ var Start = function (_Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 58
+                lineNumber: 55
               }
             },
             'Pas op voor eventuele obstakels, wie weet geraak je wel nooit meer thuis'
@@ -69059,7 +69062,7 @@ var Start = function (_Component) {
           __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
           { className: 'startbutton', to: '/game/computer', __source: {
               fileName: _jsxFileName,
-              lineNumber: 60
+              lineNumber: 57
             }
           },
           'SPEEL HET SPEL!'
@@ -69073,14 +69076,14 @@ var Start = function (_Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 67
+                lineNumber: 64
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'h1',
               { className: 'intro', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 68
+                  lineNumber: 65
                 }
               },
               'Kan jij de invloed van je slechte vrienden aan? Doe nu de test.'
@@ -69089,12 +69092,11 @@ var Start = function (_Component) {
               __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
               {
                 className: 'startbutton ' + joinConfirmation,
-                to: '/game/' + urlSocketId,
-                onClick: function onClick() {
-                  return _this3.clickStartHandler();
-                }, __source: {
+                to: '/game/' + urlSocketId
+                // onClick={() => this.clickStartHandler()}
+                , __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 69
+                  lineNumber: 66
                 }
               },
               ' SPEEL HET SPEL!'
@@ -69103,7 +69105,7 @@ var Start = function (_Component) {
               'ul',
               { className: 'demo-list', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 73
+                  lineNumber: 71
                 }
               },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -69111,7 +69113,7 @@ var Start = function (_Component) {
                 {
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 74
+                    lineNumber: 72
                   }
                 },
                 'Bestuur je auto van links naar rechts met de pijltjestoetsen om thuis te geraken.'
@@ -69121,7 +69123,7 @@ var Start = function (_Component) {
                 {
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 75
+                    lineNumber: 73
                   }
                 },
                 'Ontwijk de biertjes om niet te dronken te worden. Wanneer je 5 pintjes op hebt gepikt ben je knock-out. Je slechte vriend zal proberen jou zat te voeren.'
@@ -69131,7 +69133,7 @@ var Start = function (_Component) {
                 {
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 76
+                    lineNumber: 74
                   }
                 },
                 'Pas op voor eventuele obstakels, wie weet geraak je wel nooit meer thuis'
@@ -69144,14 +69146,14 @@ var Start = function (_Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 82
+                lineNumber: 80
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'h1',
               { className: 'intro', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 83
+                  lineNumber: 81
                 }
               },
               'Kan jij de invloed vna je slechte vrienden aan? Doe nu de test.'
@@ -69160,18 +69162,18 @@ var Start = function (_Component) {
               'h1',
               { className: 'link-vriend', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 84
+                  lineNumber: 82
                 }
               },
               'Stuur deze link naar je vriend!',
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'a',
-                { className: 'friendlink', href: 'localhost:3000/start/' + urlSocketId, __source: {
+                { className: 'friendlink', href: 'https://onder-invloed.herokuapp.com/start/' + urlSocketId, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 86
+                    lineNumber: 84
                   }
                 },
-                'localhost:3000/start/',
+                'https://onder-invloed.herokuapp.com/start/',
                 urlSocketId
               )
             ),
@@ -69179,7 +69181,7 @@ var Start = function (_Component) {
               'h2',
               { className: 'intro', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 88
+                  lineNumber: 86
                 }
               },
               'Wachten tot je vriend de link opent...'
@@ -69188,7 +69190,7 @@ var Start = function (_Component) {
               'ul',
               { className: 'demo-list', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 89
+                  lineNumber: 87
                 }
               },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -69196,7 +69198,7 @@ var Start = function (_Component) {
                 {
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 90
+                    lineNumber: 88
                   }
                 },
                 'Bestuur je auto van links naar rechts met de pijltjestoetsen om thuis te geraken.'
@@ -69206,7 +69208,7 @@ var Start = function (_Component) {
                 {
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 91
+                    lineNumber: 89
                   }
                 },
                 'Ontwijk de biertjes om niet te dronken te worden. Wanneer je 5 pintjes op hebt gepikt ben je knock-out. Je slechte vriend zal proberen jou zat te voeren.'
@@ -69216,7 +69218,7 @@ var Start = function (_Component) {
                 {
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 92
+                    lineNumber: 90
                   }
                 },
                 'Pas op voor eventuele obstakels, wie weet geraak je wel nooit meer thuis'
@@ -69230,14 +69232,14 @@ var Start = function (_Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 99
+              lineNumber: 97
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'h1',
             { className: 'intro', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 100
+                lineNumber: 98
               }
             },
             'Plaats biertjes voor je vriend!'
@@ -69246,7 +69248,7 @@ var Start = function (_Component) {
             'ul',
             { className: 'demo-list', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 101
+                lineNumber: 99
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -69254,7 +69256,7 @@ var Start = function (_Component) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 102
+                  lineNumber: 100
                 }
               },
               'Plaats de pintjes op de juiste plaats met de pijltjestoetsen.'
@@ -69264,7 +69266,7 @@ var Start = function (_Component) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 103
+                  lineNumber: 101
                 }
               },
               'Met je spatiebalk kan je de biertjes neerzetten.'
@@ -69274,7 +69276,7 @@ var Start = function (_Component) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 104
+                  lineNumber: 102
                 }
               },
               'Je wint het spel als jou vriend niet meer thuis geraakt.'
@@ -69284,12 +69286,11 @@ var Start = function (_Component) {
             __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
             {
               className: 'startbutton ' + joinConfirmation,
-              to: '/game/' + urlSocketId,
-              onClick: function onClick() {
-                return _this3.clickStartHandler();
-              }, __source: {
+              to: '/game/' + urlSocketId
+              // onClick={() => this.clickStartHandler()}
+              , __source: {
                 fileName: _jsxFileName,
-                lineNumber: 106
+                lineNumber: 104
               }
             },
             ' SPEEL HET SPEL!'
@@ -69299,7 +69300,7 @@ var Start = function (_Component) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__pages__["a" /* Home */], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 113
+          lineNumber: 112
         }
       });
     }
@@ -96792,4 +96793,4 @@ module.exports = __webpack_require__(174);
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.2c427a216c5f4f2f1682.js.map
+//# sourceMappingURL=main.93b4a111349173fb566f.js.map

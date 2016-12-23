@@ -1,12 +1,9 @@
 // LINK MET VRIEND + DEMO
 import React, {Component, PropTypes} from 'react';
-import {Link, HashRouter} from 'react-router';
+import {Link} from 'react-router';
 import io from 'socket.io-client';
 
 import {Home} from '../pages';
-
-// import {includes} from 'lodash';
-// import {filter} from 'lodash';
 
 class Start extends Component {
 
@@ -15,6 +12,7 @@ class Start extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.player);
     this.socket = io(`/`);
     const {urlSocketId} = this.props;
 
@@ -30,25 +28,24 @@ class Start extends Component {
       }
     });
 
-    this.socket.on(`startGameResponse`, urlSocketId => {
-      console.log(urlSocketId);
+    // this.socket.on(`startGameResponse`, urlSocketId => {
       // <HashRouter basename='/' />;
       // window.location.assign(`/game/${urlSocketId}`);
-    });
+    // });
   }
 
-  clickStartHandler(e) {
-    this.socket = io(`/`);
-    e.preventDefault();
-    const {urlSocketId} = this.props;
-    this.socket.emit(`startGame`, urlSocketId);
-  }
+  // clickStartHandler(e) {
+  //   this.socket = io(`/`);
+  //   e.preventDefault();
+  //   const {urlSocketId} = this.props;
+  //   this.socket.emit(`startGame`, urlSocketId);
+  // }
 
   render() {
     const {urlSocketId, player} = this.props;
     const {joinConfirmation} = this.state;
 
-    if (player === `computer`) {
+    if (urlSocketId === `computer`) {
       return (
         <div className='page'>
           <h1 className='intro'>SPEEL TEGEN DE COMPUTER</h1>
@@ -84,7 +81,7 @@ class Start extends Component {
               <h1 className='intro'>Kan jij de invloed vna je slechte vrienden aan? Doe nu de test.</h1>
               <h1 className='link-vriend'>
                 Stuur deze link naar je vriend!
-                <a className='friendlink' href={`localhost:3000/start/${urlSocketId}`}>localhost:3000/start/{urlSocketId}</a>
+                <a className='friendlink' href={`https://onder-invloed.herokuapp.com/start/${urlSocketId}`}>https://onder-invloed.herokuapp.com/start/{urlSocketId}</a>
               </h1>
               <h2 className='intro'>Wachten tot je vriend de link opent...</h2>
               <ul className='demo-list'>
