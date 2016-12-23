@@ -13,11 +13,16 @@ class Drinks extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.loopDrinks();
-      requestAnimationFrame(() => {this.updateY();});
-      requestAnimationFrame(() => {this.checkCollision();});
-    }, 1500);
+    const player = this.props.player;
+    if (player === `friend`) {
+      this.pushDrink();
+    } else {
+      setTimeout(() => {
+        this.loopDrinks();
+        requestAnimationFrame(() => {this.updateY();});
+        requestAnimationFrame(() => {this.checkCollision();});
+      }, 1500);
+    }
   }
 
   getRandomXpos() {
@@ -63,6 +68,25 @@ class Drinks extends React.Component {
     return drinks;
   }
 
+  loopDrinks(drinks) {
+    for (let i = 0;i <= 5;i ++) {
+      this.pushDrink();
+    }
+    return drinks;
+  }
+
+  pushDrink() {
+    const {drinks} = this.state;
+    const drinkX = this.getRandomXpos();
+    const drinkY = this.getRandomYpos();
+
+    drinks.push({
+      drinkX: drinkX,
+      drinkY: drinkY
+    });
+    this.setState({drinks});
+  }
+
   updateY(remove) {
     let {drinks} = this.state;
 
@@ -92,25 +116,6 @@ class Drinks extends React.Component {
     this.setState({drinks});
 
     requestAnimationFrame(() => {this.updateY();});
-  }
-
-  loopDrinks(drinks) {
-    for (let i = 0;i <= 5;i ++) {
-      this.pushDrink();
-    }
-    return drinks;
-  }
-
-  pushDrink() {
-    const {drinks} = this.state;
-    const drinkX = this.getRandomXpos();
-    const drinkY = this.getRandomYpos();
-
-    drinks.push({
-      drinkX: drinkX,
-      drinkY: drinkY
-    });
-    this.setState({drinks});
   }
 
   render() {
