@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 
 import * as THREE from 'three';
 
-import {Car, Ground, Bariers, Drinks, BigDrink, Drink} from '../components';
+import {Car, Ground, Bariers, Drinks, BigDrink} from '../components';
 
 class Game extends React.Component {
 
@@ -26,7 +26,7 @@ class Game extends React.Component {
       bigDrinkY: - 18,
       frienddrinks: [],
 
-      kmTeller: 1,
+      kmTeller: 15,
       drinkCount: 0
     };
   }
@@ -35,9 +35,8 @@ class Game extends React.Component {
     this.cameraPosition = new THREE.Vector3(0, 3, 4, `XYZ`); //linksrechts, bovenonder, diepte
     this.cameraRotation = new THREE.Euler(- 0.3, 0, 0, `XYZ`);
 
-    const {urlSocketId} = this.props;
-
-    io.broadcast.to(urlSocketId).emit(`roomJoined`, urlSocketId);
+    //const {urlSocketId} = this.props;
+    //io.broadcast.to(urlSocketId).emit(`roomJoined`, urlSocketId);
   }
 
   componentWillMount() {
@@ -60,7 +59,7 @@ class Game extends React.Component {
       km -= 0.1;
       this.round(km, 3);
       if (km <= 0.2) {
-        this.gameEnd(km);
+        this.gameEnd(`won`);
       }
     }, 500);
   }
@@ -77,7 +76,7 @@ class Game extends React.Component {
     drinks ++;
     this.setState({drinkCount: drinks});
 
-    if (player === `me`) {
+    if (player === `me` || player === `computer`) {
       this.setBlurry();
     }
 
@@ -88,7 +87,8 @@ class Game extends React.Component {
 
   setBlurry() {
     const count =  this.state.drinkCount * 2;
-    const view = document.querySelector(`.player-me`);
+    const player = this.props.player;
+    const view = document.querySelector(`.player-${player}`);
     view.style.filter = `blur(${ count }px)`;
   }
 
@@ -164,28 +164,28 @@ class Game extends React.Component {
     }
   }
 
-  renderDrinks(player, carX, carY, kmTeller) {
-    if (player.player === `computer`) {
-      return (
-        <Drinks
-          carX={carX}
-          carY={carY}
-          gameEnd={barier => this.gameEnd(barier, kmTeller)}
-          player={player}
-          drinkCounter={() => this.drinkCounter()}
-        />
-      );
-    }
-  }
+  // renderDrinks(player, carX, carY, kmTeller) {
+  //   if (player.player === `computer`) {
+  //     return (
+  //       <Drinks
+  //         carX={carX}
+  //         carY={carY}
+  //         gameEnd={barier => this.gameEnd(barier, kmTeller)}
+  //         player={player}
+  //         drinkCounter={() => this.drinkCounter()}
+  //       />
+  //     );
+  //   }
+  // }
 
-  renderFriendDrinks(drinks) {
-    if (drinks) {
-      //console.log(drinks.frienddrinks);
-      drinks.frienddrinks.map(function(drink, i) {
-        return <Drink key={i} drinkX={drink.drinkX} drinkY={drink.drinkY} />;
-      });
-    }
-  }
+  // renderFriendDrinks(drinks) {
+  //   if (drinks) {
+  //     //console.log(drinks.frienddrinks);
+  //     drinks.frienddrinks.map(function(drink, i) {
+  //       return <Drink key={i} drinkX={drink.drinkX} drinkY={drink.drinkY} />;
+  //     });
+  //   }
+  // }
 
   componentWillUnmount () {
     this.loadInterval && clearInterval(this.loadInterval);
@@ -197,7 +197,7 @@ class Game extends React.Component {
     const height = window.innerHeight; // canvas height
 
     const {player} = this.props;
-    const {carX, carY, kmTeller, drinkCount, bigDrinkY, bigDrinkX, frienddrinks} = this.state;
+    const {carX, carY, kmTeller, drinkCount, bigDrinkY, bigDrinkX} = this.state;
 
     let lightLookat;
     let cameraLookat;
@@ -261,8 +261,15 @@ class Game extends React.Component {
               gameEnd={drink => this.gameEnd(drink, kmTeller)}
               kmTeller={kmTeller}
             />
-            {this.renderDrinks({player, carX, carY})}
-            {this.renderFriendDrinks({frienddrinks})}
+            <Drinks
+              carX={carX}
+              carY={carY}
+              gameEnd={barier => this.gameEnd(barier, kmTeller)}
+              player={player}
+              drinkCounter={() => this.drinkCounter()}
+            />
+            {/* {this.renderDrinks({player, carX, carY})} */}
+            {/* {this.renderFriendDrinks({frienddrinks})} */}
             <Ground />
           </scene>
         </React3>);
